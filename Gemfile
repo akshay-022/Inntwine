@@ -78,3 +78,4 @@ gem "cssbundling-rails"
 gem "pay", "~> 3.0"
 gem "stripe", ">= 2.8", "< 6.0"
 gem 'rake', "~> 13.1.0"
+gem 'tailwindcss-rails'
