@@ -2,10 +2,10 @@
 
 one:
   user: one
-  tweet: one
+  post: one
   body: MyText
 
 two:
   user: two
-  tweet: two
+  post: two
   body: MyText

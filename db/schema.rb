@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_19_203053) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_06_203757) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -51,12 +51,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_19_203053) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "tweet_id", null: false
+    t.integer "post_id", null: false
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tweet_id"], name: "index_comments_on_tweet_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "datathings", force: :cascade do |t|
+    t.text "content"
+    t.string "link_to_photo_video"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -78,6 +85,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_19_203053) do
     t.datetime "updated_at", null: false
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name"
+    t.text "organization_path"
+    t.text "email_suffix"
+    t.integer "privacy_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pay_charges", force: :cascade do |t|
@@ -158,13 +174,52 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_19_203053) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "tweets", force: :cascade do |t|
+  create_table "poll_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "post_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
     t.text "body"
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "tweet_id"
-    t.index ["user_id"], name: "index_tweets_on_user_id"
+    t.integer "post_id"
+    t.integer "parent_post_id"
+    t.integer "datathing_id"
+    t.integer "post_type_id"
+    t.integer "organization_id"
+    t.integer "topic_id"
+    t.text "q1"
+    t.integer "q1_type"
+    t.string "q1_args"
+    t.string "q1_percentages"
+    t.text "q2"
+    t.integer "q2_type"
+    t.string "q2_args"
+    t.string "q2_percentages"
+    t.integer "likes"
+    t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "privacies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string "name"
+    t.text "topic_path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -179,6 +234,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_19_203053) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "username"
+    t.integer "organization_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
@@ -186,12 +242,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_19_203053) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "comments", "tweets"
+  add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "users"
+  add_foreign_key "organizations", "privacies", on_delete: :cascade
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_charges", "pay_subscriptions", column: "subscription_id"
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"
   add_foreign_key "pay_subscriptions", "pay_customers", column: "customer_id"
-  add_foreign_key "tweets", "users"
+  add_foreign_key "posts", "datathings", on_delete: :cascade
+  add_foreign_key "posts", "organizations", on_delete: :cascade
+  add_foreign_key "posts", "poll_types", column: "q1_type", on_delete: :cascade
+  add_foreign_key "posts", "poll_types", column: "q2_type", on_delete: :cascade
+  add_foreign_key "posts", "post_types", on_delete: :cascade
+  add_foreign_key "posts", "posts", column: "parent_post_id", on_delete: :cascade
+  add_foreign_key "posts", "topics", on_delete: :cascade
+  add_foreign_key "posts", "users"
 end

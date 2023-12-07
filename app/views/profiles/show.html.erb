@@ -15,8 +15,8 @@
   </div>
 
   <div class="mt-10 -mx-6">
-    <% @profile.tweets.each do |tweet| %>
-      <%= render partial: "tweets/#{tweet.tweet_type}", locals: { tweet: tweet } %>
+    <% @profile.posts.each do |post| %>
+      <%= render partial: "posts/#{post.post_type}", locals: { post: post } %>
     <% end %>
   </div>
 </div>

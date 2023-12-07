@@ -1,0 +1,15 @@
+<div class="px-6 py-3 border-b" id="<%= dom_id(post) %>">
+  <div class="flex space-x-3 items-start">
+    <div class="flex-shrink-0">
+      <%= profile_image(post.user) %>
+    </div>
+    <div class="flex-1">
+      <p class="font-bold"><%= link_to post.user.name, profile_path(post.user), class: "hover:underline", data: {turbo: false} %></p>
+      <%= link_to post, data: {turbo: false} do %>
+        <div class="prose prose-lg"><%= post.body %></div>
+      <% end %>
+
+      <%= render "posts/controls", post: post %>
+    </div>
+  </div>
+</div>

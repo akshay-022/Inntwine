@@ -1,0 +1,15 @@
+<div class="mb-8">
+  <%= render "form" %>
+</div>
+
+<%= turbo_frame_tag "posts" do %>
+  <% @posts.each do |post| %>
+    <%= render partial: "posts/#{post.post_type}", locals: { post: post } %>
+  <% end %>
+<% end %>
+
+<%= turbo_frame_tag Post.new do %>
+  <% if Post.all.none? %>
+    <%= render "empty" %>
+  <% end %>
+<% end %>

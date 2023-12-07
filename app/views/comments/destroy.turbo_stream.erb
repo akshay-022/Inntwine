@@ -1,5 +1,5 @@
 <%= turbo_stream.remove(@comment) %>
 
-<%= turbo_stream.replace "#{dom_id(@tweet)}_comments_count" do %>
-  <%= render "tweets/comments_count", tweet: @tweet %>
+<%= turbo_stream.replace "#{dom_id(@post)}_comments_count" do %>
+  <%= render "posts/comments_count", post: @post %>
 <% end %>

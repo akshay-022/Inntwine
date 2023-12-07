@@ -1,0 +1,7 @@
+<%= turbo_stream.prepend "posts" do %>
+  <%= render "post", post: @post %>
+<% end %>
+
+<%= turbo_stream.remove Post.new do %>
+  <%= render "posts/empty" %>
+<% end %>

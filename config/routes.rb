@@ -5,10 +5,10 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  resources :tweets, except: [:edit, :update] do
+  resources :posts, except: [:edit, :update] do
     resources :comments, only: [:create, :destroy]
     member do
-      post :retweet
+      post :repost
     end
   end
 
@@ -16,5 +16,5 @@ Rails.application.routes.draw do
   resources :likes, only: :create
 
   devise_for :users
-  root to: "tweets#index"
+  root to: "posts#index"
 end
