@@ -1,0 +1,134 @@
+topic_id,topic_name,topic_path
+1,Technology,1
+2,Artificial Intelligence,1/2
+3,Machine Learning,1/2/3
+4,Supervised Learning,1/2/3/4
+5,Unsupervised Learning,1/2/3/5
+6,Reinforcement Learning,1/2/3/6
+7,Natural Language Processing,1/2/7
+8,Computer Vision,1/2/8
+9,Robotics,1/9
+10,Explainable AI (XAI),1/9/10
+11,Blockchain,1/11
+12,Smart Contracts,1/11/12
+13,Cryptocurrencies,1/11/13
+14,Decentralized Finance (DeFi),1/11/13/14
+15,Non-Fungible Tokens (NFTs),1/11/13/15
+16,Blockchain Interoperability,1/11/16
+17,Zero Knowledge Proofs,1/11/17
+18,zk-SNARKs (Zero-Knowledge Succinct Non-Interactive Arguments of Knowledge),1/11/17/18
+19,zk-STARKs (Zero-Knowledge Scalable Transparent Arguments of Knowledge),1/11/17/19
+20,Biotechnology,1/20
+21,Genetic Engineering,1/20/21
+22,CRISPR Technology,1/20/22
+23,Synthetic Biology,1/20/23
+24,Bioinformatics,1/20/24
+25,Personalized Medicine,1/20/25
+26,Quantum Computing,1/26
+27,Quantum Algorithms,1/26/27
+28,Quantum Cryptography,1/26/28
+29,Quantum Machine Learning,1/26/29
+30,Quantum Sensors,1/26/30
+31,Internet of Things (IoT),1/31
+32,Smart Cities,1/31/32
+33,Industrial IoT (IIoT),1/31/33
+34,IoT Security,1/31/34
+35,Edge Computing,1/31/35
+36,Augmented Reality (AR),1/36
+37,Virtual Reality (VR),1/36/37
+38,Mixed Reality (MR),1/36/38
+39,AR in Healthcare,1/36/39
+40,AR in Education,1/36/40
+41,Healthcare,41
+42,Telemedicine,41/42
+43,Precision Medicine,41/43
+44,Genomic Medicine,41/43/44
+45,Pharmacogenomics,41/43/45
+46,Medical Robotics,41/46
+47,Robotic Surgery,41/46/47
+48,Rehabilitation Robotics,41/46/48
+49,Digital Health,41/49
+50,Health Informatics,41/49/50
+51,Health Wearables,41/49/51
+52,Mobile Health (mHealth),41/49/52
+53,Biomedical Engineering,41/53
+54,Biomaterials,41/53/54
+55,Biomechanics,41/53/55
+56,Bioelectronics,41/53/56
+57,Healthcare AI,41/57
+58,Diagnostic AI,41/57/58
+59,Drug Discovery AI,41/57/59
+60,Virtual Health Assistants,41/57/60
+61,Nanomedicine,41/61
+62,Nanoparticles in Medicine,41/61/62
+63,Nanoscale Drug Delivery,41/61/63
+64,Theranostics,41/61/64
+65,Energy and Environment,65
+66,Renewable Energy,65/66
+67,Solar Power,65/66/67
+68,Wind Energy,65/66/68
+69,Hydropower,65/66/69
+70,Geothermal Energy,65/66/70
+71,Energy Storage,65/71
+72,Battery Technologies,65/71/72
+73,Supercapacitors,65/71/73
+74,Flywheel Energy Storage,65/71/74
+75,Sustainable Agriculture,65/75
+76,Vertical Farming,65/75/76
+77,Precision Agriculture,65/75/77
+78,AgTech,65/75/78
+79,Climate Change Mitigation,65/79
+80,Carbon Capture and Storage (CCS),65/79/80
+81,Geoengineering,65/79/81
+82,Climate-Resilient Infrastructure,65/79/82
+83,Water Technologies,65/83
+84,Water Purification,65/83/84
+85,Desalination,65/83/85
+86,Water Recycling,65/83/86
+87,Power Grids,65/87
+88,Grid Modernization,65/87/88
+89,Smart Grids,65/87/89
+90,Microgrids,65/87/90
+91,Finance and Business,91
+92,FinTech,91/92
+93,Mobile Payments,91/92/93
+94,Peer-to-Peer Lending,91/92/94
+95,InsurTech,91/92/95
+96,Cryptocurrency and Blockchain in Finance,91/96
+97,CBDCs,91/96/97
+98,Tokenization of Assets,91/96/98
+99,Decentralized Autonomous Organizations (DAOs),91/96/99
+100,Cross-Chain Platforms,91/96/100
+101,E-commerce Innovations,91/101
+102,Augmented Reality Shopping,91/101/102
+103,Social Commerce,91/101/103
+104,Voice Commerce,91/101/104
+105,Supply Chain Technologies,91/105
+106,Blockchain in Supply Chain,91/105/106
+107,IoT in Supply Chain,91/105/107
+108,Predictive Analytics in Supply Chain,91/105/108
+109,Workplace Innovation,91/109
+110,Remote Work Technologies,91/109/110
+111,Employee Well-being Solutions,91/109/111
+112,Collaboration Tools,91/109/112
+113,Science and Research,113
+114,Space Exploration,113/114
+115,Mars Colonization,113/114/115
+116,Asteroid Mining,113/114/116
+117,Space Tourism,113/114/117
+118,Materials Science,113/118
+119,Advanced Materials,113/118/119
+120,Nanomaterials,113/118/120
+121,3D Printing in Materials,113/118/121
+122,Neuroscience,113/122
+123,Brain-Computer Interfaces,113/122/123
+124,Neuropharmacology,113/122/124
+125,Cognitive Enhancement,113/122/125
+126,Environmental Science,113/126
+127,Biodiversity Monitoring Technologies,113/126/127
+128,Climate Modeling,113/126/128
+129,Ocean Exploration Technologies,113/126/129
+130,Artificial Life,113/130
+131,Synthetic Organisms,113/130/131
+132,Biohybrid Systems,113/130/132
+133,Evolutionary Robotics,113/130/133
