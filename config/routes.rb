@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  resources :topics
+  resources :organizations
   resources :moderators
   resources :communities
   authenticate :user, lambda { |u| u.admin? } do
@@ -8,7 +10,7 @@ Rails.application.routes.draw do
   end
   resources :organizations do 
     resources :topics do
-      resources :posts, except: [:edit, :update] do
+      resources :posts, except: [:edit, :update] do     #These are for communities. Show all the posts in that community, irrespective of who follows who etc.
         resources :comments, only: [:create, :destroy]
         member do
           post :repost
@@ -17,7 +19,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :posts, except: [:edit, :update] do
+  resources :posts, except: [:edit, :update] do         #All these are based on your feed. Can't show everything in the world at once
     resources :comments, only: [:create, :destroy]
     member do
       post :repost

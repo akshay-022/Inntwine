@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_08_014305) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_08_020743) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -133,12 +133,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_014305) do
   end
 
   create_table "organizations", force: :cascade do |t|
-    t.string "name"
-    t.text "organization_path"
-    t.text "email_suffix"
-    t.integer "privacy_id"
+    t.string "organization_path"
+    t.string "organization_name"
+    t.string "organization_email"
+    t.integer "privacy_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["privacy_id"], name: "index_organizations_on_privacy_id"
   end
 
   create_table "pay_charges", force: :cascade do |t|
@@ -240,8 +241,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_014305) do
     t.integer "parent_post_id"
     t.integer "datathing_id"
     t.integer "post_type_id"
-    t.integer "organization_id"
-    t.integer "topic_id"
     t.text "q1"
     t.integer "q1_type"
     t.string "q1_args"
@@ -251,6 +250,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_014305) do
     t.string "q2_args"
     t.string "q2_percentages"
     t.integer "likes"
+    t.integer "topic_id"
+    t.integer "organization_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -261,8 +262,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_014305) do
   end
 
   create_table "topics", force: :cascade do |t|
-    t.string "name"
-    t.text "topic_path"
+    t.string "topic_path"
+    t.string "topic_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -300,6 +301,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_014305) do
   add_foreign_key "messages", "senders"
   add_foreign_key "moderators", "communities"
   add_foreign_key "moderators", "users"
+  add_foreign_key "organizations", "privacies"
   add_foreign_key "organizations", "privacies", on_delete: :cascade
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_charges", "pay_subscriptions", column: "subscription_id"

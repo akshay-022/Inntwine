@@ -1,0 +1,17 @@
+<div id="<%= dom_id topic %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Topic path:</strong>
+    <%= topic.topic_path %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Topic name:</strong>
+    <%= topic.topic_name %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this topic", topic, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this topic", edit_topic_path(topic), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
