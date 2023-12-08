@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  resources :moderators
+  resources :communities
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
@@ -24,6 +26,9 @@ Rails.application.routes.draw do
 
   resources :profiles
   resources :likes, only: :create
+  resources :connections
+  resources :communities
+  resources :messages
 
   devise_for :users
   root to: "posts#index"

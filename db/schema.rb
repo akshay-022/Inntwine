@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_06_203757) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_08_014305) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -59,6 +59,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_06_203757) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "communities", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "organization_id", null: false
+    t.integer "topic_id", null: false
+    t.integer "privacy_id", null: false
+    t.integer "moderators_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["moderators_id"], name: "index_communities_on_moderators_id"
+    t.index ["organization_id"], name: "index_communities_on_organization_id"
+    t.index ["privacy_id"], name: "index_communities_on_privacy_id"
+    t.index ["topic_id"], name: "index_communities_on_topic_id"
+  end
+
+  create_table "connections", force: :cascade do |t|
+    t.integer "followed_id", null: false
+    t.integer "follower_id", null: false
+    t.boolean "mutual"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_id"], name: "index_connections_on_followed_id"
+    t.index ["follower_id"], name: "index_connections_on_follower_id"
+  end
+
   create_table "datathings", force: :cascade do |t|
     t.text "content"
     t.string "link_to_photo_video"
@@ -85,6 +110,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_06_203757) do
     t.datetime "updated_at", null: false
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "sender_id", null: false
+    t.integer "receiver_id", null: false
+    t.text "content"
+    t.boolean "read"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["receiver_id"], name: "index_messages_on_receiver_id"
+    t.index ["sender_id"], name: "index_messages_on_sender_id"
+  end
+
+  create_table "moderators", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "community_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["community_id"], name: "index_moderators_on_community_id"
+    t.index ["user_id"], name: "index_moderators_on_user_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -244,7 +289,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_06_203757) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
+  add_foreign_key "communities", "moderators", column: "moderators_id"
+  add_foreign_key "communities", "organizations"
+  add_foreign_key "communities", "privacies"
+  add_foreign_key "communities", "topics"
+  add_foreign_key "connections", "followeds"
+  add_foreign_key "connections", "followers"
   add_foreign_key "likes", "users"
+  add_foreign_key "messages", "receivers"
+  add_foreign_key "messages", "senders"
+  add_foreign_key "moderators", "communities"
+  add_foreign_key "moderators", "users"
   add_foreign_key "organizations", "privacies", on_delete: :cascade
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_charges", "pay_subscriptions", column: "subscription_id"
