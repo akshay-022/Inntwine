@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  resources :user_organizations
   resources :topics
   resources :organizations
   resources :moderators
@@ -32,6 +33,9 @@ Rails.application.routes.draw do
   resources :communities
   resources :messages
 
-  devise_for :users
+  #devise_for :users
+  devise_for :users, controllers: {
+  registrations: 'users/registrations'
+  }
   root to: "posts#index"
 end

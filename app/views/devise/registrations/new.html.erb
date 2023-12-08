@@ -32,6 +32,8 @@
       <%= f.password_field :password_confirmation, autocomplete: "new-password", class: input_class %>
     </div>
 
+    <%= f.hidden_field :organization_id, value: 1 %>
+
     <div class="mb-6">
       <%= f.submit "Sign up", class: button_class(variant: "expanded", theme: "primary") %>
     </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_08_020743) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_08_031627) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -268,6 +268,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_020743) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_organizations", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "organization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_user_organizations_on_organization_id"
+    t.index ["user_id"], name: "index_user_organizations_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -315,4 +324,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_020743) do
   add_foreign_key "posts", "posts", column: "parent_post_id", on_delete: :cascade
   add_foreign_key "posts", "topics", on_delete: :cascade
   add_foreign_key "posts", "users"
+  add_foreign_key "user_organizations", "organizations"
+  add_foreign_key "user_organizations", "users"
 end

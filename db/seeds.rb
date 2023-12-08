@@ -5,3 +5,25 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+
+#ADD ORGANIZATIONS
+# Create Privacy records
+privacy_public = Privacy.create(name: 'Public')
+privacy_private = Privacy.create(name: 'Private')
+privacy_restricted = Privacy.create(name: 'Restricted')
+
+# Create Organizations
+Organization.create(
+  organization_path: '1',
+  organization_name: 'Commons',
+  organization_email: '',
+  privacy: privacy_public
+)
+
+Organization.create(
+  organization_path: '2',
+  organization_name: 'Columbia University',
+  organization_email: 'columbia.edu',
+  privacy: privacy_public
+)
