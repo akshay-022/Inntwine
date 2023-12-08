@@ -1,13 +1,29 @@
-Technology:
+Entrepreneurship:
+- Ideation
+- Customer Discovery
+- MVP Building
+  - Wireframes
+  - Software-as-a-service
+  - Biotechnology
+  - Hardware
+- Investments
+- Growth
+
+Computer Science:
+- Software-as-a-service
+  - Social/Social Media
+  - B2B
+  - Online services
+  - Buyer Seller Platforms
 - Artificial Intelligence
   - Machine Learning
     - Supervised Learning
     - Unsupervised Learning
     - Reinforcement Learning
-  - Natural Language Processing
+  - Natural Language Processing/LLMs
   - Computer Vision
   - Robotics
-    - Explainable AI (XAI)
+  - Explainable AI (XAI)
 - Blockchain
   - Smart Contracts
   - Cryptocurrencies
@@ -17,6 +33,8 @@ Technology:
     - Zero Knowledge Proofs
       - zk-SNARKs (Zero-Knowledge Succinct Non-Interactive Arguments of Knowledge)
       - zk-STARKs (Zero-Knowledge Scalable Transparent Arguments of Knowledge)
+
+Technology:
 - Biotechnology
   - Genetic Engineering
   - CRISPR Technology

@@ -12,7 +12,7 @@
       <div class="grid lg:grid-cols-12 grid-cols-1 h-screen pr-6">
         <div class="lg:col-span-2 pt-6 pr-6">
           <%= link_to root_path, class:"link text-xl tracking-tight font-black" do %>
-            <span class="text-amber-800">Poster</span>
+            <span class="text-amber-800">Innovit</span>
           <% end %>
           <ul class="mt-6">
             <li>
@@ -22,6 +22,51 @@
               <% end %>
             </li>
             <% if user_signed_in? %>
+              <li>
+                <!-- Communities Icon -->
+                <%= link_to root_path, class: "rounded-full px-4 -ml-4 inline-flex items-center py-3 hover:bg-neutral-50 w-full text-lg transition ease-in-out duration-500" do %>
+                  <svg height="25px" width="25px" viewBox="0 0 502.648 502.648" aria-hidden="true" class="fill-current w-6 h-6 mr-4">
+                      <g>
+                        <circle style="fill:#010002;" cx="250.399" cy="91.549" r="58.694"/>
+                        <path style="fill:#010002;" d="M455.861,253.028l-54.703-11.411c-18.637-3.904-37.037,4.638-46.765,19.824
+                          c-9.448-4.853-19.608-9.038-30.415-12.511v-32.529c0.022-24.612-20.126-44.738-44.651-44.738h-55.933
+                          c-24.655,0-44.716,20.126-44.716,44.738v32.701c-10.699,3.408-20.751,7.593-30.264,12.468
+                          c-9.728-15.251-28.15-23.857-46.809-19.953l-54.747,11.411c-24.03,5.026-39.626,28.862-34.6,52.978l13.741,65.64
+                          c4.983,24.051,28.84,39.647,52.892,34.621l17.321-3.624c8.671,12.813,20.665,24.569,36.023,34.621
+                          c31.989,20.967,74.247,32.529,119.092,32.529c68.617,0,127.721-27.589,154.943-67.215l17.602,3.689
+                          c24.03,5.004,47.887-10.57,52.87-34.621l13.762-65.64C495.508,281.89,479.912,258.054,455.861,253.028z M251.305,447.381
+                          c-40.51,0-78.475-10.203-106.797-28.862c-9.707-6.342-17.753-13.395-24.202-20.945l13.266-2.783
+                          c24.073-5.004,39.669-28.84,34.643-52.913l-12.317-59.018c7.183-3.861,14.733-7.248,22.757-10.138v10.764
+                          c0,24.569,20.104,44.695,44.716,44.695h55.933c24.548,0,44.652-20.147,44.652-44.695v-11.325
+                          c8.175,2.912,15.854,6.256,22.973,10.052L334.439,341.9c-4.983,24.073,10.591,47.909,34.664,52.913l13.395,2.804
+                          C357.52,427.191,308.101,447.381,251.305,447.381z"/>
+                        <circle style="fill:#010002;" cx="443.954" cy="168.708" r="58.694"/>
+                        <path style="fill:#010002;" d="M70.736,226.172c31.752-6.644,52.029-37.77,45.471-69.501
+                          c-6.687-31.709-37.749-52.072-69.523-45.428c-31.709,6.622-52.072,37.727-45.428,69.458
+                          C7.879,212.453,38.984,232.795,70.736,226.172z"/>
+                      </g>
+                  </svg>
+                  <span>Communities</span>
+                <% end %>
+              </li>
+              <li>
+                <!-- Connections Icon -->
+                <%= link_to root_path, class: "rounded-full px-4 -ml-4 inline-flex items-center py-3 hover:bg-neutral-50 w-full text-lg transition ease-in-out duration-500" do %>
+                  <svg class="fill-current w-6 h-6 mr-4" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2C6.485 2 2 6.485 2 12s4.485 10 10 10 10-4.485 10-10S17.515 2 12 2zm1 14H7v-3h6v3zm0-5H7V7h6v4z"></path>
+                  </svg>
+                  <span>Connections</span>
+                <% end %>
+              </li>
+              <li>
+                <!-- Connections Icon -->
+                <%= link_to root_path, class: "rounded-full px-4 -ml-4 inline-flex items-center py-3 hover:bg-neutral-50 w-full text-lg transition ease-in-out duration-500" do %>
+                  <svg class="fill-current w-6 h-6 mr-4" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2C6.485 2 2 6.485 2 12s4.485 10 10 10 10-4.485 10-10S17.515 2 12 2zm1 14H7v-3h6v3zm0-5H7V7h6v4z"></path>
+                  </svg>
+                  <span>Messages</span>
+                <% end %>
+              </li>
               <li>
                 <%= link_to profile_path(current_user), class: "rounded-full px-4 -ml-4 inline-flex items-center py-3 hover:bg-neutral-50 w-full text-lg transition ease-in-out duration-500" do %>
                   <svg class="fill-current w-6 h-6 mr-4"  viewBox="0 0 24 24" aria-hidden="true"><g><path d="M12 11.816c1.355 0 2.872-.15 3.84-1.256.814-.93 1.078-2.368.806-4.392-.38-2.825-2.117-4.512-4.646-4.512S7.734 3.343 7.354 6.17c-.272 2.022-.008 3.46.806 4.39.968 1.107 2.485 1.256 3.84 1.256zM8.84 6.368c.162-1.2.787-3.212 3.16-3.212s2.998 2.013 3.16 3.212c.207 1.55.057 2.627-.45 3.205-.455.52-1.266.743-2.71.743s-2.255-.223-2.71-.743c-.507-.578-.657-1.656-.45-3.205zm11.44 12.868c-.877-3.526-4.282-5.99-8.28-5.99s-7.403 2.464-8.28 5.99c-.172.692-.028 1.4.395 1.94.408.52 1.04.82 1.733.82h12.304c.693 0 1.325-.3 1.733-.82.424-.54.567-1.247.394-1.94zm-1.576 1.016c-.126.16-.316.246-.552.246H5.848c-.235 0-.426-.085-.552-.246-.137-.174-.18-.412-.12-.654.71-2.855 3.517-4.85 6.824-4.85s6.114 1.994 6.824 4.85c.06.242.017.48-.12.654z"></path></g></svg>
