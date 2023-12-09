@@ -15,8 +15,28 @@ class OrganizationsController < ApplicationController
     @organization = Organization.new
   end
 
+  def switch_organization
+    organization_id = params[:organization_id]
+    # Perform validation or authorization checks if necessary
+    # ...
+    @profile = current_user
+    indic = 0
+    @profile.user_organizations.each do |user_organization|
+      if user_organization.organization_id == organization_id.to_i
+        session[:organization_id] = organization_id
+        flash[:notice] = "Switched to organization #{user_organization.organization.organization_name}"
+        indic = 1
+      end
+    end
+    if indic == 0
+      flash[:notice] = "You cannot access this organization yet."
+    end
+    redirect_to communities_path(topic_id: params[:topic_id])
+  end
+
+
   # GET /organizations/1/edit
-  def edit
+  def edit 
   end
 
   # POST /organizations or /organizations.json

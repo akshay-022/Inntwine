@@ -31,11 +31,12 @@ Rails.application.routes.draw do
   resources :likes, only: :create
   resources :connections
   resources :communities do
-    resources :organizations do
       resources :topics
-    end
   end
   resources :messages
+
+  post 'switch_organization/:organization_id/:topic_id', to: 'organizations#switch_organization', as: :switch_organization
+
 
   #devise_for :users
   devise_for :users, controllers: {

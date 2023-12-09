@@ -4,8 +4,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_default_organization_id
 
   private
+
+  def set_default_organization_id
+    # Set default value only if session[:organization_id] is nil
+    session[:organization_id] ||= 1
+  end
 
   def layout_by_resource
     if devise_controller?
