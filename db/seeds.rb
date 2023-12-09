@@ -33,6 +33,13 @@ Organization.create(
 # Define the path to your CSV file
 csv_path = File.join(Rails.root, 'db', 'seed', 'topics.csv')
 
+Topic.create!(
+    id: 0,
+    topic_path: '0',
+    topic_name: 'Commons',
+    parent_id: nil
+  )
+
 # Read CSV and populate topics table
 CSV.foreach(csv_path, headers: true) do |row|
   parent_id = row['parent_id'] == 'nil' ? nil : row['parent_id'].to_i
