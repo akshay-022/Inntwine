@@ -4,6 +4,7 @@ class CommunitiesController < ApplicationController
   # GET /communities or /communities.json
   def index
     @communities = Community.all
+    @root_topics = Topic.where(parent_id: nil)
   end
 
   # GET /communities/1 or /communities/1.json

@@ -3,12 +3,10 @@ Entrepreneurship:
 - Customer Discovery
 - MVP Building
   - Wireframes
-  - Software-as-a-service
-  - Biotechnology
+  - Software
   - Hardware
 - Investments
 - Growth
-
 Computer Science:
 - Software-as-a-service
   - Social/Social Media
@@ -31,32 +29,27 @@ Computer Science:
     - Non-Fungible Tokens (NFTs)
     - Blockchain Interoperability
     - Zero Knowledge Proofs
-      - zk-SNARKs (Zero-Knowledge Succinct Non-Interactive Arguments of Knowledge)
-      - zk-STARKs (Zero-Knowledge Scalable Transparent Arguments of Knowledge)
-
-Technology:
-- Biotechnology
-  - Genetic Engineering
-  - CRISPR Technology
-  - Synthetic Biology
-  - Bioinformatics
-  - Personalized Medicine
-- Quantum Computing
-  - Quantum Algorithms
-  - Quantum Cryptography
-  - Quantum Machine Learning
-  - Quantum Sensors
-- Internet of Things (IoT)
-  - Smart Cities
-  - Industrial IoT (IIoT)
-  - IoT Security
-  - Edge Computing
-- Augmented Reality (AR)
-  - Virtual Reality (VR)
-  - Mixed Reality (MR)
-  - AR in Healthcare
-  - AR in Education
-
+Biotechnology:
+- Genetic Engineering
+- CRISPR Technology
+- Synthetic Biology
+- Bioinformatics
+- Personalized Medicine
+Quantum Computing
+- Quantum Algorithms
+- Quantum Cryptography
+- Quantum Machine Learning
+- Quantum Sensors
+Internet of Things (IoT)
+- Smart Cities
+- Industrial IoT (IIoT)
+- IoT Security
+- Edge Computing
+Augmented Reality (AR)
+- Virtual Reality (VR)
+- Mixed Reality (MR)
+- AR in Healthcare
+- AR in Education
 Healthcare:
 - Telemedicine
 - Precision Medicine
@@ -81,7 +74,6 @@ Healthcare:
   - Nanoparticles in Medicine
   - Nanoscale Drug Delivery
   - Theranostics
-
 Energy and Environment:
 - Renewable Energy
   - Solar Power
@@ -108,7 +100,6 @@ Energy and Environment:
   - Grid Modernization
   - Smart Grids
   - Microgrids
-
 Finance and Business:
 - FinTech
   - Mobile Payments
@@ -131,7 +122,6 @@ Finance and Business:
   - Remote Work Technologies
   - Employee Well-being Solutions
   - Collaboration Tools
-
 Science and Research:
 - Space Exploration
   - Mars Colonization

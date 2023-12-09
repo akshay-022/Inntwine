@@ -1,0 +1,146 @@
+id,topic_name,parent_id,topic_path
+1,Entrepreneurship,nil,1
+2,Ideation,1,1/2
+3,Customer Discovery,1,1/3
+4,MVP Building,1,1/4
+5,Wireframes,4,1/4/5
+6,Software,4,1/4/6
+7,Hardware,4,1/4/7
+8,Investments,1,1/8
+9,Growth,1,1/9
+10,Computer Science,nil,10
+11,Software-as-a-service,10,10/11
+12,Social/Social Media,11,10/11/12
+13,B2B,11,10/11/13
+14,Online services,11,10/11/14
+15,Buyer Seller Platforms,11,10/11/15
+16,Artificial Intelligence,10,10/16
+17,Machine Learning,16,10/16/17
+18,Supervised Learning,17,10/16/17/18
+19,Unsupervised Learning,17,10/16/17/19
+20,Reinforcement Learning,17,10/16/17/20
+21,Natural Language Processing/LLMs,16,10/16/21
+22,Computer Vision,16,10/16/22
+23,Robotics,16,10/16/23
+24,Explainable AI (XAI),16,10/16/24
+25,Blockchain,10,10/25
+26,Smart Contracts,25,10/25/26
+27,Cryptocurrencies,25,10/25/27
+28,Decentralized Finance (DeFi),27,10/25/27/28
+29,Non-Fungible Tokens (NFTs),27,10/25/27/29
+30,Blockchain Interoperability,27,10/25/27/30
+31,Zero Knowledge Proofs,27,10/25/27/31
+32,Biotechnology,nil,32
+33,Genetic Engineering,32,32/33
+34,CRISPR Technology,32,32/34
+35,Synthetic Biology,32,32/35
+36,Bioinformatics,32,32/36
+37,Personalized Medicine,32,32/37
+38,Quantum Computing,nil,38
+39,Quantum Algorithms,38,38/39
+40,Quantum Cryptography,38,38/40
+41,Quantum Machine Learning,38,38/41
+42,Quantum Sensors,38,38/42
+43,Internet of Things (IoT),nil,43
+44,Smart Cities,43,43/44
+45,Industrial IoT (IIoT),43,43/45
+46,IoT Security,43,43/46
+47,Edge Computing,43,43/47
+48,Augmented Reality (AR),nil,48
+49,Virtual Reality (VR),48,48/49
+50,Mixed Reality (MR),48,48/50
+51,AR in Healthcare,48,48/51
+52,AR in Education,48,48/52
+53,Healthcare,nil,53
+54,Telemedicine,53,53/54
+55,Precision Medicine,53,53/55
+56,Genomic Medicine,55,53/55/56
+57,Pharmacogenomics,55,53/55/57
+58,Medical Robotics,53,53/58
+59,Robotic Surgery,58,53/58/59
+60,Rehabilitation Robotics,58,53/58/60
+61,Digital Health,53,53/61
+62,Health Informatics,61,53/61/62
+63,Health Wearables,61,53/61/63
+64,Mobile Health (mHealth),61,53/61/64
+65,Biomedical Engineering,53,53/65
+66,Biomaterials,65,53/65/66
+67,Biomechanics,65,53/65/67
+68,Bioelectronics,65,53/65/68
+69,Healthcare AI,53,53/69
+70,Diagnostic AI,69,53/69/70
+71,Drug Discovery AI,69,53/69/71
+72,Virtual Health Assistants,69,53/69/72
+73,Nanomedicine,53,53/73
+74,Nanoparticles in Medicine,73,53/73/74
+75,Nanoscale Drug Delivery,73,53/73/75
+76,Theranostics,73,53/73/76
+77,Energy and Environment,nil,77
+78,Renewable Energy,77,77/78
+79,Solar Power,78,77/78/79
+80,Wind Energy,78,77/78/80
+81,Hydropower,78,77/78/81
+82,Geothermal Energy,78,77/78/82
+83,Energy Storage,77,77/83
+84,Battery Technologies,83,77/83/84
+85,Supercapacitors,83,77/83/85
+86,Flywheel Energy Storage,83,77/83/86
+87,Sustainable Agriculture,77,77/87
+88,Vertical Farming,87,77/87/88
+89,Precision Agriculture,87,77/87/89
+90,AgTech,87,77/87/90
+91,Climate Change Mitigation,77,77/91
+92,Carbon Capture and Storage (CCS),91,77/91/92
+93,Geoengineering,91,77/91/93
+94,Climate-Resilient Infrastructure,91,77/91/94
+95,Water Technologies,77,77/95
+96,Water Purification,95,77/95/96
+97,Desalination,95,77/95/97
+98,Water Recycling,95,77/95/98
+99,Power Grids,77,77/99
+100,Grid Modernization,99,77/99/100
+101,Smart Grids,99,77/99/101
+102,Microgrids,99,77/99/102
+103,Finance and Business,nil,103
+104,FinTech,103,103/104
+105,Mobile Payments,104,103/104/105
+106,Peer-to-Peer Lending,104,103/104/106
+107,InsurTech,104,103/104/107
+108,Cryptocurrency and Blockchain in Finance,103,103/108
+109,Central Bank Digital Currencies (CBDCs),108,103/108/109
+110,Tokenization of Assets,108,103/108/110
+111,Decentralized Autonomous Organizations (DAOs),108,103/108/111
+112,Cross-Chain Platforms,108,103/108/112
+113,E-commerce Innovations,103,103/113
+114,Augmented Reality Shopping,113,103/113/114
+115,Social Commerce,113,103/113/115
+116,Voice Commerce,113,103/113/116
+117,Supply Chain Technologies,103,103/117
+118,Blockchain in Supply Chain,117,103/117/118
+119,IoT in Supply Chain,117,103/117/119
+120,Predictive Analytics in Supply Chain,117,103/117/120
+121,Workplace Innovation,103,103/121
+122,Remote Work Technologies,121,103/121/122
+123,Employee Well-being Solutions,121,103/121/123
+124,Collaboration Tools,121,103/121/124
+125,Science and Research,nil,125
+126,Space Exploration,125,125/126
+127,Mars Colonization,126,125/126/127
+128,Asteroid Mining,126,125/126/128
+129,Space Tourism,126,125/126/129
+130,Materials Science,125,125/130
+131,Advanced Materials,130,125/130/131
+132,Nanomaterials,130,125/130/132
+133,3D Printing in Materials,130,125/130/133
+134,Neuroscience,125,125/134
+135,Brain-Computer Interfaces,134,125/134/135
+136,Neuropharmacology,134,125/134/136
+137,Cognitive Enhancement,134,125/134/137
+138,Environmental Science,125,125/138
+139,Biodiversity Monitoring Technologies,138,125/138/139
+140,Climate Modeling,138,125/138/140
+141,Ocean Exploration Technologies,138,125/138/141
+142,Artificial Life,125,125/142
+143,Synthetic Organisms,142,125/142/143
+144,Biohybrid Systems,142,125/142/144
+145,Evolutionary Robotics,142,125/142/145

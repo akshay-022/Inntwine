@@ -264,6 +264,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_031627) do
   create_table "topics", force: :cascade do |t|
     t.string "topic_path"
     t.string "topic_name"
+    t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -289,7 +290,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_031627) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "username"
-    t.integer "organization_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
@@ -324,6 +324,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_031627) do
   add_foreign_key "posts", "posts", column: "parent_post_id", on_delete: :cascade
   add_foreign_key "posts", "topics", on_delete: :cascade
   add_foreign_key "posts", "users"
+  add_foreign_key "topics", "topics", column: "parent_id", on_delete: :cascade
   add_foreign_key "user_organizations", "organizations"
   add_foreign_key "user_organizations", "users"
 end

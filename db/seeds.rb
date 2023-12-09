@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-
+require 'csv'
 
 #ADD ORGANIZATIONS
 # Create Privacy records
@@ -27,3 +27,19 @@ Organization.create(
   organization_email: 'columbia.edu',
   privacy: privacy_public
 )
+
+
+
+# Define the path to your CSV file
+csv_path = File.join(Rails.root, 'db', 'seed', 'topics.csv')
+
+# Read CSV and populate topics table
+CSV.foreach(csv_path, headers: true) do |row|
+  parent_id = row['parent_id'] == 'nil' ? nil : row['parent_id'].to_i
+  Topic.create!(
+    id: row['id'].to_i,
+    topic_path: row['topic_path'],
+    topic_name: row['topic_name'],
+    parent_id: parent_id
+  )
+end

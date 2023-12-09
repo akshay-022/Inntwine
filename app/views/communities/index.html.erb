@@ -1,6 +1,19 @@
+
 <div class="w-full">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% content_for :sidebar do %>
+    <ul>
+      <!-- Render the "Browse Communities" heading before the individual community heading -->
+      <li class="sidebar-item">
+        <h2 class="browse-heading">Browse Communities</h2>
+      </li>
+      <% @root_topics.each do |root_topic| %>
+        <%= render 'shared/nested_topic', topic: root_topic %>
+      <% end %>
+    </ul>
   <% end %>
 
   <div class="flex justify-between items-center">
@@ -11,4 +24,5 @@
   <div id="communities" class="min-w-full">
     <%= render @communities %>
   </div>
+
 </div>
