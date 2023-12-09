@@ -51,6 +51,6 @@ class PostsController < ApplicationController
   private
 
     def post_params
-      params.require(:post).permit(:body, :post_id)
+      params.require(:post).permit(:body, :post_id).merge(organization_id: 2)
     end
 end
