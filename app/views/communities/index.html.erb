@@ -17,12 +17,31 @@
   <% end %>
 
   <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Communities</h1>
+    <h1 class="font-bold text-4xl">Communities - <%= @topic.topic_name %></h1>
     <%= link_to "New community", new_community_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
+
 
   <div id="communities" class="min-w-full">
     <%= render @communities %>
   </div>
 
 </div>
+
+
+
+<div class="mb-8">
+  <%= render "form" %>
+</div>
+
+<%= turbo_frame_tag "posts" do %>
+  <% @posts.each do |post| %>
+    <%= render partial: "posts/#{post.post_type}", locals: { post: post } %>
+  <% end %>
+<% end %>
+
+<%= turbo_frame_tag Post.new do %>
+  <% if Post.all.none? %>
+    <%= render "empty" %>
+  <% end %>
+<% end %>

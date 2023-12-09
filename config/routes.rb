@@ -30,7 +30,11 @@ Rails.application.routes.draw do
   resources :profiles
   resources :likes, only: :create
   resources :connections
-  resources :communities
+  resources :communities do
+    resources :organizations do
+      resources :topics
+    end
+  end
   resources :messages
 
   #devise_for :users

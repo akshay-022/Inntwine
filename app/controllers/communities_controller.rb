@@ -5,6 +5,9 @@ class CommunitiesController < ApplicationController
   def index
     @communities = Community.all
     @root_topics = Topic.where(parent_id: nil)
+    @posts = Post.where(organization_id: params[:organization_id], topic_id: params[:topic_id])
+    @topic = Topic.find_by(id: params[:topic_id])
+    @organization = Organization.find_by(id: params[:organization_id])
   end
 
   # GET /communities/1 or /communities/1.json
