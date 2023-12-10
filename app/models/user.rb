@@ -9,7 +9,14 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :posts
   has_many :user_organizations
+  has_many :user_communities
   validates_uniqueness_of :username
 
   has_one_attached :profile_image
+
+  def joined_community?(organization, topic)
+    user_community = UserCommunity.find_by(user: self, organization: organization, topic: topic)
+    user_community.present?
+  end
+  
 end

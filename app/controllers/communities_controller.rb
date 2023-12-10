@@ -5,7 +5,7 @@ class CommunitiesController < ApplicationController
   def index
     @communities = Community.all
     @root_topics = Topic.where(parent_id: nil)
-    @posts = Post.where(organization_id: session[:organization_id], topic_id: params[:topic_id])
+    @posts = Post.where(organization_id: session[:organization_id], topic_id: params[:topic_id]) 
     @topic = Topic.find_by(id: params[:topic_id])
     @organization = Organization.find_by(id: session[:organization_id])
     @profile = current_user
@@ -23,6 +23,17 @@ class CommunitiesController < ApplicationController
 
   # GET /communities/1/edit
   def edit
+  end
+
+  def join_community
+    @topic_id = params[:topic_id]
+    @topic = Topic.find_by(id: params[:topic_id])
+    @organization = Organization.find_by(id: session[:organization_id])
+    # Ensure the user is signed in
+    return redirect_to root_path, alert: 'Please sign in to join the community.' unless user_signed_in?
+    # Create a UserCommunity entry
+    UserCommunity.create(user: current_user, organization: @organization, topic: @topic)
+    redirect_to communities_path(topic_id: @topic_id), notice: 'Joined the community successfully.'
   end
 
   # POST /communities or /communities.json

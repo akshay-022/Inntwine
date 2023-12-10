@@ -21,6 +21,12 @@
     <% end %>
   </div>
 
+  <div class="mt-4">
+    <h2 class="text-xl font-semibold">Joined Communities:</h2>
+    <% @profile.user_communities.each do |user_community| %>
+      <p><%= "#{user_community.organization.organization_name} -> #{user_community.topic.topic_name}" %></p>
+    <% end %>
+  </div>
 
   <div class="mt-10 -mx-6">
     <% @profile.posts.each do |post| %>

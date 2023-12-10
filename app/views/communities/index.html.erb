@@ -29,7 +29,14 @@
 
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Communities - <%= @topic.topic_name %></h1>
-    <%= link_to "New community", new_community_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <% if current_user.present? %>
+      <% if current_user.joined_community?(@organization, @topic) %>
+        <%= button_to "Joined", join_community_communities_path, method: :post, params: { organization_id: @organization.id, topic_id: @topic.id }, class: "rounded-lg py-3 px-5 bg-amber-300 text-white block font-medium", disabled: true %>
+      <% else %>
+        <%= button_to "Join Community", join_community_communities_path, method: :post, params: { organization_id: @organization.id, topic_id: @topic.id }, class: "rounded-lg py-3 px-5 bg-amber-800 text-white block font-medium" %>
+      <% end %>
+    <% end %>
+    <!-- <%= link_to "New community", new_community_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %> -->
   </div>
 
 

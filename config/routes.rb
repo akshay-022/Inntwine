@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   resources :likes, only: :create
   resources :connections
   resources :communities do
+      post 'join_community', on: :collection
       resources :topics
   end
   resources :messages
