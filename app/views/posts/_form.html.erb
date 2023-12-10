@@ -1,4 +1,4 @@
-<%= form_with model: @post, data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } do |form|  %>
+<%= form_with model: @post, data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } do |form| %>
   <% if flash[:post_errors] %>
     <div class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3 mx-3">
       <ul>
@@ -11,7 +11,17 @@
 
   <%= form.text_area :body, class: "border-b border-t-0 border-x-0 mb-6 px-6 pt-6 block w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 resize-none min-h-[180px] text-lg", placeholder: "Make a post!" %>
 
-  <div class="flex justify-end px-6 -mt-20">
-    <%= form.submit "Post", class: "px-6 py-2 bg-amber-700 text-white font-semibold rounded-full text-center cursor-pointer inline-block hover:bg-amber-800 transition ease-in-out duration-300"%>
+  <%= form.text_field :q1, class: "mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg", placeholder: "q1 (optional)" %>
+  <%= form.text_field :q1_args, class: "mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg", placeholder: "q1 options (comma separated)" %>
+
+  <%= form.text_field :q2, class: "mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg", placeholder: "q2 (optional)" %>
+  <%= form.text_field :q2_args, class: "mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg", placeholder: "q2 options (comma separated)" %>
+
+  <%= form.text_field :image_link, class: "mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg", placeholder: "image google drive link (optional)" %>
+
+  <%= form.text_field :video_link, class: "mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg", placeholder: "youtube video link (optional)" %>
+
+  <div class="flex justify-end px-6 -mt-2"> <!-- Adjusted margin-top value -->
+    <%= form.submit "Post", class: "px-6 py-2 bg-amber-700 text-white font-semibold rounded-full text-center cursor-pointer inline-block hover:bg-amber-800 transition ease-in-out duration-300" %>
   </div>
 <% end %>

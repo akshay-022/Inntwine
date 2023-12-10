@@ -90,4 +90,9 @@ module ApplicationHelper
       image_tag "https://doodleipsum.com/700/avatar-5?bg=3D27F6&i=f339578a64040310d3eb5bd82b550627", class: classes
     end
   end
+
+  def embed_google_drive_image(link)
+    file_id = link.match(/[-\w]{25,}/).to_s
+    "https://drive.google.com/uc?id=#{file_id}"
+  end
 end

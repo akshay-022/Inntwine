@@ -250,6 +250,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_09_233453) do
     t.string "q2_args"
     t.string "q2_percentages"
     t.integer "likes"
+    t.string "image_link"
+    t.string "video_link"
     t.integer "topic_id"
     t.integer "organization_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
