@@ -31,9 +31,19 @@ class CommunitiesController < ApplicationController
     @organization = Organization.find_by(id: session[:organization_id])
     # Ensure the user is signed in
     return redirect_to root_path, alert: 'Please sign in to join the community.' unless user_signed_in?
-    # Create a UserCommunity entry
-    UserCommunity.create(user: current_user, organization: @organization, topic: @topic)
-    redirect_to communities_path(topic_id: @topic_id), notice: 'Joined the community successfully.'
+
+    user_community = UserCommunity.find_by(user: current_user, organization: @organization, topic: @topic)
+
+    if user_community
+      user_community.destroy
+      redirect_to communities_path(topic_id: @topic_id), notice: 'Exited the community successfully.'
+      flash.discard
+    else
+      # Create a UserCommunity entry
+      UserCommunity.create(user: current_user, organization: @organization, topic: @topic)
+      redirect_to communities_path(topic_id: @topic_id), notice: 'Joined the community successfully.'
+      flash.discard
+    end
   end
 
   # POST /communities or /communities.json
