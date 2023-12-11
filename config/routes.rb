@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :feed
+  
   resources :posts, except: [:edit, :update] do         #All these are based on your feed. Can't show everything in the world at once
     resources :comments, only: [:create, :destroy]
     member do
@@ -27,6 +29,7 @@ Rails.application.routes.draw do
       post :repost
     end
   end
+  
 
   resources :profiles
   resources :likes, only: :create
@@ -44,5 +47,5 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
   registrations: 'users/registrations'
   }
-  root to: "posts#index"
+  root to: "feed#index"
 end
