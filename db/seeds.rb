@@ -29,6 +29,40 @@ Organization.create(
 )
 
 
+user1 = User.create!(
+  email: "agi2108@columbia.edu",
+  password: "Aksh@2211",
+  first_name: "Akshay",
+  last_name: "Iyer",
+  admin: true,
+  username: "akshay_022",
+  is_moderator: false
+)
+
+
+user2 = User.create!(
+  email: "akshaygiyer@gmail.com",
+  password: "Aksh@2211",
+  first_name: "Akshay",
+  last_name: "Iyer",
+  admin: true,
+  username: "akshay_023",
+  is_moderator: false
+)
+
+
+# Assuming Organization IDs 1 and 2 exist
+organization_ids = [1, 2]
+
+# Create UserOrganization entries for user1
+organization_ids.each do |org_id|
+  UserOrganization.create!(user: user1, organization_id: org_id)
+end
+
+# Create UserOrganization entries for user2
+organization_ids.each do |org_id|
+  UserOrganization.create!(user: user2, organization_id: org_id)
+end
 
 # Define the path to your CSV file
 csv_path = File.join(Rails.root, 'db', 'seed', 'topics.csv')
@@ -50,3 +84,7 @@ CSV.foreach(csv_path, headers: true) do |row|
     parent_id: parent_id
   )
 end
+
+User.create(
+email: "agi2108@columbia.edu", first_name: "Akshay", last_name: "Iyer", admin: false, created_at: "2023-12-11 23:29:08.945809000 +0000", updated_at: "2023-12-11 23:29:08.945809000 +0000", username: "akshay_022", is_moderator: false
+)
