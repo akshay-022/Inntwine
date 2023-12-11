@@ -1,4 +1,6 @@
 <% content_for :sidebar_right do %>
+  <% organization = Organization.find_by(id: session[:organization_id]) %>
+  <h2>Post to <%= organization.organization_name %> -> Commons</h2>
   <%= render "form" %>
 <% end %>
 <h1 class="font-bold text-4xl">Your Feed</h1>

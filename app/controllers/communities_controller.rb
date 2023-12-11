@@ -5,7 +5,12 @@ class CommunitiesController < ApplicationController
   def index
     @communities = Community.all
     @root_topics = Topic.where(parent_id: nil)
-    @posts = Post.where(organization_id: session[:organization_id], topic_id: params[:topic_id]) 
+    if params[:topic_id]=='0'
+      @posts = Post.where(organization_id: session[:organization_id]) 
+    else
+      @posts = Post.where(organization_id: session[:organization_id], topic_id: params[:topic_id]) 
+    end
+    @posts = @posts.order(created_at: :desc)
     @topic = Topic.find_by(id: params[:topic_id])
     @organization = Organization.find_by(id: session[:organization_id])
     @profile = current_user

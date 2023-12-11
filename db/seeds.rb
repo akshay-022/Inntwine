@@ -16,7 +16,7 @@ privacy_restricted = Privacy.create(name: 'Restricted')
 # Create Organizations
 Organization.create(
   organization_path: '1',
-  organization_name: 'Commons',
+  organization_name: 'Global',
   organization_email: '',
   privacy: privacy_public
 )

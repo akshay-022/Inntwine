@@ -15,7 +15,7 @@
       <% end %>
 
       <li class="sidebar-item">
-        <h2 class="browse-heading">Your Organizations</h2>
+        <h2 class="browse-heading">Switch Organizations</h2>
         <ul>
           <% @profile.user_organizations.each do |user_organization| %>
             <li>
@@ -28,6 +28,9 @@
   <% end %>
 
   <% content_for :sidebar_right do %>
+    <% organization = Organization.find_by(id: session[:organization_id]) %>
+    <% topic = Topic.find_by(id: params[:topic_id]) %>
+    <h2>Post to <%= organization.organization_name %> -> <%= topic.topic_name %></h2>
     <%= render "form" %>
   <% end %>
 

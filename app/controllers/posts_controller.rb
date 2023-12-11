@@ -89,6 +89,10 @@ class PostsController < ApplicationController
   end
 
     def post_params
-      params.require(:post).permit(:body, :post_id, :q1, :q2, :q1_args, :q2_args, :image_link, :video_link, :form_link, :datathing, :post_type).merge(organization_id: session[:organization_id], topic_id: params[:topic_id])
+      if params[:topic_id].blank?
+        params.require(:post).permit(:body, :post_id, :q1, :q2, :q1_args, :q2_args, :image_link, :video_link, :form_link, :datathing, :post_type).merge(organization_id: session[:organization_id], topic_id: 0)
+      else
+        params.require(:post).permit(:body, :post_id, :q1, :q2, :q1_args, :q2_args, :image_link, :video_link, :form_link, :datathing, :post_type).merge(organization_id: session[:organization_id], topic_id: params[:topic_id])
+      end
     end
 end
