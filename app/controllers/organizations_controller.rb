@@ -31,7 +31,7 @@ class OrganizationsController < ApplicationController
     if indic == 0
       flash[:notice] = "You cannot access this organization yet."
     end
-    redirect_to communities_path(topic_id: params[:topic_id])
+    redirect_back(fallback_location: root_path)
   end
 
 

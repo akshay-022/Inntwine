@@ -74,6 +74,15 @@
                 <% end %>
               </li>
               <%= yield :sidebar %>
+              <li class="sidebar-item">
+              <h2 class="browse-heading">Switch Organizations</h2>
+              <% current_user.user_organizations.each do |user_organization| %>
+              <li>
+                <%= button_to user_organization.organization.organization_name, switch_organization_path(organization_id: user_organization.organization_id, topic_id: 0), method: :post %>
+              </li>
+          <% end %>
+        </ul>
+      </li>
             </ul>
             <ul class="mt-6">
               <% if user_signed_in? %>
