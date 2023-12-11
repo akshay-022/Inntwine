@@ -27,6 +27,10 @@
     </ul>
   <% end %>
 
+  <% content_for :sidebar_right do %>
+    <%= render "form" %>
+  <% end %>
+
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Communities - <%= @topic.topic_name %></h1>
     <% if current_user.present? %>
@@ -44,12 +48,6 @@
     <%= render @communities %>
   </div>
 
-</div>
-
-
-
-<div class="mb-8">
-  <%= render "form" %>
 </div>
 
 <%= turbo_frame_tag "posts" do %>

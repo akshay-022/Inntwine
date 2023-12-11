@@ -81,7 +81,9 @@
           <%= content_for?(:content) ? yield(:content) : yield %>
         </div>
         <div class="lg:col-span-4 pl-6 pt-6">
-          <div class="bg-gray-50 w-full min-h-[150px] rounded-lg p-6 mb-6">Sidebar stuff</div>
+          <div class="bg-gray-50 w-full min-h-[150px] rounded-lg p-6 mb-6">
+            <%= yield :sidebar_right %>
+          </div>
           <% if user_signed_in? %>
             <p class="mb-4">
               Signed in as <%= current_user.name %>
