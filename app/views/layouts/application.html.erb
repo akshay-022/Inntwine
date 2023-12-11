@@ -74,8 +74,18 @@
                 <% end %>
               </li>
               <%= yield :sidebar %>
+            </ul>
+            <ul class="mt-6">
+              <% if user_signed_in? %>
+                <p class="mb-4">
+                  Signed in as <%= current_user.name %>
+                </p>
+                <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: button_class(theme: "primary"), data: { turbo: false } %>
+              <% else %>
+                <%= link_to "Sign in", new_user_session_path, class: button_class(theme: "primary") %>
+              <% end %>
+            </ul>
             <% end %>
-          </ul>
         </div>
         <div class="lg:col-span-6 border-x">
           <%= content_for?(:content) ? yield(:content) : yield %>
@@ -84,14 +94,6 @@
           <div class="bg-gray-50 w-full min-h-[150px] rounded-lg p-6 mb-6">
             <%= yield :sidebar_right %>
           </div>
-          <% if user_signed_in? %>
-            <p class="mb-4">
-              Signed in as <%= current_user.name %>
-            </p>
-            <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: button_class(theme: "primary"), data: { turbo: false } %>
-          <% else %>
-            <%= link_to "Sign in", new_user_session_path, class: button_class(theme: "primary") %>
-          <% end %>
         </div>
       </div>
     </main>
