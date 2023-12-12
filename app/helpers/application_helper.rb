@@ -87,7 +87,7 @@ module ApplicationHelper
     if user.profile_image.attached?
       image_tag user.profile_image, class: classes
     else
-      image_tag "https://doodleipsum.com/700/avatar-5?bg=3D27F6&i=f339578a64040310d3eb5bd82b550627", class: classes
+      image_tag "default_dp.png", class: classes
     end
   end
 
