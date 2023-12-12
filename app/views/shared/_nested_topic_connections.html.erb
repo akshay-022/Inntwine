@@ -1,0 +1,31 @@
+<!-- app/views/shared/_nested_topic.html.erb -->
+
+<% if topic.present? && topic.children.present? %>
+  <li class="sidebar-item cursor-pointer" data-item-id="<%= topic.id %>">
+    <span class="flex items-center justify-between">
+      <span class="sidebar-heading">
+        <span class="arrow-icon border-solid border border-t-4 border-transparent cursor-pointer" onclick="toggleChildren(this)">&#9654;</span>
+        <%= link_to topic.topic_name, connection_path(id: topic.id), class: "community-link" %>
+      </span>
+    </span>
+    <ul class="sub-items hidden pl-4">
+      <% topic.children.each do |child_topic| %>
+        <%= render 'shared/nested_topic_connections', topic: child_topic %>
+      <% end %>
+    </ul>
+  </li>
+<% elsif topic.present? %>
+  <!-- Render the individual community heading -->
+  <li class="sidebar-item" data-item-id="<%= topic.id %>">
+    <span class="sidebar-heading">
+      <%= link_to topic.topic_name, connection_path(id: topic.id), class: "community-link" %>
+    </span>
+  </li>
+<% end %>
+
+<script>
+  function toggleChildren(arrow) {
+    const subItems = arrow.closest('.sidebar-item').querySelector('.sub-items');
+    subItems.classList.toggle('hidden');
+  }
+</script>

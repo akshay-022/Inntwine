@@ -85,6 +85,17 @@ CSV.foreach(csv_path, headers: true) do |row|
   )
 end
 
-User.create(
-email: "agi2108@columbia.edu", first_name: "Akshay", last_name: "Iyer", admin: false, created_at: "2023-12-11 23:29:08.945809000 +0000", updated_at: "2023-12-11 23:29:08.945809000 +0000", username: "akshay_022", is_moderator: false
-)
+# Assuming you have User records with IDs 1 and 2
+user1 = User.find(1)
+user2 = User.find(2)
+
+# Create the connection from user2 to user1
+Connection.create(follower: user2, followed: user1, mutual: true)
+
+#Creating user_communities
+UserCommunity.create(user_id: 1, organization_id: 1, topic_id: 1, score: 5)
+UserCommunity.create(user_id: 2, organization_id: 1, topic_id: 1, score: 10)
+
+#Create moderators also
+Moderator.create(user_id: 1, organization_id: 1, topic_id: 2)
+

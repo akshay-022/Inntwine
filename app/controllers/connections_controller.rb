@@ -1,70 +1,32 @@
 class ConnectionsController < ApplicationController
-  before_action :set_connection, only: %i[ show edit update destroy ]
 
   # GET /connections or /connections.json
   def index
-    @connections = Connection.all
+    @connections = Connection.where('follower_id = ? OR followed_id = ?', current_user.id, current_user.id)
+    @conreqs = Connection.where(followed_id: current_user.id, mutual: false)
+    @root_topics = Topic.where(parent_id: nil)
+    @organization_name = Organization.find_by(id: session[:organization_id].to_i).organization_name
   end
 
   # GET /connections/1 or /connections/1.json
   def show
+    current_organization_id = session[:organization_id]
+    current_topic_id = params[:id]
+    moderator_user_ids = Moderator
+                    .where(topic_id: current_topic_id, organization_id: current_organization_id)
+                    .pluck(:user_id)
+    @moderators = User.where(id: moderator_user_ids)
+    
+    @contributors = User.joins(:user_communities)
+                      .where(user_communities: { organization_id: current_organization_id, topic_id: current_topic_id })
+                      .order('user_communities.score DESC')
+    @root_topics = Topic.where(parent_id: nil)
+    @organization_name = Organization.find_by(id: session[:organization_id].to_i).organization_name
   end
 
-  # GET /connections/new
-  def new
-    @connection = Connection.new
+  def accept
+    connection = Connection.find(params[:id])
+    connection.update(mutual: true)
+    redirect_to connections_path, notice: 'Connection accepted successfully.'
   end
-
-  # GET /connections/1/edit
-  def edit
-  end
-
-  # POST /connections or /connections.json
-  def create
-    @connection = Connection.new(connection_params)
-
-    respond_to do |format|
-      if @connection.save
-        format.html { redirect_to connection_url(@connection), notice: "Connection was successfully created." }
-        format.json { render :show, status: :created, location: @connection }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @connection.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /connections/1 or /connections/1.json
-  def update
-    respond_to do |format|
-      if @connection.update(connection_params)
-        format.html { redirect_to connection_url(@connection), notice: "Connection was successfully updated." }
-        format.json { render :show, status: :ok, location: @connection }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @connection.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /connections/1 or /connections/1.json
-  def destroy
-    @connection.destroy
-
-    respond_to do |format|
-      format.html { redirect_to connections_url, notice: "Connection was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_connection
-      @connection = Connection.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def connection_params
-      params.require(:connection).permit(:followed_id, :follower_id, :mutual)
-    end
 end

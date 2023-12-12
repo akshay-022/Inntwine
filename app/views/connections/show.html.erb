@@ -1,15 +1,116 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% content_for :sidebar do %>
+    <ul>
+      <!-- Render the "Browse Communities" heading before the individual community heading -->
+      <li class="sidebar-item">
+        <h2 class="browse-heading text-2xl font-bold mb-4 mt-4">Browse Communities</h2>
+      </li>
+      <% @root_topics.each do |root_topic| %>
+        <%= render 'shared/nested_topic_connections', topic: root_topic %>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div class="flex justify-between items-center">
+    <% organization = Organization.find_by(id: session[:organization_id]) %>
+    <% topic = Topic.find_by(id: params[:id]) %>
+    <h1 class="font-bold text-4xl">Connections - <%= topic.topic_name %></h1>
+  </div>
+  <h2>Use the sidebar to find new connections from communities!</h2>
+  <h2>Current Organization -> <%= @organization_name %></h2>
+
+  <div id="connections" class="min-w-full">
+    <h2 class="browse-heading text-2xl font-bold mb-4 mt-4">Moderators:</h2>
+    <% @moderators.each do |moderator| %>
+      <% connection1 = Connection.find_by(follower: current_user, followed: moderator) %>
+      <% connection2 = Connection.find_by(follower: moderator, followed: current_user) %>
+
+      <% if connection1&.mutual? || connection2&.mutual?%>
+        <!-- Mutual Connection: Display Moderator Profile and Subtext "Connected" -->
+        <div class="flex items-center mt-4">
+          <%= profile_image(moderator) %>
+          <span class="ml-3">
+            <%= link_to moderator.name, profile_path(moderator) %>
+          </span>
+          <span class="ml-2 text-gray-500">Connected</span>
+        </div>
+      <% elsif connection1 %>
+        <!-- Following: Display Moderator Profile and Subtext "Following" -->
+        <div class="flex items-center mt-4">
+          <%= profile_image(moderator) %>
+          <span class="ml-3">
+            <%= link_to moderator.name, profile_path(moderator) %>
+          </span>
+          <span class="ml-2 text-gray-500">Following</span>
+        </div>
+      <% elsif connection2 %>
+        <!-- Followed: Display Moderator Profile and Subtext "Followed" -->
+        <div class="flex items-center mt-4">
+          <%= profile_image(moderator) %>
+          <span class="ml-3">
+            <%= link_to moderator.name, profile_path(moderator) %>
+          </span>
+          <span class="ml-2 text-gray-500">Followed</span>
+        </div>
+      <% else %>
+        <!-- None: Display Moderator Profile and Subtext "None" -->
+        <div class="flex items-center mt-4">
+          <%= profile_image(moderator) %>
+          <span class="ml-3">
+            <%= link_to moderator.name, profile_path(moderator) %>
+          </span>
+          <span class="ml-2 text-gray-500">None</span>
+        </div>
+      <% end %>
     <% end %>
 
-    <%= render @connection %>
+    <h2 class="browse-heading text-2xl font-bold mb-4 mt-4">Highest Contributors:</h2>
+    <% @contributors.each do |contributor| %>
+      <% connection1 = Connection.find_by(follower: current_user, followed: contributor) %>
+      <% connection2 = Connection.find_by(follower: contributor, followed: current_user) %>
 
-    <%= link_to "Edit this connection", edit_connection_path(@connection), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this connection", connection_path(@connection), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%= link_to "Back to connections", connections_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <% if connection1&.mutual? || connection2&.mutual?%>
+        <!-- Mutual Connection: Display Moderator Profile and Subtext "Connected" -->
+        <div class="flex items-center mt-4">
+          <%= profile_image(contributor) %>
+          <span class="ml-3">
+            <%= link_to contributor.name, profile_path(contributor) %>
+          </span>
+          <span class="ml-2 text-gray-500">Connected</span>
+        </div>
+      <% elsif connection1 %>
+        <!-- Following: Display Moderator Profile and Subtext "Following" -->
+        <div class="flex items-center mt-4">
+          <%= profile_image(contributor) %>
+          <span class="ml-3">
+            <%= link_to contributor.name, profile_path(contributor) %>
+          </span>
+          <span class="ml-2 text-gray-500">Following</span>
+          <!-- <span class="ml-2 text-gray-500">Score: <%= contributor.score %></span> -->
+        </div>
+      <% elsif connection2 %>
+        <!-- Followed: Display Moderator Profile and Subtext "Followed" -->
+        <div class="flex items-center mt-4">
+          <%= profile_image(contributor) %>
+          <span class="ml-3">
+            <%= link_to contributor.name, profile_path(contributor) %>
+          </span>
+          <span class="ml-2 text-gray-500">Followed</span>
+        </div>
+      <% else %>
+        <!-- None: Display Moderator Profile and Subtext "None" -->
+        <div class="flex items-center mt-4">
+          <%= profile_image(contributor) %>
+          <span class="ml-3">
+            <%= link_to contributor.name, profile_path(contributor) %>
+          </span>
+          <span class="ml-2 text-gray-500">None</span>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>

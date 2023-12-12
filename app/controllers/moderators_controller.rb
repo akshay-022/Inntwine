@@ -71,11 +71,10 @@ class ModeratorsController < ApplicationController
       @posts = Post.all
                 .where(moderation_status: 'pending')  
     elsif current_user.is_moderator
-      @posts = Post.joins(:moderator_posts)
-                .where(moderator_posts: { moderator_id: current_user.id })
-                .where(topic_id: params[:topic_id], organization_id: params[:organization_id])
-                .where(moderation_status: 'pending')
-                .order(created_at: :desc)
+      @posts = Post.joins(:moderators)
+            .where(moderators: { user_id: current_user.id, organization_id: :organization_id, topic_id: :topic_id })
+            .where(moderation_status: 'pending')
+            .order(created_at: :desc)
     end
   end
 

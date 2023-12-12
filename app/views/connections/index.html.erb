@@ -3,12 +3,71 @@
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
+  <% content_for :sidebar do %>
+    <ul>
+      <!-- Render the "Browse Communities" heading before the individual community heading -->
+      <li class="sidebar-item">
+        <h2 class="browse-heading text-2xl font-bold mb-4 mt-4">Browse Communities</h2>
+      </li>
+      <% @root_topics.each do |root_topic| %>
+        <%= render 'shared/nested_topic_connections', topic: root_topic %>
+      <% end %>
+    </ul>
+  <% end %>
+
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Connections</h1>
-    <%= link_to "New connection", new_connection_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
+  <h2>Use the sidebar to find new connections from communities!</h2>
+  <h2>Current Organization -> <%= @organization_name %></h2>
 
   <div id="connections" class="min-w-full">
-    <%= render @connections %>
+
+    <h2 class="browse-heading text-2xl font-bold mb-4 mt-4">Connection Requests:</h2>
+    <% @conreqs.each do |connection| %>
+          <div class="flex items-center mt-4">
+            <%= profile_image(connection.follower) %>
+            <span class="ml-3">
+              <%= link_to connection.follower.name, profile_path(connection.follower) %>
+            </span>
+            <%= button_to 'Accept Request', accept_connection_path(connection), method: :patch, class: 'ml-2 bg-green-500 text-white px-3 py-1 rounded' %>
+          </div>
+    <% end %>
+
+
+    <h2 class="browse-heading text-2xl font-bold mb-4 mt-4">Current Connections:</h2>
+    <% @connections.each do |connection| %>
+      <% if connection.mutual %>
+        <% if connection.follower == current_user %>
+          <div class="flex items-center mt-4">
+            <%= profile_image(connection.followed) %>
+            <span class="ml-3">
+              <%= link_to connection.followed.name, profile_path(connection.followed) %>
+            </span>
+          </div>
+        <% elsif connection.followed == current_user %>
+          <div class="flex items-center mt-4">
+            <%= profile_image(connection.follower) %>
+            <span class="ml-3">
+              <%= link_to connection.follower.name, profile_path(connection.follower) %>
+            </span>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+
+
+
+    <h2 class="browse-heading text-2xl font-bold mb-4 mt-4">People you follow:</h2>
+    <% @connections.each do |connection| %>
+      <% unless connection.mutual %>
+        <% if connection.follower == current_user %>
+          <div class="flex items-center mt-4">
+            <%= profile_image(connection.followed) %>
+            <span class="ml-3"><%= link_to connection.followed.name, profile_path(connection.followed) %></span>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
   </div>
 </div>

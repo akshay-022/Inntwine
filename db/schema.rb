@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_11_225656) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_12_035348) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -125,10 +125,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_225656) do
 
   create_table "moderators", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "community_id", null: false
+    t.integer "topic_id", null: false
+    t.integer "organization_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["community_id"], name: "index_moderators_on_community_id"
+    t.index ["organization_id"], name: "index_moderators_on_organization_id"
+    t.index ["topic_id"], name: "index_moderators_on_topic_id"
     t.index ["user_id"], name: "index_moderators_on_user_id"
   end
 
@@ -281,6 +283,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_225656) do
     t.integer "topic_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "score", default: 0
     t.index ["organization_id"], name: "index_user_communities_on_organization_id"
     t.index ["topic_id"], name: "index_user_communities_on_topic_id"
     t.index ["user_id"], name: "index_user_communities_on_user_id"
@@ -321,12 +324,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_225656) do
   add_foreign_key "communities", "organizations"
   add_foreign_key "communities", "privacies"
   add_foreign_key "communities", "topics"
-  add_foreign_key "connections", "followeds"
-  add_foreign_key "connections", "followers"
+  add_foreign_key "connections", "users", column: "followed_id"
+  add_foreign_key "connections", "users", column: "follower_id"
   add_foreign_key "likes", "users"
   add_foreign_key "messages", "receivers"
   add_foreign_key "messages", "senders"
-  add_foreign_key "moderators", "communities"
+  add_foreign_key "moderators", "organizations"
+  add_foreign_key "moderators", "topics"
   add_foreign_key "moderators", "users"
   add_foreign_key "organizations", "privacies"
   add_foreign_key "organizations", "privacies", on_delete: :cascade
