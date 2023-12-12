@@ -26,6 +26,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @comment = Comment.new
     @comments = @post.comments.order(created_at: :desc)
+    set_referring_url
   end
 
   def destroy
@@ -78,6 +79,10 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def set_referring_url
+    session[:return_to] = request.referer
+  end
 
   def update_percentages(current_percentages, option_id)
     # Update the percentages based on the user's click

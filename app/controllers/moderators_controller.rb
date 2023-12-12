@@ -57,6 +57,28 @@ class ModeratorsController < ApplicationController
     end
   end
 
+  # GET /moderators/1/show_all
+  def show_all
+    # Ensure user is authenticated
+    unless current_user.is_moderator? || current_user.admin?
+      # Redirect or handle unauthorized access
+      redirect_to root_path, alert: "You are not authorized to view this page."
+      return
+    end
+
+    # Your custom logic for show_all
+    if current_user.admin
+      @posts = Post.all
+                .where(moderation_status: 'pending')  
+    elsif current_user.is_moderator
+      @posts = Post.joins(:moderator_posts)
+                .where(moderator_posts: { moderator_id: current_user.id })
+                .where(topic_id: params[:topic_id], organization_id: params[:organization_id])
+                .where(moderation_status: 'pending')
+                .order(created_at: :desc)
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_moderator

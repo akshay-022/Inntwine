@@ -34,7 +34,11 @@ Rails.application.routes.draw do
   resources :profiles
   resources :likes, only: :create
   resources :connections
+
   resources :moderators
+  get '/moderator/show_all/:user_id', to: 'moderators#show_all', as: 'moderator_show_all'
+
+
   resources :communities do
       post 'join_community', on: :collection
       resources :topics
