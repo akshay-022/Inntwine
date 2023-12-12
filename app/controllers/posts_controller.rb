@@ -3,8 +3,7 @@ class PostsController < ApplicationController
 
   def index
     @post = Post.new
-    @posts = Post.where(moderation_status: 'pending')
-                .or(Post.where(moderation_status: 'yes'))
+    @posts = Post.all.where.not(moderation_status: 'no')
                 .order(created_at: :desc)
   end
 
