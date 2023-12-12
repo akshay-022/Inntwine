@@ -1,14 +1,39 @@
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Messages</h1>
-    <%= link_to "New message", new_message_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+<div class="\ min-h-screen">
+  <!-- Header -->
+  <div class="bg-amber-700 py-4 px-6">
+    <% if @conversation.recipient_id == current_user.id %>
+        <h1 class="text-2xl text-white font-semibold">Chat with <%= User.find_by(id: @conversation.sender_id).name %></h1>
+    <% else %>
+        <h1 class="text-2xl text-white font-semibold">Chat with <%= User.find_by(id: @conversation.recipient_id).name %></h1>
+    <% end %>
   </div>
 
-  <div id="messages" class="min-w-full">
-    <%= render @messages %>
+  <!-- Messages -->
+  <div class="p-6">
+    <% @messages.each do |message| %>
+      <% if message.body %>
+        <% user = User.find(message.user_id) %>
+        <div class="my-4">
+          <div class="flex items-center justify-between mb-2">
+            <div class="text-amber-300"><%= user.email %></div>
+            <div class="text-sm text-amber-300"><%= message.created_at.strftime("%Y-%m-%d %H:%M:%S") %></div>
+          </div>
+          <div class="bg-white rounded-lg p-4 shadow-md">
+            <%= message.body %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <!-- Message Input Form -->
+  <div class="p-6">
+    <%= form_for [@conversation, @message] do |f| %>
+      <div class="flex items-center space-x-2">
+        <%= f.text_area :body, class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-800", rows: 3, placeholder: "Type your message..." %>
+        <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
+        <button type="submit" class="bg-amber-700 text-white rounded-md px-4 py-2 hover:bg-amber-600 transition duration-300 ease-in-out">Send Reply</button>
+      </div>
+    <% end %>
   </div>
 </div>

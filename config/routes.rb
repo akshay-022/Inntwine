@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  resources :conversations
   resources :user_organizations
   resources :topics
   resources :organizations
@@ -47,7 +48,10 @@ Rails.application.routes.draw do
       post 'join_community', on: :collection
       resources :topics
   end
-  resources :messages
+
+  resources :conversations do
+    resources :messages
+  end
 
   post 'switch_organization/:organization_id/:topic_id', to: 'organizations#switch_organization', as: :switch_organization
 
