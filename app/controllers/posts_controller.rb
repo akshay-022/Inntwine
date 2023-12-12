@@ -3,7 +3,9 @@ class PostsController < ApplicationController
 
   def index
     @post = Post.new
-    @posts = Post.all.order(created_at: :desc).where.not(moderation_status: 'no')
+    @posts = Post.where(moderation_status: 'pending')
+                .or(Post.where(moderation_status: 'yes'))
+                .order(created_at: :desc)
   end
 
   def create
@@ -23,7 +25,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id]).where.not(moderation_status: 'no')
+    @post = Post.find(params[:id])
     @comment = Comment.new
     @comments = @post.comments.order(created_at: :desc)
     set_referring_url

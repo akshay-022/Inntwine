@@ -8,8 +8,12 @@ class FeedController < ApplicationController
         # and an Organization model with a column :organization_id
         @posts = Post.where(topic_id: user_communities_ids.map(&:first), organization_id: user_communities_ids.map(&:second))
         .or(Post.where(user_id: current_user.id))
+        .or(Post.where(user_id: Connection.where(follower_id: current_user.id).select(:followed_id)))
+        .or(Post.where(user_id: Connection.where(followed_id: current_user.id, mutual: true).select(:follower_id)))
         .where.not(moderation_status: 'no')
         .order(created_at: :desc)
+
+
     end
   
     def create
