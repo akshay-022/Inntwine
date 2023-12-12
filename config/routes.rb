@@ -51,6 +51,7 @@ Rails.application.routes.draw do
 
   post 'switch_organization/:organization_id/:topic_id', to: 'organizations#switch_organization', as: :switch_organization
 
+  post 'send_connection', to: 'connections#send_connection', as: 'send_connection'
 
   #devise_for :users
   devise_for :users, controllers: {

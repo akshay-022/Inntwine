@@ -50,6 +50,16 @@ user2 = User.create!(
   is_moderator: false
 )
 
+user2 = User.create!(
+  email: "op2281@columbia.edu",
+  password: "password123",
+  first_name: "Omkar",
+  last_name: "Pitale",
+  admin: false,
+  username: "omkar2001",
+  is_moderator: false
+)
+
 
 # Assuming Organization IDs 1 and 2 exist
 organization_ids = [1, 2]
@@ -88,9 +98,11 @@ end
 # Assuming you have User records with IDs 1 and 2
 user1 = User.find(1)
 user2 = User.find(2)
+user3 = User.find(3)
 
 # Create the connection from user2 to user1
 Connection.create(follower: user2, followed: user1, mutual: true)
+Connection.create(follower: user3, followed: user1, mutual: false)
 
 #Creating user_communities
 UserCommunity.create(user_id: 1, organization_id: 1, topic_id: 1, score: 5)

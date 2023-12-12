@@ -29,4 +29,10 @@ class ConnectionsController < ApplicationController
     connection.update(mutual: true)
     redirect_to connections_path, notice: 'Connection accepted successfully.'
   end
+
+  def send_connection
+    Connection.create(followed_id: params[:followed_id], follower_id: current_user.id, mutual: false)
+    redirect_back fallback_location: connections_path, notice: 'Connection request sent successfully.'
+  end
+
 end
