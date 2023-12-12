@@ -1,0 +1,10 @@
+<!-- _search_results.html.erb -->
+<% if @search_results.present? && @search_results.any? %>
+  <ul>
+    <% @search_results.each do |user| %>
+      <li><%= link_to user.username, profile_path(user) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No search results found.</p>
+<% end %>
