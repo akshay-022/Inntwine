@@ -10,9 +10,10 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user = current_user
-
+    
     respond_to do |format|
       if @post.save
+        increment_user_community_entry
         format.turbo_stream
       else
         format.html do
@@ -114,4 +115,23 @@ class PostsController < ApplicationController
         params.require(:post).permit(:body, :post_id, :q1, :q2, :q1_args, :q2_args, :image_link, :video_link, :form_link, :datathing, :post_type).merge(organization_id: session[:organization_id], topic_id: params[:topic_id])
       end
     end
+
+  def increment_user_community_entry
+    user_community = UserCommunity.find_by(
+      user_id: current_user.id,
+      organization_id: session[:organization_id],
+      topic_id: post_params[:topic_id]
+    )
+  
+    if user_community
+      user_community.increment!(:score, 1)
+    else
+      UserCommunity.create(
+        user_id: current_user.id,
+        organization_id: session[:organization_id],
+        topic_id: post_params[:topic_id],
+        score: 1
+      )
+    end
+  end
 end
