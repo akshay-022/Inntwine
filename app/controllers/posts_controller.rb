@@ -3,7 +3,7 @@ class PostsController < ApplicationController
 
   def index
     @post = Post.new
-    @posts = Post.all.order(created_at: :desc)
+    @posts = Post.all.order(created_at: :desc).where.not(moderation_status: 'no')
   end
 
   def create
@@ -23,7 +23,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
+    @post = Post.find(params[:id]).where.not(moderation_status: 'no')
     @comment = Comment.new
     @comments = @post.comments.order(created_at: :desc)
     set_referring_url
@@ -76,6 +76,19 @@ class PostsController < ApplicationController
   def initialize_percentages(post)
     post.q1_percentages ||= Array.new(post.q1_args.split(',').length, 0).join(',')
     post.q2_percentages ||= Array.new(post.q2_args.split(',').length, 0).join(',')
+  end
+
+  def moderation
+    @post = Post.find(params[:id])
+    status = params[:status]
+
+    if %w(yes no).include?(status)
+      @post.update(moderation_status: status)
+      # You can add additional logic if needed
+      redirect_to moderator_show_all_path(user_id: current_user.id), notice: 'Moderation status updated.'
+    else
+      redirect_to moderator_show_all_path(user_id: current_user.id), notice: 'Seems to be some error.'
+    end
   end
 
   private

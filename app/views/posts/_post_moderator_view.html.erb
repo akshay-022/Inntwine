@@ -1,0 +1,84 @@
+<!-- _post.html.erb -->
+<style>
+  .options-list {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .options-list .option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .options-list .option::before {
+    content: "\2022"; /* Bullet circle character */
+    color: #3490dc; /* Bullet circle color, you can change it */
+    margin-right: 8px; /* Adjust the spacing between the bullet and the text */
+  }
+
+  .btn {
+  display: inline-block;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 4px;
+  }
+</style>
+
+<div class="px-6 py-3 border-b" id="<%= dom_id(post) %>">
+  <div class="flex space-x-3 items-start">
+    <div class="flex-shrink-0">
+      <%= profile_image(post.user) %>
+    </div>
+    <div class="flex-1">
+      <p class="font-bold"><%= link_to post.user.name, profile_path(post.user), class: "hover:underline", data: { turbo: false } %> (<%= post.organization.organization_name %> -> <%= post.topic.topic_name %>) </p>
+
+      <%= link_to post, data: { turbo: false } do %>
+        <div class="prose prose-lg"><%= post.body %></div>
+      <% end %>
+
+      <!-- Form for moderation status change -->
+      <div class="moderation-buttons flex space-x-4">
+        <%= button_to "Yes", moderation_post_path(post, status: "yes"), method: :patch, class: "bg-amber-800 text-white rounded-lg px-4 py-2" %>
+        <%= button_to "No", moderation_post_path(post, status: "no"), method: :patch, class: "bg-red-800 text-white rounded-lg px-4 py-2" %>
+      </div>
+
+      <% if post.q1.present? %>
+        <div class="question">
+          <strong>Q1: <%= post.q1 %></strong>
+          <ul class="options-list" data-question-id="<%= post.id %>" data-option-type="q1">
+            <% post.q1_args.split(',').each do |option| %>
+              <li class="option" data-option="<%= option.strip %>"><%= option.strip %><span class="option-percentage"></span></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <% if post.q2.present? %>
+        <div class="question">
+          <strong>Q2: <%= post.q2 %></strong>
+          <ul class="options-list" data-question-id="<%= post.id %>" data-option-type="q2">
+            <% post.q2_args.split(',').each do |option| %>
+              <li class="option" data-option="<%= option.strip %>"><%= option.strip %><span class="option-percentage"></span></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <% if post.image_link.present? %>
+        <img src="<%= embed_google_drive_image(post.image_link) %>" alt="Post Image">
+      <% end %>
+
+      <% if post.video_link.present? %>
+        <div class="video-container">
+          <% video_id = post.video_link.split('/').last %>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= video_id %>" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

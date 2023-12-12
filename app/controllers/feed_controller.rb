@@ -7,7 +7,8 @@ class FeedController < ApplicationController
         # Assuming you have a Topic model with a column :topic_id
         # and an Organization model with a column :organization_id
         @posts = Post.where(topic_id: user_communities_ids.map(&:first), organization_id: user_communities_ids.map(&:second))
-        .or(Post.where(user_id: current_user.id))       
+        .or(Post.where(user_id: current_user.id))
+        .where.not(moderation_status: 'no')
         .order(created_at: :desc)
     end
   

@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :feed
   
   resources :posts, except: [:edit, :update] do         #All these are based on your feed. Can't show everything in the world at once
+    patch 'moderation', on: :member
     resources :comments, only: [:create, :destroy]
     member do
       post 'update_options'

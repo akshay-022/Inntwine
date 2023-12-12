@@ -10,7 +10,7 @@ class CommunitiesController < ApplicationController
     else
       @posts = Post.where(organization_id: session[:organization_id], topic_id: params[:topic_id]) 
     end
-    @posts = @posts.order(created_at: :desc)
+    @posts = @posts.where.not(moderation_status: 'no').order(created_at: :desc)
     @topic = Topic.find_by(id: params[:topic_id])
     @organization = Organization.find_by(id: session[:organization_id])
     @profile = current_user
