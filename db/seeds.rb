@@ -50,7 +50,7 @@ user2 = User.create!(
   is_moderator: false
 )
 
-user2 = User.create!(
+user3 = User.create!(
   email: "op2281@columbia.edu",
   password: "password123",
   first_name: "Omkar",
