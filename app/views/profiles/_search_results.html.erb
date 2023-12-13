@@ -2,7 +2,7 @@
 <% if @search_results.present? %>
   <ul>
     <% @search_results.each do |user| %>
-      <li><%= link_to user.username, profile_path(user) %></li>
+      <li><%= link_to (user.username + '-' + user.name), profile_path(user) %></li>
     <% end %>
   </ul>
 <% else %>
