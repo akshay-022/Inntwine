@@ -6,13 +6,27 @@
     <div class="flex-1">
       <p class="font-bold"><%= link_to comment.user.name, profile_path(comment.user), class: "hover:underline", data: { turbo: false } %></p>
       <div class="prose prose-lg"><%= comment.body %></div>
-
+      <div class="reply-form">
+        <% comment.children.each do |child_comment| %>
+          <div class="child-comments">
+            <!-- Display child comment details -->
+            <%= render partial: 'comments/comment', locals: { comment: child_comment } %>
+          </div>
+        <% end %>
+        
+        <%= form_with model: [comment.post, comment], url: post_comments_path(comment.post), method: :post, remote: true, html: { class: "comment-reply-form" } do |f| %>
+          <%= f.hidden_field :parent_comment_id, value: comment.id %>
+          <%= f.text_area :body, placeholder: "Write a reply...", class: "form-control" %>
+          <%= f.submit "Reply", class: "btn btn-primary" %>
+        <% end %>
+      </div>
       <ul class="-ml-3 flex space-x-14 items-start justify-start list-none">
         <li>
           <%= content_tag :div, class: "#{dom_id(comment)}_likes" do %>
             <%= render "likes/likes", likeable: comment %>
           <% end %>
         </li>
+        
         <% if user_signed_in? && current_user == comment.user  %>
           <li>
             <%= button_to post_comment_path(comment.post,comment), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "text-gray-500 space-x-2 group flex items-center justify-center" do %>
@@ -26,3 +40,39 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  $(document).ready(function() {
+  $('.show-replies-button').click(function(e) {
+    e.preventDefault();
+
+    var commentContainer = $(this).closest('.py-4');
+    var childCommentsContainer = commentContainer.find('.child-comments'); // Get the child comments container
+
+    // Toggle visibility of child comments and reply form
+    childCommentsContainer.toggle(); // Toggle child comments visibility
+  });
+});
+
+
+  $(document).ready(function() {
+    $('.comment-reply-form').submit(function(e) {
+      e.preventDefault();
+      var form = $(this);
+      
+      $.ajax({
+        type: form.attr('method'),
+        url: form.attr('action'),
+        data: form.serialize(),
+        dataType: 'script',
+        success: function(data) {
+          // Clear the form and update the comment thread
+          form.find('textarea').val('');
+          // Update the comment thread with the new reply (data)
+          // You may need to handle the reply rendering and insertion here.
+        }
+      });
+    });
+  });
+</script>

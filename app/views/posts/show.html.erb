@@ -59,7 +59,9 @@
 
   <%= turbo_frame_tag "#{dom_id(@post)}_comments" do %>
     <% @comments.each do |comment| %>
+    <% if comment.parent_comment.blank? %>
       <%= render "comments/comment", comment: comment %>
+    <% end %>
     <% end %>
   <% end %>
 </div>
