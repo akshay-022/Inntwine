@@ -11,7 +11,7 @@
     cursor: pointer;
   }
 
-  .options-list .option::before {
+  .custom-bullet::before {
     content: "\2022"; /* Bullet circle character */
     color: #3490dc; /* Bullet circle color, you can change it */
     margin-right: 8px; /* Adjust the spacing between the bullet and the text */
@@ -35,7 +35,7 @@
           <strong>Q1: <%= post.q1 %></strong>
           <ul class="options-list" data-question-id="<%= post.id %>" data-option-type="q1">
             <% post.q1_args.split(',').each_with_index do |option, index| %>
-              <li class="option" data-option="<%= index %>"><%= option.strip %><span class="option-percentage"></span></li>
+              <li class="option custom-bullet" data-option="<%= index %>"><%= option.strip %><span class="option-percentage"></span></li>
             <% end %>
           </ul>
         </div>
@@ -46,7 +46,7 @@
           <strong>Q2: <%= post.q2 %></strong>
           <ul class="options-list" data-question-id="<%= post.id %>" data-option-type="q2">
             <% post.q2_args.split(',').each_with_index do |option, index| %>
-              <li class="option" data-option="<%= index %>"><%= option.strip %><span class="option-percentage"></span></li>
+              <li class="option custom-bullet" data-option="<%= index %>"><%= option.strip %><span class="option-percentage"></span></li>
             <% end %>
           </ul>
         </div>
