@@ -49,7 +49,7 @@
 
       <% if post.q1.present? %>
         <div class="question">
-          <strong>Q1: <%= post.q1 %></strong>
+          <strong>Q1: <%= post.q1 %> (Click a blue dot)</strong>
           <ul class="options-list" data-question-id="<%= post.id %>" data-option-type="q1">
             <% post.q1_args.split(',').each do |option| %>
               <li class="option" data-option="<%= option.strip %>"><%= option.strip %><span class="option-percentage"></span></li>
@@ -60,7 +60,7 @@
 
       <% if post.q2.present? %>
         <div class="question">
-          <strong>Q2: <%= post.q2 %></strong>
+          <strong>Q2: <%= post.q2 %> (Click a blue dot)</strong>
           <ul class="options-list" data-question-id="<%= post.id %>" data-option-type="q2">
             <% post.q2_args.split(',').each do |option| %>
               <li class="option" data-option="<%= option.strip %>"><%= option.strip %><span class="option-percentage"></span></li>
