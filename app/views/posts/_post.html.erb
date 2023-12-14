@@ -34,8 +34,8 @@
         <div class="question">
           <strong>Q1: <%= post.q1 %></strong>
           <ul class="options-list" data-question-id="<%= post.id %>" data-option-type="q1">
-            <% post.q1_args.split(',').each do |option| %>
-              <li class="option" data-option="<%= option.strip %>"><%= option.strip %><span class="option-percentage"></span></li>
+            <% post.q1_args.split(',').each_with_index do |option, index| %>
+              <li class="option" data-option="<%= index %>"><%= option.strip %><span class="option-percentage"></span></li>
             <% end %>
           </ul>
         </div>
@@ -45,8 +45,8 @@
         <div class="question">
           <strong>Q2: <%= post.q2 %></strong>
           <ul class="options-list" data-question-id="<%= post.id %>" data-option-type="q2">
-            <% post.q2_args.split(',').each do |option| %>
-              <li class="option" data-option="<%= option.strip %>"><%= option.strip %><span class="option-percentage"></span></li>
+            <% post.q2_args.split(',').each_with_index do |option, index| %>
+              <li class="option" data-option="<%= index %>"><%= option.strip %><span class="option-percentage"></span></li>
             <% end %>
           </ul>
         </div>
@@ -71,14 +71,18 @@
 <script>
 // Inside your existing JavaScript
 document.addEventListener("DOMContentLoaded", function () {
-  const optionList = document.querySelectorAll('.options-list');
+  const optionLists = document.querySelectorAll('.options-list');
 
-  optionList.forEach(list => {
+  optionLists.forEach(list => {
     list.addEventListener('click', function (event) {
       if (event.target.classList.contains('option')) {
         const questionId = list.getAttribute('data-question-id');
         const optionType = list.getAttribute('data-option-type');
         const selectedOption = event.target.getAttribute('data-option');
+
+        console.log(`Question ID: ${questionId}`);
+        console.log(`Option Type: ${optionType}`);
+        console.log(`Selected Option: ${selectedOption}`);
 
         // Send an AJAX request to the server to update the percentages
         fetch(`/posts/${questionId}/update_options`, {
@@ -89,12 +93,14 @@ document.addEventListener("DOMContentLoaded", function () {
           body: JSON.stringify({
             option_type: optionType,
             option_id: selectedOption,
+            question_id: questionId,
           }),
         })
         .then(response => response.json())
         .then(data => {
           if (data.success) {
             // Update the displayed percentages
+            console.log(data.percentages)
             updateOptionPercentages(list, data.percentages);
             console.log('Percentages updated successfully');
           } else {
@@ -115,5 +121,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
+  
 });
 </script>

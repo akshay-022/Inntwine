@@ -51,7 +51,7 @@ class PostsController < ApplicationController
   end
 
   def update_options
-    @post = Post.find(params[:id])
+    @post = Post.find(params[:question_id])
     option_id = params[:option_id].to_i
     option_type = params[:option_type]
 
@@ -67,8 +67,8 @@ class PostsController < ApplicationController
       @post.q2_percentages = current_percentages
     end
     if @post.save
-      total = current_percentages.split(',').map(&:to_i).sum.to_f
-      normalized_percentages = current_percentages.split(',').map(&:to_i).map { |percentage| (percentage / total * 100).round(2) }
+      total = current_percentages
+      normalized_percentages = total.map { |percentage| (percentage * 100.0 / total.sum).round(2) }
       render json: { success: true, percentages: normalized_percentages }
     else
       render json: { success: false, errors: @post.errors.full_messages }
@@ -106,6 +106,7 @@ class PostsController < ApplicationController
     percentages = current_percentages.split(',').map(&:to_i)
     percentages[option_id] += 1
     percentages.join(',')
+    return percentages
   end
 
     def post_params
