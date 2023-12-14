@@ -1,3 +1,26 @@
+<% if current_user.admin %>
+  <h1 class="font-bold text-4xl">People to moderate</h1>
+  <% @requests.each do |request| %>
+    <div class="px-6 py-3 border-b">
+      <div class="flex space-x-3 items-start">
+        <div class="flex-shrink-0">
+          <%= profile_image(request.user) %>
+        </div>
+        <div class="flex-1">
+          <p class="font-bold"><%= link_to request.user.name, profile_path(request.user), class: "hover:underline", data: { turbo: false } %> (<%= request.organization.organization_name %> -> <%= request.topic.topic_name %>) </p>
+
+          <!-- Form for moderation status change -->
+          <div class="moderation-buttons flex space-x-4">
+            <%= button_to "Yes", add_moderator_path(organization_id: request.organization_id, topic_id_mod: request.topic_id, user_id: request.user_id, status: "yes"), method: :patch, class: "bg-amber-800 text-white rounded-lg px-4 py-2" %>
+            <%= button_to "No", add_moderator_path(organization_id: request.organization_id, topic_id_mod: request.topic_id, user_id: request.user_id, status: "no"), method: :patch, class: "bg-red-800 text-white rounded-lg px-4 py-2" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+
 <h1 class="font-bold text-4xl">Posts to moderate</h1>
 <%= turbo_frame_tag "posts" do %>
   <% @posts.each do |post| %>

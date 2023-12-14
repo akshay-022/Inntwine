@@ -61,6 +61,7 @@ Rails.application.routes.draw do
   post 'switch_organization/:organization_id/:topic_id', to: 'organizations#switch_organization', as: :switch_organization
   post 'send_connection', to: 'connections#send_connection', as: 'send_connection'
   post '/add_moderator_request', to: 'moderators#add_moderator_request', as: 'add_moderator_request'
+  patch '/add_moderator', to: 'moderators#add_moderator', as: 'add_moderator'
 
 
   #devise_for :users

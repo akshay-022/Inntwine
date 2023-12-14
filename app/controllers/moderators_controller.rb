@@ -85,11 +85,33 @@ class ModeratorsController < ApplicationController
       @posts = Post.all
                 .where(moderation_status: 'pending')  
     elsif current_user.is_moderator
-      @posts = Post.joins(:moderators)
-            .where(moderators: { user_id: current_user.id, organization_id: :organization_id, topic_id: :topic_id })
-            .where(moderation_status: 'pending')
-            .order(created_at: :desc)
+      @posts = Post.where(moderation_status: 'pending')
+              .where(organization_id: Moderator.where(user_id: current_user.id)
+                                              .pluck(:organization_id))
+              .where(topic_id: Moderator.where(user_id: current_user.id)
+                                      .pluck(:topic_id))
+              .order(created_at: :desc)
     end
+    @requests = ModeratorRequest.all
+  end
+
+  def add_moderator
+    ModeratorRequest.find_by(topic_id: params[:topic_id_mod], organization_id: params[:organization_id], user_id: params[:user_id]).destroy
+    if params[:status]=="yes"
+      if Moderator.find_by(topic_id: params[:topic_id_mod], organization_id: params[:organization_id], user_id: params[:user_id])
+        # User is already a moderator
+        flash[:alert] = "Already a moderator."
+      else
+        # Add the user as a moderator
+        Moderator.create(topic_id: params[:topic_id_mod], organization_id: params[:organization_id], user_id: params[:user_id])
+        flash[:notice] = "Moderator Added Successfully."
+        user = User.find(params[:user_id])
+        user.update(is_moderator: true)
+      end
+    else
+      flash[:notice] = "Request deleted."
+    end
+    redirect_back(fallback_location: moderator_show_all_path(user_id: current_user.id))
   end
 
   private

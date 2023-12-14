@@ -247,7 +247,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_14_161601) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "post_types", force: :cascade do |t|
+  create_table "post_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -261,7 +261,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_14_161601) do
     t.integer "post_id"
     t.integer "parent_post_id"
     t.integer "datathing_id"
-    t.integer "post_type_id"
+    t.integer "post_category_id"
     t.text "q1"
     t.integer "q1_type"
     t.string "q1_args"
@@ -277,7 +277,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_14_161601) do
     t.integer "organization_id"
     t.text "datathing"
     t.string "form_link"
-    t.string "post_type"
+    t.string "post_category"
     t.string "moderation_status", default: "pending"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
@@ -363,7 +363,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_14_161601) do
   add_foreign_key "posts", "organizations", on_delete: :cascade
   add_foreign_key "posts", "poll_types", column: "q1_type", on_delete: :cascade
   add_foreign_key "posts", "poll_types", column: "q2_type", on_delete: :cascade
-  add_foreign_key "posts", "post_types", on_delete: :cascade
+  add_foreign_key "posts", "post_categories", on_delete: :cascade
   add_foreign_key "posts", "posts", column: "parent_post_id", on_delete: :cascade
   add_foreign_key "posts", "topics", on_delete: :cascade
   add_foreign_key "posts", "users"

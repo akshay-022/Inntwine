@@ -3,6 +3,7 @@ class Post < ApplicationRecord
   belongs_to :user
   belongs_to :post, optional: true
   has_many :comments
+  has_many :moderators
   belongs_to :organization
   belongs_to :topic
   validates :body, length: { maximum: 240 }, allow_blank: false, unless: :post_id

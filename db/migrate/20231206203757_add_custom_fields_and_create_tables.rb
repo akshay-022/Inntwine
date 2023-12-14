@@ -24,17 +24,17 @@ class AddCustomFieldsAndCreateTables < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    # Create post_types table
-    create_table :post_types do |t|
+    # Create post_categories table
+    create_table :post_categories do |t|
       t.string :name
-      # Add any other fields for post_types as needed
+      # Add any other fields for post_categories as needed
       t.timestamps
     end
 
     # Add columns to posts table
     add_column :posts, :parent_post_id, :integer
     add_column :posts, :datathing_id, :integer
-    add_column :posts, :post_type_id, :integer
+    add_column :posts, :post_category_id, :integer
     add_column :posts, :q1, :text
     add_column :posts, :q1_type, :integer
     add_column :posts, :q1_args, :string
@@ -49,7 +49,7 @@ class AddCustomFieldsAndCreateTables < ActiveRecord::Migration[7.0]
 
     add_foreign_key :posts, :posts, column: :parent_post_id, on_delete: :cascade
     add_foreign_key :posts, :datathings, column: :datathing_id, on_delete: :cascade
-    add_foreign_key :posts, :post_types, column: :post_type_id, on_delete: :cascade
+    add_foreign_key :posts, :post_categories, column: :post_category_id, on_delete: :cascade
     add_foreign_key :posts, :poll_types, column: :q1_type, on_delete: :cascade
     add_foreign_key :posts, :poll_types, column: :q2_type, on_delete: :cascade
 
