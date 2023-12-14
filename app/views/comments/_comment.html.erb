@@ -6,7 +6,9 @@
     <div class="flex-1">
       <p class="font-bold"><%= link_to comment.user.name, profile_path(comment.user), class: "hover:underline", data: { turbo: false } %></p>
       <div class="prose prose-lg"><%= comment.body %></div>
-      <div class="reply-form">
+      <span class="arrow-icon border-solid border border-t-4 border-transparent cursor-pointer" onclick="toggleChildren(this)">&#9654;</span>
+      
+      <div class="child-comments-container hidden" >
         <% comment.children.each do |child_comment| %>
           <div class="child-comments">
             <!-- Display child comment details -->
@@ -14,9 +16,9 @@
           </div>
         <% end %>
         
-        <%= form_with model: [comment.post, comment], url: post_comments_path(comment.post), method: :post, remote: true, html: { class: "comment-reply-form" } do |f| %>
+        <%= form_with model: [comment.post, comment], url: post_comments_path(comment.post), method: :post, remote: true, html: { class: "comment-reply-form", id: "your-form-id" } do |f| %>
           <%= f.hidden_field :parent_comment_id, value: comment.id %>
-          <%= f.text_area :body, placeholder: "Write a reply...", class: "form-control" %>
+          <%= f.text_area :body, id: "reply_textarea", placeholder: "Write a reply...", class: "form-control" %>
           <%= f.submit "Reply", class: "btn btn-primary" %>
         <% end %>
       </div>
@@ -43,36 +45,18 @@
 
 
 <script>
-  $(document).ready(function() {
-  $('.show-replies-button').click(function(e) {
-    e.preventDefault();
+function toggleChildren(arrow) {
+    const subItems = arrow.closest('.py-4').querySelector('.child-comments-container');
+    subItems.classList.toggle('hidden');
+  }
 
-    var commentContainer = $(this).closest('.py-4');
-    var childCommentsContainer = commentContainer.find('.child-comments'); // Get the child comments container
-
-    // Toggle visibility of child comments and reply form
-    childCommentsContainer.toggle(); // Toggle child comments visibility
-  });
-});
-
-
-  $(document).ready(function() {
-    $('.comment-reply-form').submit(function(e) {
-      e.preventDefault();
-      var form = $(this);
-      
-      $.ajax({
-        type: form.attr('method'),
-        url: form.attr('action'),
-        data: form.serialize(),
-        dataType: 'script',
-        success: function(data) {
-          // Clear the form and update the comment thread
-          form.find('textarea').val('');
-          // Update the comment thread with the new reply (data)
-          // You may need to handle the reply rendering and insertion here.
-        }
-      });
-    });
+document.addEventListener('turbo:submit-end', (event) => {
+    // Check if the form was submitted successfully
+    if (event.target.id === 'your-form-id' && event.detail.success) {
+      // Clear the textarea value
+      document.getElementById('reply_textarea').value = '';
+      // Reload the page
+      window.location.reload();
+    }
   });
 </script>
