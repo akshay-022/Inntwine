@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_13_163847) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_14_161601) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -129,6 +129,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_13_163847) do
     t.datetime "updated_at", null: false
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "moderator_requests", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "topic_id", null: false
+    t.integer "organization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_moderator_requests_on_organization_id"
+    t.index ["topic_id"], name: "index_moderator_requests_on_topic_id"
+    t.index ["user_id"], name: "index_moderator_requests_on_user_id"
   end
 
   create_table "moderators", force: :cascade do |t|
@@ -336,6 +347,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_13_163847) do
   add_foreign_key "connections", "users", column: "followed_id"
   add_foreign_key "connections", "users", column: "follower_id"
   add_foreign_key "likes", "users"
+  add_foreign_key "moderator_requests", "organizations"
+  add_foreign_key "moderator_requests", "topics"
+  add_foreign_key "moderator_requests", "users"
   add_foreign_key "moderators", "organizations"
   add_foreign_key "moderators", "topics"
   add_foreign_key "moderators", "users"

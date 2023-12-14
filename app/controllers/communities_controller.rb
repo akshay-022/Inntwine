@@ -15,6 +15,18 @@ class CommunitiesController < ApplicationController
     @organization = Organization.find_by(id: session[:organization_id])
     @profile = current_user
     @topic_id = params[:topic_id]
+    @is_moderator = Moderator.find_by(
+      topic_id: params[:topic_id],
+      organization_id: session[:organization_id],
+      user_id: current_user.id
+    ).present?
+
+    # Check if there is a moderator request for the user
+    @is_moderator_request = ModeratorRequest.find_by(
+      topic_id: params[:topic_id],
+      organization_id: session[:organization_id],
+      user_id: current_user.id
+    ).present?
   end
 
   # GET /communities/1 or /communities/1.json

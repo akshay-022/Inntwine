@@ -10,6 +10,20 @@ class ModeratorsController < ApplicationController
   def show
   end
 
+
+  def add_moderator_request
+    if ModeratorRequest.find_by(topic_id: params[:topic_id], organization_id: session[:organization_id], user_id: current_user.id)
+      # User is already a moderator
+      flash[:alert] = "Request already sent before."
+    else
+      # Add the user as a moderator
+      ModeratorRequest.create(topic_id: params[:topic_id], user_id: current_user.id, organization_id: session[:organization_id] )
+      flash[:notice] = "Request sent successfully."
+    end
+
+    redirect_back(fallback_location: communities_path(topic_id: params[:topic_id]))
+  end
+
   # GET /moderators/new
   def new
     @moderator = Moderator.new

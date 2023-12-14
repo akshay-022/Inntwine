@@ -35,6 +35,14 @@
     <!-- <%= link_to "New community", new_community_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %> -->
   </div>
 
+  
+  <% if !@is_moderator && !@is_moderator_request %>
+    <%= button_to "Request to be a moderator", add_moderator_request_path(topic_id: @topic.id), method: :post, params: { topic_id: @topic.id }, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium", id: "requestButton" %>
+  <% elsif @is_moderator_request && !@is_moderator %>
+    <p>Moderation request Sent!</p>
+  <% elsif @is_moderator && !@is_moderator_request %>
+    <p>You are a moderator.</p>
+  <% end %>
 
   <div id="communities" class="min-w-full">
     <%= render @communities %>
