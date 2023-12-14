@@ -59,4 +59,14 @@ document.addEventListener('turbo:submit-end', (event) => {
       window.location.reload();
     }
   });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get all textareas on the page
+      var textareas = document.querySelectorAll('textarea');
+
+      // Loop through textareas and clear their values
+      textareas.forEach(function(textarea) {
+        textarea.value = '';
+      });
+    });
 </script>
