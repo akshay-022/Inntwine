@@ -36,7 +36,7 @@
     </div>
     <div class="flex-1">
       <p class="font-bold"><%= link_to post.user.name, profile_path(post.user), class: "hover:underline", data: { turbo: false } %> (<%= post.organization.organization_name %> -> <%= post.topic.topic_name %>) </p>
-      <%= post.post_category %>
+      <h1>Posted as <%= post.post_category %></h1>
       <%= link_to post, data: { turbo: false } do %>
         <div class="prose prose-lg"><%= post.body %></div>
       <% end %>
