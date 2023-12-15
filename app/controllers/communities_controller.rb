@@ -6,9 +6,22 @@ class CommunitiesController < ApplicationController
     @communities = Community.all
     @root_topics = Topic.where(parent_id: nil)
     if params[:topic_id]=='0'
-      @posts = Post.where(organization_id: session[:organization_id]) 
+      @posts = Post.where(organization_id: session[:organization_id], is_private: false)
+      #@posts = Post.where(organization_id: session[:organization_id]) 
     else
-      @posts = Post.where(organization_id: session[:organization_id], topic_id: params[:topic_id]) 
+      #Find all topic_ids that are substring.
+      #Add a make visible to supercommunities checkbox.
+      topic = Topic.find_by(id: params[:topic_id])
+      if topic
+        # Find all topics whose topic_path starts with the found topic_path
+        matching_topics = Topic.where('topic_path LIKE ?', "#{topic.topic_path}%")
+        matching_topic_ids = matching_topics.pluck(:id)
+        # Get posts that belong to any of the matching topics
+        posts_in_matching_topics = Post.where(organization_id: session[:organization_id], is_private: false, topic_id: matching_topic_ids)
+        #posts_in_matching_topics = Post.where(organization_id: session[:organization_id], topic_id: matching_topic_ids)
+        posts_in_specific_topic = Post.where(organization_id: session[:organization_id], topic_id: topic.id)
+        @posts = posts_in_matching_topics.or(posts_in_specific_topic)
+      end
     end
     @posts = @posts.where.not(moderation_status: 'no').order(created_at: :desc)
     @topic = Topic.find_by(id: params[:topic_id])

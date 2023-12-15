@@ -46,6 +46,8 @@ class AddCustomFieldsAndCreateTables < ActiveRecord::Migration[7.0]
     add_column :posts, :likes, :integer
     add_column :posts, :image_link, :string
     add_column :posts, :video_link, :string
+    add_column :posts, :is_private, :boolean
+
 
     add_foreign_key :posts, :posts, column: :parent_post_id, on_delete: :cascade
     add_foreign_key :posts, :datathings, column: :datathing_id, on_delete: :cascade

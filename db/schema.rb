@@ -273,6 +273,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_14_161601) do
     t.integer "likes"
     t.string "image_link"
     t.string "video_link"
+    t.boolean "is_private"
     t.integer "topic_id"
     t.integer "organization_id"
     t.text "datathing"
