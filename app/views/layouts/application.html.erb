@@ -73,7 +73,7 @@
                 <% end %>
               </li>
               <li>
-                <% if current_user.is_moderator || current_user.admin %>
+                <% if Moderator.find_by(user_id: current_user.id) || current_user.admin %>
                   <%= link_to moderator_show_all_path(user_id: current_user.id), class: "rounded-full px-4 -ml-4 inline-flex items-center py-3 hover:bg-neutral-50 w-full text-lg transition ease-in-out duration-500" do %>
                     <?xml version="1.0" encoding="utf-8"?>
 

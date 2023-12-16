@@ -74,7 +74,8 @@ class ModeratorsController < ApplicationController
   # GET /moderators/1/show_all
   def show_all
     # Ensure user is authenticated
-    unless current_user.is_moderator? || current_user.admin?
+    is_moderator = Moderator.find_by(user_id: current_user.id).present?
+    unless is_moderator || current_user.admin?
       # Redirect or handle unauthorized access
       redirect_to root_path, alert: "You are not authorized to view this page."
       return
@@ -84,7 +85,7 @@ class ModeratorsController < ApplicationController
     if current_user.admin
       @posts = Post.all
                 .where(moderation_status: 'pending')  
-    elsif current_user.is_moderator
+    elsif is_moderator
       @posts = Post.where(moderation_status: 'pending')
               .where(organization_id: Moderator.where(user_id: current_user.id)
                                               .pluck(:organization_id))

@@ -57,7 +57,7 @@ user3 = User.create!(
   last_name: "Pitale",
   admin: false,
   username: "omkar2001",
-  is_moderator: false
+  is_moderator: true
 )
 
 
