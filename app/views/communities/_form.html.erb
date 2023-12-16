@@ -31,7 +31,7 @@
 
   <div class="mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg">
     <%= form.label :post_category, name: 'post[post_category]', class: "block text-sm font-medium text-gray-700" %>
-    <%= form.select :post_category, options_for_select([["Idea", "idea"], ["Problem", "problem"], ["Work", "work"], ["Information", "information"], ["Discussion", "discussion"]]), {}, class: "w-full bg-white border border-gray-300 p-2 rounded-md focus:outline-none focus:border-amber-500 focus:ring focus:ring-amber-200 focus:ring-opacity-50" %>
+    <%= form.select :post_category, options_for_select([["Idea", "idea"], ["Problem", "problem"], ["Work", "work"], ["Information", "information"], ["Discussion", "discussion"]]), {}, { name: 'post[post_category]', class: "w-full bg-white border border-gray-300 p-2 rounded-md focus:outline-none focus:border-amber-500 focus:ring focus:ring-amber-200 focus:ring-opacity-50" } %>  
   </div>
 
 
