@@ -52,7 +52,7 @@
   <% content_for :sidebar_right do %>
     <div class="w-1/3 ml-8">
       <div class="w-1/3 ml-8">
-        <h2 class="text-xl font-semibold mb-4">Search Users:</h2>
+        <h2>Search Users:</h2>
         <div class="flex items-center">
           <input type="text" id="search-query" placeholder="Search users...">
           <button id="search-button" class="ml-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50">Search</button>
@@ -71,12 +71,12 @@
 
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
   $(document).ready(function() {
     $('#search-button').on('click', function() {
       // Get the search query from the input field
       var query = $('#search-query').val();
-
       // Send an AJAX request to your server for searching
       $.ajax({
         url: '/profiles/search', // Replace with your search endpoint URL
