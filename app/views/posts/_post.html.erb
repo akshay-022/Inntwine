@@ -70,7 +70,8 @@
 
 <script>
 // Inside your existing JavaScript
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("turbo:load", function () {
+  console.log("Turbolinks load event triggered");
   const optionLists = document.querySelectorAll('.options-list');
 
   optionLists.forEach(list => {

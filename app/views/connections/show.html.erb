@@ -139,7 +139,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function() {
+  document.addEventListener("turbo:load", function() {
     $('#search-button').on('click', function() {
       // Get the search query from the input field
       var query = $('#search-query').val();
