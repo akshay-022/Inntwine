@@ -7,6 +7,7 @@ class CommunitiesController < ApplicationController
     @root_topics = Topic.where(parent_id: nil)
     if params[:topic_id]=='0'
       @posts = Post.where(organization_id: session[:organization_id], is_private: false)
+              .or(Post.where(organization_id: session[:organization_id], topic_id: 0))
       #@posts = Post.where(organization_id: session[:organization_id]) 
     else
       #Find all topic_ids that are substring.
