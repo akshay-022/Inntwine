@@ -14,9 +14,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
 
+
   #POST /resource
   def create
     build_resource(sign_up_params)
+    unless resource.email.ends_with?('@columbia.edu')
+      # Set an error message and halt the registration process
+      flash[:notice] = "Please use Columbia E-mail to sign up!"
+      redirect_to new_registration_path(resource_name) and return
+    end
     resource.save
     yield resource if block_given?
     if resource.persisted?

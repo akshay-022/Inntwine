@@ -74,6 +74,11 @@ organization_ids.each do |org_id|
   UserOrganization.create!(user: user2, organization_id: org_id)
 end
 
+# Create UserOrganization entries for user2
+organization_ids.each do |org_id|
+  UserOrganization.create!(user: user3, organization_id: org_id)
+end
+
 # Define the path to your CSV file
 csv_path = File.join(Rails.root, 'db', 'seed', 'topics.csv')
 

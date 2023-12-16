@@ -9,6 +9,7 @@
       <% end %>
     <% end %>
   </li>
+  <!--
   <% if user_signed_in? && post.user_id != current_user.id %>
     <li>
       <%= button_to repost_post_path(post), method: :post, class:"text-gray-500 space-x-2 group flex items-center justify-center" do %>
@@ -19,6 +20,7 @@
       <% end %>
     </li>
   <% end %>
+  -->
   <li>
     <%= content_tag :div, class: "#{dom_id(post)}_likes" do %>
       <%= render "likes/likes", likeable: post %>

@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   def set_default_organization_id
     # Set default value only if session[:organization_id] is nil
-    session[:organization_id] ||= 1
+    session[:organization_id] ||= 2
   end
 
   def layout_by_resource
