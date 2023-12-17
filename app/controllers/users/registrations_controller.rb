@@ -18,7 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #POST /resource
   def create
     build_resource(sign_up_params)
-    unless resource.email.ends_with?('@columbia.edu')
+    unless resource.email.ends_with?('columbia.edu')
       # Set an error message and halt the registration process
       flash[:notice] = "Please use Columbia E-mail to sign up!"
       redirect_to new_registration_path(resource_name) and return
@@ -30,7 +30,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
         set_flash_message! :notice, :signed_up
         sign_up(resource_name, resource)
         UserOrganization.create(user: resource, organization_id: 1)
-        organization = Organization.find_by(organization_email: resource.email.split('@').last)
+        #organization = Organization.find_by(organization_email: resource.email.split('@').last)
+        organization = Organization.find_by(organization_email: "columbia.edu")
         if organization
           UserOrganization.create(user: resource, organization_id: organization.id)
           puts("New user_organization added")
