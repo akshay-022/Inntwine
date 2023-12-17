@@ -51,12 +51,12 @@ user2 = User.create!(
 )
 
 user3 = User.create!(
-  email: "op2281@columbia.edu",
+  email: "demo@columbia.edu",
   password: "password123",
-  first_name: "Omkar",
-  last_name: "Pitale",
+  first_name: "Demo",
+  last_name: "User",
   admin: false,
-  username: "omkar2001",
+  username: "demouser",
   is_moderator: true
 )
 
@@ -160,7 +160,7 @@ Post.create(
 
 
 Post.create(
-  body: "Idea from Omkar, Ideation!",
+  body: "Idea from DemoUser, Ideation!",
   user_id: 3,
   q1: "How are you today?",
   q1_args: "Good, Bad, Meh",
