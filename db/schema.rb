@@ -355,7 +355,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_14_161601) do
   add_foreign_key "moderators", "topics"
   add_foreign_key "moderators", "users"
   add_foreign_key "organizations", "privacies"
-  add_foreign_key "organizations", "privacies", on_delete: :cascade
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_charges", "pay_subscriptions", column: "subscription_id"
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"
