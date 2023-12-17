@@ -109,5 +109,72 @@ user3 = User.find(3)
 Connection.create(follower: user2, followed: user1, mutual: true)
 Connection.create(follower: user3, followed: user1, mutual: false)
 
+#Creating user_communities
+UserCommunity.create(user_id: 1, organization_id: 2, topic_id: 1, score: 5)
+UserCommunity.create(user_id: 2, organization_id: 2, topic_id: 1, score: 10)
+
 #Create moderators also
 Moderator.create(user_id: 2, organization_id: 2, topic_id: 2)
+
+
+
+
+
+Post.create(
+  body: "Post from akshay_023!",
+  user_id: 2,
+  q1: "How is everyone today?",
+  q1_args: "Good, Bad, Amazing",
+  q2: "",
+  q2_args: "",
+  image_link: "",
+  video_link: "",
+  is_private: false,
+  topic_id: 0,
+  organization_id: 2,
+  datathing: "",
+  form_link: "",
+  post_category: "discussion",
+  moderation_status: "pending")
+
+
+
+
+Post.create(
+  body: "Post from Akshay! Limited Commons.",
+  user_id: 1,
+  q1: "Question 1?",
+  q1_args: "Yes, No, Maybe",
+  q2: "Question 2?",
+  q2_args: "Yes, No, Maybe",
+  image_link: "https://drive.google.com/file/d/1EDVb6A9EJ8j1rahc3oJvrdJua3PSGFN4/view?usp=share_link",
+  video_link: "https://youtu.be/QRZ_l7cVzzU?si=fTrE1_Z81LPCPY7s",
+  is_private: true,
+  topic_id: 0,
+  organization_id: 2,
+  datathing: "",
+  form_link: "",
+  post_category: "information",
+  moderation_status: "pending"
+)
+
+
+Post.create(
+  body: "Idea from DemoUser, Ideation!",
+  user_id: 3,
+  q1: "How are you today?",
+  q1_args: "Good, Bad, Meh",
+  q1_percentages: "4,0,0",
+  q2: "Did you eat today?",
+  q2_args: "Yes, No, Maybe",
+  q2_percentages: "0,0,4",
+  image_link: "",
+  video_link: "https://youtu.be/_mKeVGSqQac?si=hMNyip6W5VWhvR1_",
+  is_private: false,
+  topic_id: 0,
+  organization_id: 2,
+  datathing: "",
+  form_link: "https://docs.google.com/forms/d/e/1FAIpQLSfOtl8F8EYwRov8yWTeFIuHa2Zrk9Yz4v_uz51-BOIB8J4SNw/viewform?usp=sf_link",
+  post_category: "idea",
+  moderation_status: "pending"
+)
