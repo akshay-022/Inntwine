@@ -32,6 +32,12 @@
     </div>
 
     <div class="mb-6">
+      <%= f.label :current_password, class: label_class %>
+      <%= f.password_field :current_password, autocomplete: "current-password", class: input_class %>
+      <p class="pt-2 text-sm italic text-grey-dark">(we need your current password to confirm your changes)</p>
+    </div>
+
+    <div class="mb-6">
       <%= f.label :password, class: label_class %>
       <%= f.password_field :password, autocomplete: "new-password (optional)", class: input_class %>
       <p class="pt-1 text-xs italic text-gray-500"> <% if @minimum_password_length %>
@@ -41,12 +47,6 @@
     <div class="mb-6">
       <%= f.label :password_confirmation, class: label_class %>
       <%= f.password_field :password_confirmation, autocomplete: "new-password", class: input_class %>
-    </div>
-
-    <div class="mb-6">
-      <%= f.label :current_password, class: label_class %>
-      <%= f.password_field :current_password, autocomplete: "current-password", class: input_class %>
-      <p class="pt-2 text-sm italic text-grey-dark">(we need your current password to confirm your changes)</p>
     </div>
 
     <div class="mb-6">
