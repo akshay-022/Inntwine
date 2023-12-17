@@ -7,8 +7,5 @@ class CreateOrganizations < ActiveRecord::Migration[7.0]
       t.references :privacy, null: false, foreign_key: true
       t.timestamps
     end
-
-    # Add foreign key to organizations table
-    add_foreign_key :organizations, :privacies, column: :privacy_id, on_delete: :cascade
   end
 end
