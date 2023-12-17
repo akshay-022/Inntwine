@@ -5,7 +5,7 @@
     </div>
     <div class="flex-1">
       <p class="font-bold"><%= link_to comment.user.name, profile_path(comment.user), class: "hover:underline", data: { turbo: false } %></p>
-      <div class="prose prose-lg"><%= comment.body %></div>
+      <div class="prose prose-lg"><%= simple_format comment.body %></div>
       <span class="arrow-icon border-solid border border-t-4 border-transparent cursor-pointer" onclick="toggleChildren(this)">&#9654;</span>
       
       <div class="child-comments-container hidden" >
