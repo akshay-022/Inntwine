@@ -1,4 +1,4 @@
-<%= render layout: "auth_layout", locals: { title: "Edit account" }  do %>
+<%= render layout: "auth_layout", locals: { title: "Edit account (Enter current password to confirm)" }  do %>
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, data: { turbo: false }) do |f| %>
 
     <%= render "devise/shared/error_messages", resource: resource %>
@@ -30,7 +30,7 @@
 
     <div class="mb-6">
       <%= f.label :password, class: label_class %>
-      <%= f.password_field :password, autocomplete: "new-password", class: input_class %>
+      <%= f.password_field :password, autocomplete: "new-password (optional)", class: input_class %>
       <p class="pt-1 text-xs italic text-gray-500"> <% if @minimum_password_length %>
           <%= @minimum_password_length %> characters minimum <% end %> (leave blank if you don't want to change it)</p>
     </div>
