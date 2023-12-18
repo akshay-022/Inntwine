@@ -63,12 +63,12 @@ class ModeratorsController < ApplicationController
 
   # DELETE /moderators/1 or /moderators/1.json
   def destroy
-    @moderator.destroy
-
-    respond_to do |format|
-      format.html { redirect_to moderators_url, notice: "Moderator was successfully destroyed." }
-      format.json { head :no_content }
+    unless current_user.admin
+      redirect_to root_path, alert: "You are not authorized to perform this action."
     end
+    @moderator_remove = Moderator.find_by(user_id: params[:id], topic_id: params[:topic_id], organization_id: session[:organization_id])
+    @moderator_remove.destroy
+    redirect_back(fallback_location: connection_path(user_id: params[:topic_id]))
   end
 
   # GET /moderators/1/show_all
@@ -118,11 +118,11 @@ class ModeratorsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_moderator
-      @moderator = Moderator.find(params[:id])
+      #@moderator = Moderator.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def moderator_params
-      params.require(:moderator).permit(:user_id, :community_id)
+      params.require(:moderator).permit(:user_id, :community_id, :topic_id, :organization_id)
     end
 end
