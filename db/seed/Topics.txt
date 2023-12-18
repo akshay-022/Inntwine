@@ -143,3 +143,10 @@ Science and Research:
   - Synthetic Organisms
   - Biohybrid Systems
   - Evolutionary Robotics
+- Media
+  - Video
+    - Film
+    - Short form
+  - Music
+  - Journalism
+  - Platforms

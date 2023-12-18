@@ -144,3 +144,10 @@ id,topic_name,parent_id,topic_path
 143,Synthetic Organisms,142,125/142/143
 144,Biohybrid Systems,142,125/142/144
 145,Evolutionary Robotics,142,125/142/145
+146,Media,nil,146
+147,Video,146,146/147
+148,Film,147,146/147/148
+149,Music,146,146/149
+150,Journalism,146,146/150
+151,Platforms,146,146/151
+152,Short Videos,147,146/147/152
