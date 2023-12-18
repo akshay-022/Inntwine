@@ -19,6 +19,8 @@
   <% content_for :sidebar_right do %>
     <% organization = Organization.find_by(id: session[:organization_id]) %>
     <% topic = Topic.find_by(id: params[:topic_id]) %>
+    <h2>Browse through communities (left sidebar) to post in the right place!</h2>
+    <br>
     <h2>Post to <%= organization.organization_name %> -> <%= topic.topic_name %></h2>
     <%= render "form" %>
   <% end %>
