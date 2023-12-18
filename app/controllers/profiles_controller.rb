@@ -1,6 +1,7 @@
 class ProfilesController < ApplicationController
   def show
     @profile = User.find(params[:id])
+    session[:return_to] = request.referer
   end
   def search
     query = params[:query]

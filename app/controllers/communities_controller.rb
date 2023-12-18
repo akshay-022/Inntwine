@@ -5,6 +5,7 @@ class CommunitiesController < ApplicationController
   def index
     @communities = Community.all
     @root_topics = Topic.where(parent_id: nil)
+    session[:return_to] = request.referer
     if params[:topic_id]=='0'
       @posts = Post.where(organization_id: session[:organization_id], is_private: false)
               .or(Post.where(organization_id: session[:organization_id], topic_id: 0))

@@ -28,6 +28,7 @@ class FeedController < ApplicationController
                        .or(Post.where(user_id: Connection.where(followed_id: current_user.id, mutual: true).select(:follower_id)))
                        .where.not(moderation_status: 'no')
                        .order(created_at: :desc)
+        session[:return_to] = request.referer
 
 
     end
