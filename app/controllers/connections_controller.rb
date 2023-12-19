@@ -10,6 +10,7 @@ class ConnectionsController < ApplicationController
 
   # GET /connections/1 or /connections/1.json
   def show
+    session[:return_to] = request.referer
     current_organization_id = session[:organization_id]
     current_topic_id = params[:id]
     moderator_user_ids = Moderator
