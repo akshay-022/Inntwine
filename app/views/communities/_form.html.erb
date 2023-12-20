@@ -16,7 +16,7 @@
     <%= form.label :is_private, "Limit to only this community", class: "text-sm font-medium text-gray-700" %>
   </div>
 
-  <%= form.text_area :body, name: 'post[body]', class: "border-b border-t-0 border-x-0 mb-6 px-6 pt-6 block w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 resize-none min-h-[180px] text-lg", placeholder: "A brief summary! (2-3 lines)", rows: 3, maxlength: 300 %>
+  <%= form.text_area :body, name: 'post[body]', class: "border-b border-t-0 border-x-0 mb-6 px-6 pt-6 block w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 resize-none min-h-[180px] text-lg", placeholder: "A brief summary! (2-3 lines)", rows: 3, maxlength: 700 %>
   <%= form.text_area :datathing, name: 'post[datathing]', class: "mb-6 border-b border-t-0 border-x-0 px-6 pt-6 block w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 resize-none min-h-[180px] text-lg", placeholder: "Elaborate (unlimited text, optional)" %>
 
   <%= form.text_field :q1, name: 'post[q1]', class: "mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg", placeholder: "q1 (optional)" %>
