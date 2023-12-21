@@ -22,7 +22,7 @@
       <% if @post.post.datathing.present? %>
         <%= simple_format(@post.post.datathing) %>
       <% else %>
-        <%= @post.post.body %>
+        <%= simple_format(@post.post.body) %>
       <% end %>
     <% else%>
       <% if @post.datathing.present? %>
