@@ -3,7 +3,7 @@ class FeedController < ApplicationController
 
     def index
         @post = Post.new
-        top_post = Post.find_by(id: 11)
+        #top_post = Post.find_by(id: 11)
         user_communities_ids = current_user.user_communities.pluck(:topic_id, :organization_id)
         matching_topic_org_pairs = []
         # Iterate over each community id pair (topic_id, organization_id)
@@ -23,7 +23,7 @@ class FeedController < ApplicationController
           @posts = @posts.or(Post.where(topic_id: topic_id, organization_id: organization_id, is_private: false))
         end
         
-        remaning_posts = @posts.or(Post.where(topic_id: user_communities_ids.map(&:first), organization_id: user_communities_ids.map(&:second)))   #Ok even if private
+        @posts = @posts.or(Post.where(topic_id: user_communities_ids.map(&:first), organization_id: user_communities_ids.map(&:second)))   #Ok even if private
                        .or(Post.where(user_id: current_user.id))
                        .or(Post.where(user_id: Connection.where(follower_id: current_user.id).select(:followed_id), is_private: false))
                        .or(Post.where(user_id: Connection.where(followed_id: current_user.id, mutual: true).select(:follower_id)))
@@ -31,8 +31,7 @@ class FeedController < ApplicationController
                        .order(created_at: :desc)
         session[:return_to] = request.referer
 
-        #@posts = top_post ? top_post.class.from("(#{top_post.to_sql}) UNION (#{remaining_posts.to_sql})") : remaining_posts
-        @posts = remaining_posts
+        
 
     end
   
