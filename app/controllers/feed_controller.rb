@@ -30,11 +30,11 @@ class FeedController < ApplicationController
                        .where.not(moderation_status: 'no')
                        .order(created_at: :desc)
         # Find the Post with id 11
-        post_11 = Post.find(11)
+        #post_11 = Post.find(11)
         # Remove the Post with id 11 from @posts if it's already in the array
-        @posts.delete(post_11)
+        #@posts.delete(post_11)
         # Append the Post with id 11 at the beginning of the @posts array
-        @posts.unshift(post_11)
+        #@posts.unshift(post_11)
         session[:return_to] = request.referer
 
         
