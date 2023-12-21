@@ -23,18 +23,21 @@ class FeedController < ApplicationController
           @posts = @posts.or(Post.where(topic_id: topic_id, organization_id: organization_id, is_private: false))
         end
         
+        # Find the Post with id 12
+        post_pin = Post.find(12)
+
         @posts = @posts.or(Post.where(topic_id: user_communities_ids.map(&:first), organization_id: user_communities_ids.map(&:second)))   #Ok even if private
                        .or(Post.where(user_id: current_user.id))
                        .or(Post.where(user_id: Connection.where(follower_id: current_user.id).select(:followed_id), is_private: false))
                        .or(Post.where(user_id: Connection.where(followed_id: current_user.id, mutual: true).select(:follower_id)))
                        .where.not(moderation_status: 'no')
+                       .where.not(id: post_pin.id)
                        .order(created_at: :desc)
-        # Find the Post with id 11
-        #post_11 = Post.find(11)
+        
         # Remove the Post with id 11 from @posts if it's already in the array
         #@posts.delete(post_11)
         # Append the Post with id 11 at the beginning of the @posts array
-        #@posts.unshift(post_11)
+        @posts = @posts.to_a.prepend(post_pin).to_enum
         session[:return_to] = request.referer
 
         
