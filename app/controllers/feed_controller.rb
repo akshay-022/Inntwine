@@ -31,7 +31,8 @@ class FeedController < ApplicationController
                        .order(created_at: :desc)
         session[:return_to] = request.referer
 
-        @posts = top_post ? top_post.class.from("(#{top_post.to_sql}) UNION (#{remaining_posts.to_sql})") : remaining_posts
+        #@posts = top_post ? top_post.class.from("(#{top_post.to_sql}) UNION (#{remaining_posts.to_sql})") : remaining_posts
+        @posts = remaining_posts
 
     end
   

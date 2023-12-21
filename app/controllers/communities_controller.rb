@@ -10,7 +10,8 @@ class CommunitiesController < ApplicationController
     if params[:topic_id]=='0'
       remaining_posts = Post.where(organization_id: session[:organization_id], is_private: false)
               .or(Post.where(organization_id: session[:organization_id], topic_id: 0))
-      @posts = top_post ? top_post.class.from("(#{top_post.to_sql}) UNION (#{remaining_posts.to_sql})") : remaining_posts
+      #@posts = top_post ? top_post.class.from("(#{top_post.to_sql}) UNION (#{remaining_posts.to_sql})") : remaining_posts
+      @posts = remaining_posts
       #@posts = Post.where(organization_id: session[:organization_id]) 
     else
       #Find all topic_ids that are substring.
