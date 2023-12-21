@@ -5,10 +5,12 @@ class CommunitiesController < ApplicationController
   def index
     @communities = Community.all
     @root_topics = Topic.where(parent_id: nil)
+    top_post = Post.find_by(id: 11)
     session[:return_to] = request.referer
     if params[:topic_id]=='0'
-      @posts = Post.where(organization_id: session[:organization_id], is_private: false)
+      remaining_posts = Post.where(organization_id: session[:organization_id], is_private: false)
               .or(Post.where(organization_id: session[:organization_id], topic_id: 0))
+      @posts = top_post ? top_post.class.from("(#{top_post.to_sql}) UNION (#{remaining_posts.to_sql})") : remaining_posts
       #@posts = Post.where(organization_id: session[:organization_id]) 
     else
       #Find all topic_ids that are substring.
