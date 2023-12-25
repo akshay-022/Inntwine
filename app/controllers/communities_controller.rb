@@ -19,7 +19,7 @@ class CommunitiesController < ApplicationController
       topic = Topic.find_by(id: params[:topic_id])
       if topic
         # Find all topics whose topic_path starts with the found topic_path
-        matching_topics = Topic.where('topic_path LIKE ?', "#{topic.topic_path}%")
+        matching_topics = Topic.where('topic_path LIKE ?', "#{topic.topic_path}/%")
         matching_topic_ids = matching_topics.pluck(:id)
         # Get posts that belong to any of the matching topics
         posts_in_matching_topics = Post.where(organization_id: session[:organization_id], is_private: false, topic_id: matching_topic_ids)

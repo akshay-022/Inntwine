@@ -10,7 +10,7 @@ id,topic_name,parent_id,topic_path
 9,Growth,1,1/9
 10,Computer Science,nil,10
 11,Software-as-a-service,10,10/11
-12,Social/Social Media,11,10/11/12
+12,Social Platforms,11,10/11/12
 13,B2B,11,10/11/13
 14,Online services,11,10/11/14
 15,Buyer Seller Platforms,11,10/11/15
