@@ -4,7 +4,7 @@ class CommunitiesController < ApplicationController
   # GET /communities or /communities.json
   def index
     @communities = Community.all
-    @root_topics = Topic.where(parent_id: nil)
+    @root_topics = Topic.where(parent_id: nil).order(id: :asc)
     #top_post = Post.find_by(id: 11)
     session[:return_to] = request.referer
     if params[:topic_id]=='0'

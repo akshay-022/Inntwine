@@ -1,3 +1,15 @@
+<% content_for :sidebar do %>
+  <ul>
+    <!-- Render the "Browse Communities" heading before the individual community heading -->
+    <li class="sidebar-item">
+      <h2 class="browse-heading text-2xl font-bold mb-4 mt-4">Browse Communities</h2>
+    </li>
+    <% @root_topics.each do |root_topic| %>
+      <%= render 'shared/nested_topic', topic: root_topic %>
+    <% end %>
+  </ul>
+<% end %>
+
 <% content_for :sidebar_right do %>
   <% organization = Organization.find_by(id: session[:organization_id]) %>
   <h2>Navigate through communities (left sidebar) to post in the right place!</h2>

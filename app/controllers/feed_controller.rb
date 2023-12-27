@@ -2,6 +2,7 @@ class FeedController < ApplicationController
     before_action :authenticate_user!
 
     def index
+        @root_topics = Topic.where(parent_id: nil).order(id: :asc)
         @post = Post.new
         #top_post = Post.find_by(id: 11)
         user_communities_ids = current_user.user_communities.pluck(:topic_id, :organization_id)
