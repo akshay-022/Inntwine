@@ -24,8 +24,8 @@
       <%= profile_image(post.user) %>
     </div>
     <div class="flex-1">
-      <p class="font-bold"><%= link_to post.user.name, profile_path(post.user), class: "hover:underline", data: { turbo: false } %> (<%= post.organization.organization_name %> -> <%= post.topic.full_path_name %>) </p>
-      <h1>Posted as <%= post.post_category %></h1>
+      <p class="font-bold"><%= link_to post.user.name, profile_path(post.user), class: "hover:underline", data: { turbo: false } %> - <%= post.post_category.upcase %> </p>
+      <p class="font-bold"> In community - <%= post.topic.full_path_name %> </p>
       <%= link_to post, data: { turbo: false } do %>
         <div class="prose prose-lg"><%= simple_format(post.body) %></div>
       <% end %>
@@ -43,7 +43,7 @@
 
       <% if post.q2.present? %>
         <div class="question">
-          <strong>Q2: <%= post.q2 %> (Click a blue dot)</strong>
+          <strong>Q2: <%= post.q2 %> </strong>
           <ul class="options-list" data-question-id="<%= post.id %>" data-option-type="q2">
             <% post.q2_args.split(',').each_with_index do |option, index| %>
               <li class="option custom-bullet" data-option="<%= index %>"><%= option.strip %><span class="option-percentage"></span></li>

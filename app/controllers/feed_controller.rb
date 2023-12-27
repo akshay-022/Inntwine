@@ -24,7 +24,8 @@ class FeedController < ApplicationController
         end
         
         # Find the Post with id 12
-        post_pin = Post.find(12)
+        #post_pin = Post.find(12)
+        post_pin = Post.find(1)
 
         @posts = @posts.or(Post.where(topic_id: user_communities_ids.map(&:first), organization_id: user_communities_ids.map(&:second)))   #Ok even if private
                        .or(Post.where(user_id: current_user.id))
