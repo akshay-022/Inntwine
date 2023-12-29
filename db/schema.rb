@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_25_234809) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_25_234810) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -50,12 +53,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_234809) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "post_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "parent_comment_id"
+    t.bigint "parent_comment_id"
     t.index ["parent_comment_id"], name: "index_comments_on_parent_comment_id"
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
@@ -64,10 +67,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_234809) do
   create_table "communities", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "organization_id", null: false
-    t.integer "topic_id", null: false
-    t.integer "privacy_id", null: false
-    t.integer "moderators_id", null: false
+    t.bigint "organization_id", null: false
+    t.bigint "topic_id", null: false
+    t.bigint "privacy_id", null: false
+    t.bigint "moderators_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["moderators_id"], name: "index_communities_on_moderators_id"
@@ -77,8 +80,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_234809) do
   end
 
   create_table "connections", force: :cascade do |t|
-    t.integer "followed_id", null: false
-    t.integer "follower_id", null: false
+    t.bigint "followed_id", null: false
+    t.bigint "follower_id", null: false
     t.boolean "mutual"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -113,8 +116,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_234809) do
 
   create_table "likes", force: :cascade do |t|
     t.string "likeable_type", null: false
-    t.integer "likeable_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "likeable_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
@@ -123,8 +126,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_234809) do
 
   create_table "messages", force: :cascade do |t|
     t.text "body"
-    t.integer "conversation_id"
-    t.integer "user_id"
+    t.bigint "conversation_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
@@ -132,9 +135,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_234809) do
   end
 
   create_table "moderator_requests", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "topic_id", null: false
-    t.integer "organization_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "topic_id", null: false
+    t.bigint "organization_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_moderator_requests_on_organization_id"
@@ -143,9 +146,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_234809) do
   end
 
   create_table "moderators", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "topic_id", null: false
-    t.integer "organization_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "topic_id", null: false
+    t.bigint "organization_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_moderators_on_organization_id"
@@ -157,22 +160,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_234809) do
     t.string "organization_path"
     t.string "organization_name"
     t.string "organization_email"
-    t.integer "privacy_id", null: false
+    t.bigint "privacy_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["privacy_id"], name: "index_organizations_on_privacy_id"
   end
 
   create_table "pay_charges", force: :cascade do |t|
-    t.integer "customer_id", null: false
-    t.integer "subscription_id"
+    t.bigint "customer_id", null: false
+    t.bigint "subscription_id"
     t.string "processor_id", null: false
     t.integer "amount", null: false
     t.string "currency"
     t.integer "application_fee_amount"
     t.integer "amount_refunded"
-    t.json "metadata"
-    t.json "data"
+    t.jsonb "metadata"
+    t.jsonb "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id", "processor_id"], name: "index_pay_charges_on_customer_id_and_processor_id", unique: true
@@ -181,11 +184,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_234809) do
 
   create_table "pay_customers", force: :cascade do |t|
     t.string "owner_type"
-    t.integer "owner_id"
+    t.bigint "owner_id"
     t.string "processor", null: false
     t.string "processor_id"
     t.boolean "default"
-    t.json "data"
+    t.jsonb "data"
     t.datetime "deleted_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -195,29 +198,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_234809) do
 
   create_table "pay_merchants", force: :cascade do |t|
     t.string "owner_type"
-    t.integer "owner_id"
+    t.bigint "owner_id"
     t.string "processor", null: false
     t.string "processor_id"
     t.boolean "default"
-    t.json "data"
+    t.jsonb "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_type", "owner_id", "processor"], name: "index_pay_merchants_on_owner_type_and_owner_id_and_processor"
   end
 
   create_table "pay_payment_methods", force: :cascade do |t|
-    t.integer "customer_id", null: false
+    t.bigint "customer_id", null: false
     t.string "processor_id", null: false
     t.boolean "default"
     t.string "type"
-    t.json "data"
+    t.jsonb "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id", "processor_id"], name: "index_pay_payment_methods_on_customer_id_and_processor_id", unique: true
   end
 
   create_table "pay_subscriptions", force: :cascade do |t|
-    t.integer "customer_id", null: false
+    t.bigint "customer_id", null: false
     t.string "name", null: false
     t.string "processor_id", null: false
     t.string "processor_plan", null: false
@@ -226,8 +229,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_234809) do
     t.datetime "trial_ends_at", precision: nil
     t.datetime "ends_at", precision: nil
     t.decimal "application_fee_percent", precision: 8, scale: 2
-    t.json "metadata"
-    t.json "data"
+    t.jsonb "metadata"
+    t.jsonb "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id", "processor_id"], name: "index_pay_subscriptions_on_customer_id_and_processor_id", unique: true
@@ -236,7 +239,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_234809) do
   create_table "pay_webhooks", force: :cascade do |t|
     t.string "processor"
     t.string "event_type"
-    t.json "event"
+    t.jsonb "event"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -255,7 +258,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_234809) do
 
   create_table "posts", force: :cascade do |t|
     t.text "body"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "post_id"
@@ -278,8 +281,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_234809) do
     t.integer "organization_id"
     t.text "datathing"
     t.string "form_link"
-    t.string "post_category"
     t.string "moderation_status", default: "pending"
+    t.text "post_category", default: [], array: true
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -298,9 +301,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_234809) do
   end
 
   create_table "user_communities", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "organization_id", null: false
-    t.integer "topic_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "organization_id", null: false
+    t.bigint "topic_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "score", default: 0
@@ -310,8 +313,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_234809) do
   end
 
   create_table "user_organizations", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "organization_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "organization_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_user_organizations_on_organization_id"

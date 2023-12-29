@@ -5,13 +5,15 @@
 #   gem "sqlite3"
 #
 default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  username: akshayiyer
+  password: Aksh@2211
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: InntwineDev
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
