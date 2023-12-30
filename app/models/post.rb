@@ -5,7 +5,7 @@ class Post < ApplicationRecord
   has_many :comments
   has_many :moderators
   belongs_to :organization
-  belongs_to :topic
+  has_and_belongs_to_many :topics
   validates :body, length: { maximum: 600 }, allow_blank: false, unless: :post_id
 
   def post_type

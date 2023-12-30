@@ -31,7 +31,15 @@
 
   <div class="mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg">
     <%= form.label :what_is_this_post?, name: 'post[post_category]', class: "block text-sm font-medium text-gray-700" %>
-    <%= form.select :post_category, options_for_select([["Information", "information"], ["Work", "work"], ["Idea", "idea"], ["Problem", "problem"], ["Discussion", "discussion"]]), {}, { name: 'post[post_category]', class: "w-full bg-white border border-gray-300 p-2 rounded-md focus:outline-none focus:border-amber-500 focus:ring focus:ring-amber-200 focus:ring-opacity-50" } %>  
+    
+    <!-- Use checkboxes instead of a select dropdown -->
+    <% options = [["Information", "information"], ["Work", "work"], ["Idea", "idea"], ["Problem", "problem"], ["Discussion", "discussion"]] %>
+    <% options.each do |option| %>
+      <label class="inline-flex items-center mt-2">
+        <%= form.check_box 'post[post_category]', { multiple: true }, option.last, nil %>
+        <span class="ml-2 text-gray-700"><%= option.first %></span>
+      </label>
+    <% end %>
   </div>
 
 

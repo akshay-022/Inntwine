@@ -85,7 +85,7 @@ csv_path = File.join(Rails.root, 'db', 'seed', 'Topics.csv')
 Topic.create!(
     id: 0,
     topic_path: '0',
-    topic_name: 'All posts',
+    topic_name: 'All Public Posts',
     parent_id: nil
   )
 

@@ -1,7 +1,7 @@
 class Topic < ApplicationRecord
     belongs_to :parent, class_name: 'Topic', optional: true
     has_many :children, class_name: 'Topic', foreign_key: 'parent_id'
-    has_many :posts
+    has_and_belongs_to_many :posts
 
     # Instance method to get the full pathname
     def full_path_name
