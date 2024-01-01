@@ -62,7 +62,9 @@ Rails.application.routes.draw do
   post 'send_connection', to: 'connections#send_connection', as: 'send_connection'
   post '/add_moderator_request', to: 'moderators#add_moderator_request', as: 'add_moderator_request'
   patch '/add_moderator', to: 'moderators#add_moderator', as: 'add_moderator'
-
+  get 'repost_posts', to: 'posts#repost_post', as: 'repost_posts'
+  patch '/submit_repost', to: 'posts#submit_repost', as: 'submit_repost'
+  get 'choose_posts', to: 'posts#choose', as: 'choose'
 
   #devise_for :users
   devise_for :users, controllers: {

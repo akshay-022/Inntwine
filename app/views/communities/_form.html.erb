@@ -19,11 +19,11 @@
   <%= form.text_area :body, name: 'post[body]', class: "border-b border-t-0 border-x-0 mb-6 px-6 pt-6 block w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 resize-none min-h-[180px] text-lg", placeholder: "A brief summary! (2-3 lines)", rows: 10, maxlength: 700 %>
   <%= form.text_area :datathing, name: 'post[datathing]', class: "mb-6 border-b border-t-0 border-x-0 px-6 pt-6 block w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 resize-none min-h-[180px] text-lg", placeholder: "Elaborate (unlimited text, optional)" %>
 
-  <%= form.text_field :q1, name: 'post[q1]', class: "mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg", placeholder: "q1 (optional)" %>
-  <%= form.text_field :q1_args, name: 'post[q1_args]', class: "mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg", placeholder: "q1 options (comma separated)" %>
+  <%= form.text_field :q1, name: 'post[q1]', class: "mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg", placeholder: "A question you would like to ask your audience (optional)" %>
+  <%= form.text_field :q1_args, name: 'post[q1_args]', class: "mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg", placeholder: "Options with commas ('Yes,No,Maybe' etc)" %>
 
-  <%= form.text_field :q2, name: 'post[q2]', class: "mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg", placeholder: "q2 (optional)" %>
-  <%= form.text_field :q2_args, name: 'post[q2_args]', class: "mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg", placeholder: "q2 options (comma separated)" %>
+  <%= form.text_field :q2, name: 'post[q2]', class: "mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg", placeholder: "Another question you would like to ask (optional)" %>
+  <%= form.text_field :q2_args, name: 'post[q2_args]', class: "mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg", placeholder: "Options with commas ('Yes,No,Maybe' etc)" %>
 
   <%= form.text_field :image_link, name: 'post[image_link]', class: "mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg", placeholder: "image google drive link (optional)" %>
   <%= form.text_field :video_link, name: 'post[video_link]', class: "mb-3 border-b border-t-0 border-x-0 px-6 pt-2 w-full border-gray-200 focus:shadow-none focus:outline-none focus:ring-transparent focus:border-gray-300 text-lg", placeholder: "youtube video link (optional)" %>
@@ -44,9 +44,51 @@
 
 
   <div class="flex justify-end px-6 -mt-2"> <!-- Adjusted margin-top value -->
-    <%= form.submit "Post", class: "px-6 py-2 bg-amber-700 text-white font-semibold rounded-full text-center cursor-pointer inline-block hover:bg-amber-800 transition ease-in-out duration-300" %>
+    <%= form.submit "Post", onclick: "return validateForm();", class: "px-6 py-2 bg-amber-700 text-white font-semibold rounded-full text-center cursor-pointer inline-block hover:bg-amber-800 transition ease-in-out duration-300" %>
+    <%= link_to "Repost an older post", repost_posts_path(topic_id: params['topic_id']), class: "px-6 py-2 bg-amber-700 text-white font-semibold rounded-full text-center cursor-pointer inline-block hover:bg-amber-800 transition ease-in-out duration-300" %>
   </div>
 
 
 <% end %>
 
+
+
+<script>
+  function validateForm() {
+    var checkboxes = document.querySelectorAll('input[name="post[post_category][]"]');
+    var checked = false;
+    
+    var inputElements = document.querySelectorAll('input[name]');
+
+    inputElements.forEach(function(inputElement) {
+      var inputName = inputElement.getAttribute('name');
+      console.log('Input Name: ' + inputName);
+    });
+
+
+    checkboxes.forEach(function(checkbox) {
+      if (checkbox.checked) {
+        checked = true;
+      }
+    });
+
+    var bodyField = document.querySelector('textarea[name="post[body]"]');
+    if (!bodyField.value.trim()) {
+      alert("Please enter a non-empty summary.");
+      return false; // Prevent form submission
+    }
+    
+    if (!checked) {
+      alert("Please select at least one checkbox.");
+      return false; // Prevent form submission
+    }
+
+    
+
+    console.log("Checkboxes Checked: " + checked); // Debugging statement
+    console.log("Body Field Value: " + bodyField.value.trim()); // Debugging statement
+    
+    
+    return true; // Allow form submission
+  }
+</script>

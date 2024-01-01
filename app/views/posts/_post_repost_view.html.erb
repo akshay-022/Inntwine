@@ -41,11 +41,9 @@
         <div class="prose prose-lg"><%= post.body %></div>
       <% end %>
 
-      <!-- Form for moderation status change -->
-      <div class="moderation-buttons flex space-x-4">
-        <%= button_to "Yes", moderation_post_path(post, status: "yes"), method: :patch, class: "bg-amber-800 text-white rounded-lg px-4 py-2" %>
-        <%= button_to "No", moderation_post_path(post, status: "no"), method: :patch, class: "bg-red-800 text-white rounded-lg px-4 py-2" %>
-      </div>
+      <%= form_tag(submit_repost_path(post_id: post.id, topic_id: params[:topic_id]), method: :patch, class: "moderation-buttons") do %>
+        <%= submit_tag("Repost", class: "bg-amber-800 text-white rounded-lg px-4 py-2") %>
+      <% end %>
 
       <% if post.q1.present? %>
         <div class="question">

@@ -52,6 +52,29 @@ class PostsController < ApplicationController
     end
   end
 
+  def repost_post
+    # Ensure user is authenticated
+    @posts = Post.where(user_id: current_user.id)
+            .where.not(id: Post.joins(:topics).where(topics: { id: params[:topic_id] }))
+            .order(created_at: :desc)
+  end
+
+  def submit_repost
+    original_post = Post.find(params[:post_id])
+    if original_post.topics.exists?(params[:topic_id])
+      # The original post already belongs to the specified topic
+      flash[:notice] = "This post has already been posted here before."
+    else
+      # Add the topic to the original post's topics
+      topic = Topic.find(params[:topic_id])
+      original_post.topics << topic
+      original_post.update(moderation_status: "pending")
+      flash[:notice] = "Repost successful!"
+    end
+    byebug
+    redirect_to communities_path(topic_id: params[:topic_id])
+  end
+
   def update_options
     @post = Post.find(params[:question_id])
     option_id = params[:option_id].to_i

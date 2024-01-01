@@ -21,7 +21,10 @@ class FeedController < ApplicationController
         
         @posts = Post.none
         matching_topic_org_pairs.each do |topic_id, organization_id|
-          @posts = @posts.or(Post.where(topic_id: topic_id, organization_id: organization_id, is_private: false))
+          distinct_posts_in_specific_topic = Post.joins(:topics)
+                                            .where(organization_id: session[:organization_id], is_private: false, topics: { id: topic_id })
+                                            .distinct
+          @posts = @posts.or(Post.where(id: distinct_posts_in_specific_topic))
         end
         
         # Find the Post with id 12

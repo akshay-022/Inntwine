@@ -22,9 +22,11 @@ class CommunitiesController < ApplicationController
         matching_topics = Topic.where('topic_path LIKE ?', "#{topic.topic_path}/%")
         matching_topic_ids = matching_topics.pluck(:id)
         # Get posts that belong to any of the matching topics
-        posts_in_matching_topics = Post.where(organization_id: session[:organization_id], is_private: false, topic_id: matching_topic_ids)
+        posts_in_matching_topics = Post.joins(:topics)
+                               .where(organization_id: session[:organization_id], is_private: false, topics: { id: matching_topic_ids })
         #posts_in_matching_topics = Post.where(organization_id: session[:organization_id], topic_id: matching_topic_ids)
-        posts_in_specific_topic = Post.where(organization_id: session[:organization_id], topic_id: topic.id)
+        posts_in_specific_topic = Post.joins(:topics)
+                                .where(organization_id: session[:organization_id], is_private: false, topics: { id: topic.id })
         @posts = posts_in_matching_topics.or(posts_in_specific_topic)
       end
     end
