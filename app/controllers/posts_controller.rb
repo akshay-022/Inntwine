@@ -69,6 +69,7 @@ class PostsController < ApplicationController
       topic = Topic.find(params[:topic_id])
       original_post.topics << topic
       original_post.update(moderation_status: "pending")
+      original_post.touch(:updated_at)
       flash[:notice] = "Repost successful!"
     end
     redirect_to communities_path(topic_id: params[:topic_id])

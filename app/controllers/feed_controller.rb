@@ -56,14 +56,14 @@ class FeedController < ApplicationController
                        .or(Post.where(user_id: Connection.where(followed_id: current_user.id, mutual: true).select(:follower_id)))
                        .where.not(moderation_status: 'no')
                        .where.not(id: post_pin.id)
-                       .order(created_at: :desc)
+                       .order(updated_at: :desc)
           @posts = @posts.to_a.prepend(post_pin).to_enum
         else
           @posts = @posts.or(Post.where(user_id: current_user.id))
                        .or(Post.where(user_id: Connection.where(follower_id: current_user.id).select(:followed_id), is_private: false))
                        .or(Post.where(user_id: Connection.where(followed_id: current_user.id, mutual: true).select(:follower_id)))
                        .where.not(moderation_status: 'no')
-                       .order(created_at: :desc)
+                       .order(updated_at: :desc)
         end
         
         session[:return_to] = request.referer

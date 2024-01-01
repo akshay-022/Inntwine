@@ -32,7 +32,7 @@ class CommunitiesController < ApplicationController
         @posts = posts_in_matching_topics.or(posts_in_specific_topic)
       end
     end
-    @posts = @posts.where.not(moderation_status: 'no').order(created_at: :desc)
+    @posts = @posts.where.not(moderation_status: 'no').order(updated_at: :desc)
     @topic = Topic.find_by(id: params[:topic_id])
     @organization = Organization.find_by(id: session[:organization_id])
     @profile = current_user
