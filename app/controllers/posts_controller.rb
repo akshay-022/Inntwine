@@ -54,6 +54,7 @@ class PostsController < ApplicationController
 
   def repost_post
     # Ensure user is authenticated
+    @root_topics = Topic.where(parent_id: nil).order(id: :asc)
     @posts = Post.where(user_id: current_user.id)
             .where.not(id: Post.joins(:topics).where(topics: { id: params[:topic_id] }))
             .order(created_at: :desc)
@@ -73,8 +74,7 @@ class PostsController < ApplicationController
       increment_user_community_entry(params[:topic_id])
       flash[:notice] = "Repost successful!"
     end
-    redirect_to communities_path(topic_id: params[:topic_id])
-      
+    redirect_to communities_path(topic_id: params[:topic_id]), turbolinks: false
   end
 
   def update_options
