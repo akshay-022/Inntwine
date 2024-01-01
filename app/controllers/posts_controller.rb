@@ -15,7 +15,7 @@ class PostsController < ApplicationController
         topic = Topic.find_by(id: params[:topic_id])
         # Associate the post with the topic if the topic exists
         @post.topics << topic if topic.present?
-        increment_user_community_entry
+        increment_user_community_entry(params[:topic_id])
         format.turbo_stream
       else
         format.html do
@@ -70,6 +70,7 @@ class PostsController < ApplicationController
       original_post.topics << topic
       original_post.update(moderation_status: "pending")
       original_post.touch(:updated_at)
+      increment_user_community_entry(params[:topic_id])
       flash[:notice] = "Repost successful!"
     end
     redirect_to communities_path(topic_id: params[:topic_id])
@@ -143,11 +144,11 @@ class PostsController < ApplicationController
       end
     end
 
-  def increment_user_community_entry
+  def increment_user_community_entry(topic_id)
     user_community = UserCommunity.find_by(
       user_id: current_user.id,
       organization_id: session[:organization_id],
-      topic_id: post_params[:topic_id]
+      topic_id: topic_id
     )
   
     if user_community
@@ -156,9 +157,11 @@ class PostsController < ApplicationController
       UserCommunity.create(
         user_id: current_user.id,
         organization_id: session[:organization_id],
-        topic_id: post_params[:topic_id],
+        topic_id: topic_id,
         score: 1
       )
     end
   end
+
+  
 end
