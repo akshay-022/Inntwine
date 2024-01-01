@@ -144,22 +144,25 @@ class PostsController < ApplicationController
       end
     end
 
-  def increment_user_community_entry(topic_id)
-    user_community = UserCommunity.find_by(
-      user_id: current_user.id,
-      organization_id: session[:organization_id],
-      topic_id: topic_id
-    )
-  
-    if user_community
-      user_community.increment!(:score, 1)
-    else
-      UserCommunity.create(
+  def increment_user_community_entry(topic_idx)
+    topic = Topic.find(topic_idx)
+    parent_topic_ids = topic.topic_path.split('/').map(&:to_i)
+    parent_topic_ids.each do |topic_id|
+      user_community = UserCommunity.find_by(
         user_id: current_user.id,
         organization_id: session[:organization_id],
-        topic_id: topic_id,
-        score: 1
+        topic_id: topic_id
       )
+      if user_community
+        user_community.increment!(:score, 1)
+      else
+        UserCommunity.create(
+          user_id: current_user.id,
+          organization_id: session[:organization_id],
+          topic_id: topic_id,
+          score: 1
+        )
+      end
     end
   end
 
