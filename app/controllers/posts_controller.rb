@@ -71,8 +71,8 @@ class PostsController < ApplicationController
       original_post.update(moderation_status: "pending")
       flash[:notice] = "Repost successful!"
     end
-    byebug
     redirect_to communities_path(topic_id: params[:topic_id])
+      
   end
 
   def update_options
