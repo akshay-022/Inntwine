@@ -1,6 +1,6 @@
 <div class="bg-white py-10">
   <div class="container mx-auto">
-    <h1 class="text-3xl font-semibold text-gray-800 mb-4">My Inbox</h1>
+    <h1 class="text-3xl font-semibold text-gray-800 mb-4">My Chats</h1>
     <h1 class="text-2xl font-semibold text-gray-800 mb-2">All Conversations:</h1>
     <ul>
       <% @conversations.each do |conversation| %>
@@ -11,7 +11,7 @@
             <% recipient = User.find(conversation.sender_id) %>
           <% end %>
           <li class="bg-amber-100 py-2 px-4 rounded-lg mb-2">
-            <%= link_to recipient.email, conversation_messages_path(conversation), class: "text-amber-800 hover:underline" %>
+            <%= link_to recipient.username, conversation_messages_path(conversation), class: "text-amber-800 hover:underline" %>
           </li>
         <% end %>
       <% end %>
@@ -24,7 +24,7 @@
             <%= form_tag(conversations_path(sender_id: current_user.id, recipient_id: user.id), method: :post, class: 'hidden-form', id: 'submitForm') do %>
               <%= hidden_field_tag :sender_id, current_user.id %>
               <%= hidden_field_tag :recipient_id, user.id %>
-              <%= submit_tag user.email, class: 'hidden-submit-btn text-amber-800 hover:underline' %>
+              <%= submit_tag user.username, class: 'hidden-submit-btn text-amber-800 hover:underline' %>
             <% end %>
           </li>
         <% end %>
