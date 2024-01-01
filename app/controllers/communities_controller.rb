@@ -8,8 +8,10 @@ class CommunitiesController < ApplicationController
     #top_post = Post.find_by(id: 11)
     session[:return_to] = request.referer
     if params[:topic_id]=='0'
+      posts_in_topic0_ids = Post.joins(:topics)
+                            .where(organization_id: session[:organization_id], topics: { id: 0 })
       @posts = Post.where(organization_id: session[:organization_id], is_private: false)
-              .or(Post.where(organization_id: session[:organization_id], topic_id: 0))
+              .or(Post.where(id: posts_in_topic0_ids))
       #@posts = top_post ? top_post.class.from("(#{top_post.to_sql}) UNION (#{remaining_posts.to_sql})") : remaining_posts
       #@posts = remaining_posts
       #@posts = Post.where(organization_id: session[:organization_id]) 
@@ -22,11 +24,11 @@ class CommunitiesController < ApplicationController
         matching_topics = Topic.where('topic_path LIKE ?', "#{topic.topic_path}/%")
         matching_topic_ids = matching_topics.pluck(:id)
         # Get posts that belong to any of the matching topics
-        posts_in_matching_topics = Post.joins(:topics)
-                               .where(organization_id: session[:organization_id], is_private: false, topics: { id: matching_topic_ids })
+        posts_in_matching_topics = Post.where(id: Post.joins(:topics)
+                               .where(organization_id: session[:organization_id], is_private: false, topics: { id: matching_topic_ids }))
         #posts_in_matching_topics = Post.where(organization_id: session[:organization_id], topic_id: matching_topic_ids)
-        posts_in_specific_topic = Post.joins(:topics)
-                                .where(organization_id: session[:organization_id], is_private: false, topics: { id: topic.id })
+        posts_in_specific_topic = Post.where(id: Post.joins(:topics)
+                                .where(organization_id: session[:organization_id], topics: { id: topic.id }))
         @posts = posts_in_matching_topics.or(posts_in_specific_topic)
       end
     end

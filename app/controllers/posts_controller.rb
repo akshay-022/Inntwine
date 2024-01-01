@@ -12,7 +12,7 @@ class PostsController < ApplicationController
     @post.user = current_user
     respond_to do |format|
       if @post.save
-        topic = Topic.find_by(id: post_params[:topic_id])
+        topic = Topic.find_by(id: params[:topic_id])
         # Associate the post with the topic if the topic exists
         @post.topics << topic if topic.present?
         increment_user_community_entry
@@ -136,9 +136,9 @@ class PostsController < ApplicationController
 
     def post_params
       if params[:topic_id].blank?
-        params.require(:post).permit(:body, :post_id, :q1, :q2, :q1_args, :q2_args, :image_link, :video_link, :form_link, :datathing, :is_private, post_category: []).merge(organization_id: session[:organization_id], topic_id: 0)
+        params.require(:post).permit(:body, :post_id, :q1, :q2, :q1_args, :q2_args, :image_link, :video_link, :form_link, :datathing, :is_private, post_category: []).merge(organization_id: session[:organization_id])
       else
-        params.require(:post).permit(:body, :post_id, :q1, :q2, :q1_args, :q2_args, :image_link, :video_link, :form_link, :is_private, post_category: []).merge(organization_id: session[:organization_id], topic_id: params[:topic_id])
+        params.require(:post).permit(:body, :post_id, :q1, :q2, :q1_args, :q2_args, :image_link, :video_link, :form_link, :is_private, post_category: []).merge(organization_id: session[:organization_id])
       end
     end
 

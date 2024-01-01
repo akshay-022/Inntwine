@@ -7,16 +7,19 @@ class FeedController < ApplicationController
         #top_post = Post.find_by(id: 11)
         user_communities_ids = current_user.user_communities.pluck(:topic_id, :organization_id)
         matching_topic_org_pairs = []
+        specific_topic_org_pairs = []
         # Iterate over each community id pair (topic_id, organization_id)
         user_communities_ids.each do |topic_id, organization_id|
           # Find the topic_path for the current topic_id
           topic_path = Topic.find_by(id: topic_id)&.topic_path
           # Find all matching topic_ids for this topic_path
-          matching_topic_ids = Topic.where('topic_path LIKE ?', "#{topic_path}%").pluck(:id)
+          matching_topic_ids = Topic.where('topic_path LIKE ?', "#{topic_path}/%").pluck(:id)
           # Add each matching topic_id along with the current organization_id to the pairs array
           matching_topic_ids.each do |matching_topic_id|
             matching_topic_org_pairs << [matching_topic_id, organization_id]
           end
+          specific_topic_org_pairs << [topic_id, organization_id]
+
         end
         
         @posts = Post.none
@@ -26,7 +29,17 @@ class FeedController < ApplicationController
                                             .distinct
           @posts = @posts.or(Post.where(id: distinct_posts_in_specific_topic))
         end
+
+        specific_topic_org_pairs.each do |topic_id, organization_id|
+          distinct_posts_in_specific_topic = Post.joins(:topics)
+                                            .where(organization_id: session[:organization_id], topics: { id: topic_id })
+                                            .distinct
+          @posts = @posts.or(Post.where(id: distinct_posts_in_specific_topic))
+        end
+
         
+        
+
         # Find the Post with id 12
         #post_pin = Post.find(12)
         
@@ -38,8 +51,7 @@ class FeedController < ApplicationController
         #@posts.delete(post_11)
         # Append the Post with id 11 at the beginning of the @posts array
         if post_pin.present?
-          @posts = @posts.or(Post.where(topic_id: user_communities_ids.map(&:first), organization_id: user_communities_ids.map(&:second)))   #Ok even if private
-                       .or(Post.where(user_id: current_user.id))
+          @posts = @posts.or(Post.where(user_id: current_user.id))
                        .or(Post.where(user_id: Connection.where(follower_id: current_user.id).select(:followed_id), is_private: false))
                        .or(Post.where(user_id: Connection.where(followed_id: current_user.id, mutual: true).select(:follower_id)))
                        .where.not(moderation_status: 'no')
@@ -47,8 +59,7 @@ class FeedController < ApplicationController
                        .order(created_at: :desc)
           @posts = @posts.to_a.prepend(post_pin).to_enum
         else
-          @posts = @posts.or(Post.where(topic_id: user_communities_ids.map(&:first), organization_id: user_communities_ids.map(&:second)))   #Ok even if private
-                       .or(Post.where(user_id: current_user.id))
+          @posts = @posts.or(Post.where(user_id: current_user.id))
                        .or(Post.where(user_id: Connection.where(follower_id: current_user.id).select(:followed_id), is_private: false))
                        .or(Post.where(user_id: Connection.where(followed_id: current_user.id, mutual: true).select(:follower_id)))
                        .where.not(moderation_status: 'no')

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_29_220022) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_01_031111) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -277,7 +277,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_29_220022) do
     t.string "image_link"
     t.string "video_link"
     t.boolean "is_private"
-    t.integer "topic_id"
     t.integer "organization_id"
     t.text "datathing"
     t.string "form_link"
@@ -373,7 +372,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_29_220022) do
   add_foreign_key "posts", "poll_types", column: "q2_type", on_delete: :cascade
   add_foreign_key "posts", "post_categories", on_delete: :cascade
   add_foreign_key "posts", "posts", column: "parent_post_id", on_delete: :cascade
-  add_foreign_key "posts", "topics", on_delete: :cascade
   add_foreign_key "posts", "users"
   add_foreign_key "topics", "topics", column: "parent_id", on_delete: :cascade
   add_foreign_key "user_communities", "organizations"
