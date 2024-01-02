@@ -12,6 +12,7 @@ gem "sprockets-rails"
 # Use sqlite3 as the database for Active Record
 group :development, :test do # <<<< :development, not devlopment
   gem "sqlite3", "~> 1.4"
+  gem 'rspec-rails', '~> 5.0.0'
 end
 
 # Use the Puma web server [https://github.com/puma/puma]
@@ -71,7 +72,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem 'factory_bot_rails'
 end
+
 gem "devise", "~> 4.8"
 gem "friendly_id", "~> 5.4", ">= 5.4.2"
 gem "sidekiq", "~> 6.3", ">= 6.3.1"
@@ -82,6 +85,8 @@ gem "stripe", ">= 2.8", "< 6.0"
 gem 'rake', "~> 13.1.0"
 gem 'tailwindcss-rails'
 gem 'byebug'
+gem 'faker'
+gem 'cucumber-rails', require: false
 
 group :production do
   gem 'pg'
