@@ -1,4 +1,5 @@
 class MessagesController < ApplicationController
+  before_action :find_conversation_and_mark_read, only: [:index]
     before_action do
         @conversation = Conversation.find(params[:conversation_id])
       end
@@ -15,6 +16,17 @@ class MessagesController < ApplicationController
           @conversation.update(recipient_unread: false)
         end
       end
+
+      def find_conversation_and_mark_read
+        @conversation = Conversation.find(params[:conversation_id])
+    
+        if current_user == @conversation.sender
+          @conversation.update(sender_unread: false)
+        elsif current_user == @conversation.recipient
+          @conversation.update(recipient_unread: false)
+        end
+      end
+
       def new
         @message = @conversation.messages.new
       end
