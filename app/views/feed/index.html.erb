@@ -20,9 +20,6 @@
   </ul>
 <% end %>
 
-<strong><h1>Join communities to get posts in your feed.</h1></strong>
-<h1>Posting in a community automatically gets you joined, you can unjoin from the individual community. </h1>
-
 <% content_for :sidebar_right do %>
   <% organization = Organization.find_by(id: session[:organization_id]) %>
   <strong><h1>COMMUNITIES : Navigate through left sidebar!!</h1></strong>
@@ -32,6 +29,10 @@
   <%= render "form" %>
 <% end %>
 <h1 class="font-bold text-4xl">Your Feed</h1>
+<br>
+<strong><h1 style="margin-left: 20px;">Join communities to get posts in your feed.</h1></strong>
+<h1 style="margin-left: 20px;">Posting in a community automatically gets you joined, you can unjoin from the individual community. </h1>
+<br>
 <%= turbo_frame_tag "posts" do %>
   <% @posts.each do |post| %>
     <%= render partial: "posts/#{post.post_type}", locals: { post: post } %>
