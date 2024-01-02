@@ -15,7 +15,7 @@ class PostsController < ApplicationController
         topic = Topic.find_by(id: params[:topic_id])
         # Associate the post with the topic if the topic exists
         @post.topics << topic if topic.present?
-        increment_user_community_entry(params[:topic_id])
+        increment_user_community_entry(params[:topic_id], 1)
         format.turbo_stream
       else
         format.html do
@@ -71,7 +71,7 @@ class PostsController < ApplicationController
       original_post.topics << topic
       original_post.update(moderation_status: "pending")
       original_post.touch(:updated_at)
-      increment_user_community_entry(params[:topic_id])
+      increment_user_community_entry(params[:topic_id], 1)
       flash[:notice] = "Repost successful!"
     end
     redirect_to communities_path(topic_id: params[:topic_id]), turbolinks: false
@@ -114,6 +114,13 @@ class PostsController < ApplicationController
     if %w(yes no).include?(status)
       @post.update(moderation_status: status)
       # You can add additional logic if needed
+
+      if status == "no"
+        @post.topics.each do |topic|
+          increment_user_community_score(topic.id, -1) # Decrement score
+        end
+      end
+
       redirect_to moderator_show_all_path(user_id: current_user.id), notice: 'Moderation status updated.'
     else
       redirect_to moderator_show_all_path(user_id: current_user.id), notice: 'Seems to be some error.'
@@ -144,7 +151,7 @@ class PostsController < ApplicationController
       end
     end
 
-  def increment_user_community_entry(topic_idx)
+  def increment_user_community_entry(topic_idx, k)
     topic = Topic.find(topic_idx)
     parent_topic_ids = topic.topic_path.split('/').map(&:to_i)
     parent_topic_ids.each do |topic_id|
@@ -154,14 +161,28 @@ class PostsController < ApplicationController
         topic_id: topic_id
       )
       if user_community
-        user_community.increment!(:score, 1)
+        if k>0
+          user_community.increment!(:score, 1)
+        else
+          user_community.decrement!(:score, 1)
+        end
+        
       else
-        UserCommunity.create(
-          user_id: current_user.id,
-          organization_id: session[:organization_id],
-          topic_id: topic_id,
-          score: 1
-        )
+        if k>0
+          UserCommunity.create(
+            user_id: current_user.id,
+            organization_id: session[:organization_id],
+            topic_id: topic_id,
+            score: 1
+          )
+        else
+          UserCommunity.create(
+            user_id: current_user.id,
+            organization_id: session[:organization_id],
+            topic_id: topic_id,
+            score: -1
+          )
+        end
       end
     end
   end
