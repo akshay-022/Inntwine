@@ -179,6 +179,7 @@ class PostsController < ApplicationController
             user_id: current_user.id,
             organization_id: session[:organization_id],
             topic_id: topic_id,
+            part_of: (topic_id != 0)
             score: 1
           )
         else

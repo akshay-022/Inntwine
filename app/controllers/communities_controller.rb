@@ -63,13 +63,21 @@ class CommunitiesController < ApplicationController
 
     user_community = UserCommunity.find_by(user: current_user, organization: @organization, topic: @topic)
 
-    if user_community
-      user_community.destroy
-      redirect_to communities_path(topic_id: @topic_id), notice: 'Exited the community successfully.'
-      flash.discard
-    else
+    if user_community         #joined or posted before
+      if user_community.part_of
+        user_community.part_of = !user_community.part_of
+        user_community.save
+        redirect_to communities_path(topic_id: @topic_id), notice: 'Exited the community successfully.'
+        flash.discard
+      else
+        user_community.part_of = !user_community.part_of
+        user_community.save
+        redirect_to communities_path(topic_id: @topic_id), notice: 'Joined the community successfully.'
+        flash.discard
+      end
+    else                      #Just joined but no posts
       # Create a UserCommunity entry
-      UserCommunity.create(user: current_user, organization: @organization, topic: @topic)
+      UserCommunity.create(user: current_user, organization: @organization, topic: @topic, part_of: true)
       redirect_to communities_path(topic_id: @topic_id), notice: 'Joined the community successfully.'
       flash.discard
     end

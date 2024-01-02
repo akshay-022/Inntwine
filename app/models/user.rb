@@ -16,7 +16,8 @@ class User < ApplicationRecord
 
   def joined_community?(organization, topic)
     user_community = UserCommunity.find_by(user: self, organization: organization, topic: topic)
-    user_community.present?
+    return false unless user_community
+    user_community.part_of
   end
   
 end
