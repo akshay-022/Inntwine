@@ -76,9 +76,9 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 } # Adjust the host and port as needed
   config.action_mailer.delivery_method = :smtp # Use SMTP for email delivery
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com', # Set your SMTP server address
+    address: 'smtp-mail.outlook.com', # Set your SMTP server address
     port: 587, # Set the SMTP port (587 is common for TLS)
-    user_name: 'akshaygiyer@gmail.com', # Set your SMTP username
+    user_name: 'inntwine@outlook.com', # Set your SMTP username
     password: 'Aksh@2211', # Set your SMTP password
     authentication: :login, # Use login authentication method
     enable_starttls_auto: true, # Enable TLS
