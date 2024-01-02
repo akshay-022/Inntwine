@@ -95,6 +95,9 @@
 // Inside your existing JavaScript
 document.addEventListener("turbo:load", function () {
   console.log("Turbolinks load event triggered");
+
+  let voteSubmitted1 = false;     //to ensure only one click per page reload
+  let voteSubmitted2 = false;   
   const optionLists = document.querySelectorAll('.options-list');
 
   optionLists.forEach(list => {
@@ -108,6 +111,7 @@ document.addEventListener("turbo:load", function () {
         console.log(`Option Type: ${optionType}`);
         console.log(`Selected Option: ${selectedOption}`);
 
+        if ((optionType === 'q1' && !voteSubmitted1) || (optionType === 'q2' && !voteSubmitted2)) {
         // Send an AJAX request to the server to update the percentages
         fetch(`/posts/${questionId}/update_options`, {
           method: 'POST',
@@ -127,11 +131,15 @@ document.addEventListener("turbo:load", function () {
             console.log(data.percentages)
             updateOptionPercentages(list, data.percentages);
             console.log('Percentages updated successfully');
+            if (optionType === 'q1') {
+            voteSubmitted1 = true; }
+            if (optionType === 'q2') {
+            voteSubmitted2 = true; }
           } else {
             console.error('Failed to update percentages:', data.errors);
           }
         });
-      }
+      }}
     });
   });
   function updateOptionPercentages(list, percentages) {
