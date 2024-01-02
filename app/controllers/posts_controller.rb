@@ -147,7 +147,7 @@ class PostsController < ApplicationController
       if params[:topic_id].blank?
         params.require(:post).permit(:body, :post_id, :q1, :q2, :q1_args, :q2_args, :image_link, :video_link, :form_link, :datathing, :is_private, post_category: []).merge(organization_id: session[:organization_id])
       else
-        params.require(:post).permit(:body, :post_id, :q1, :q2, :q1_args, :q2_args, :image_link, :video_link, :form_link, :is_private, post_category: []).merge(organization_id: session[:organization_id])
+        params.require(:post).permit(:body, :post_id, :q1, :q2, :q1_args, :q2_args, :image_link, :video_link, :datathing, :form_link, :is_private, post_category: []).merge(organization_id: session[:organization_id])
       end
     end
 

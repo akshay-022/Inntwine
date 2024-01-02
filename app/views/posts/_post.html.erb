@@ -31,6 +31,7 @@
       <% end %>
 
       <% if post.q1.present? %>
+        <br>
         <div class="question">
           <strong>Q1: <%= post.q1 %> (Click a blue dot)</strong>
           <ul class="options-list" data-question-id="<%= post.id %>" data-option-type="q1">
@@ -42,6 +43,7 @@
       <% end %>
 
       <% if post.q2.present? %>
+        <br>
         <div class="question">
           <strong>Q2: <%= post.q2 %> </strong>
           <ul class="options-list" data-question-id="<%= post.id %>" data-option-type="q2">
@@ -53,10 +55,12 @@
       <% end %>
 
       <% if post.image_link.present? %>
+        <br>
         <img src="<%= embed_google_drive_image(post.image_link) %>" alt="Post Image">
       <% end %>
 
       <% if post.video_link.present? %>
+        <br>
         <div class="video-container">
           <% video_id = post.video_link.split('/').last %>
           <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= video_id %>" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
