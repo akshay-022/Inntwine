@@ -34,9 +34,18 @@
         <br>
         <div class="question">
           <strong>Q1: <%= post.q1 %></strong>
+          <% existing_vote = Vote.find_by(user: current_user, post: post, question_id: 1) %>
           <ul class="options-list" data-question-id="<%= post.id %>" data-option-type="q1">
             <% post.q1_args.split(',').each_with_index do |option, index| %>
-              <li class="option clickable" data-option="<%= index %>">&#x25CF;  <%= option.strip %><span class="option-percentage"></span></li>
+              <% if existing_vote.nil? %>
+                <li class="option clickable" data-option="<%= index %>">&#x25CF;  <%= option.strip %><span class="option-percentage"></span></li>
+              <% else %>
+                <% current_percentages = post.q1_percentages.split(',').map(&:to_i) %>
+                <% normalized_percentages = current_percentages.map { |percentage| (percentage.to_f / current_percentages.sum * 100).round(2) } %>
+                <li>&#x25CF; <%= option.strip %>
+                  <span>(<%= normalized_percentages[index] %> %)</span>
+                </li>
+              <% end %>
             <% end %>
           </ul>
         </div>
@@ -46,9 +55,18 @@
         <br>
         <div class="question">
           <strong>Q2: <%= post.q2 %> </strong>
+          <% existing_vote = Vote.find_by(user: current_user, post: post, question_id: 2) %>
           <ul class="options-list" data-question-id="<%= post.id %>" data-option-type="q2">
             <% post.q2_args.split(',').each_with_index do |option, index| %>
+            <% if existing_vote.nil? %>
               <li class="option clickable" data-option="<%= index %>">&#x25CF;  <%= option.strip %><span class="option-percentage"></span></li>
+            <% else %>
+              <% current_percentages = post.q2_percentages.split(',').map(&:to_i) %>
+                <% normalized_percentages = current_percentages.map { |percentage| (percentage.to_f / current_percentages.sum * 100).round(2) } %>
+                <li>&#x25CF; <%= option.strip %>
+                  <span>(<%= normalized_percentages[index] %> %)</span>
+                </li>
+            <% end %>
             <% end %>
           </ul>
         </div>

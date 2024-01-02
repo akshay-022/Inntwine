@@ -94,9 +94,12 @@ class PostsController < ApplicationController
     # Update the percentages based on the user's click
     if option_type == 'q1'
       current_percentages = update_percentages(@post.q1_percentages, option_id)
+      # Create a new vote record for the user, post, question_id, and option_id
+      @vote = Vote.create(user: current_user, post: @post, question_id: 1, option_id: option_id)
       @post.q1_percentages = current_percentages.join(",")
     elsif option_type == 'q2'
       current_percentages = update_percentages(@post.q2_percentages, option_id)
+      @vote = Vote.create(user: current_user, post: @post, question_id: 2, option_id: option_id)
       @post.q2_percentages = current_percentages.join(",")
     end
     if @post.save
