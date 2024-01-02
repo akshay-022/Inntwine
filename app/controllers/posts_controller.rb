@@ -16,11 +16,12 @@ class PostsController < ApplicationController
         # Associate the post with the topic if the topic exists
         @post.topics << topic if topic.present?
         increment_user_community_entry(params[:topic_id], 1)
-        if @post.is_private == false
+        if @post.is_private == false && params[:topic_id] != '0'
           topic_id_to_add = 0
           topic = Topic.find_by(id: topic_id_to_add)
           @post.topics << topic if topic.present?
           increment_user_community_entry(0, 1)
+        end
         format.turbo_stream
       else
         format.html do
