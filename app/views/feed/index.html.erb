@@ -22,7 +22,8 @@
 
 <% content_for :sidebar_right do %>
   <% organization = Organization.find_by(id: session[:organization_id]) %>
-  <h1>Navigate through communities (left sidebar) to post in the right place!</h1>
+  <strong><h1>COMMUNITIES : Navigate through left sidebar!!</h1></strong>
+  <h1>Post in the right place! Arrows open dropdowns.</h1>
   <br>
   <strong><h1>Posting here will not post in a specific community!!</h1></strong>
   <%= render "form" %>
