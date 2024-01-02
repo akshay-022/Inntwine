@@ -28,6 +28,18 @@
     </div>
   </div>
 
+  <!-- Display user's position -->
+  <div class="mt-4">
+    <h2 class="text-xl font-semibold">Position:</h2>
+    <p><%= @profile.position %></p>
+  </div>
+
+  <!-- Display user's bio -->
+  <div class="mt-4">
+    <h2 class="text-xl font-semibold">Bio:</h2>
+    <p><%= @profile.bio %></p>
+  </div>
+
   <div class="mt-4">
     <h2 class="text-xl font-semibold">Organizations:</h2>
     <% @profile.user_organizations.each do |user_organization| %>
