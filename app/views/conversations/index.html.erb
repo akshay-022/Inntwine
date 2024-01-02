@@ -11,7 +11,13 @@
             <% recipient = User.find(conversation.sender_id) %>
           <% end %>
           <li class="bg-amber-100 py-2 px-4 rounded-lg mb-2">
-            <%= link_to recipient.username, conversation_messages_path(conversation), class: "text-amber-800 hover:underline" %>
+            <% if conversation.sender_unread && conversation.sender_id == current_user.id %>
+              <%= link_to recipient.username, conversation_messages_path(conversation), class: "text-green-500 hover:underline" %>
+            <% elsif conversation.recipient_unread && conversation.recipient_id == current_user.id %>
+              <%= link_to recipient.username, conversation_messages_path(conversation), class: "text-green-500 hover:underline" %>
+            <% else %>
+              <%= link_to recipient.username, conversation_messages_path(conversation), class: "text-amber-800 hover:underline" %>
+            <% end %>
           </li>
         <% end %>
       <% end %>
