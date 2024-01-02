@@ -86,7 +86,7 @@ gem 'rake', "~> 13.1.0"
 gem 'tailwindcss-rails'
 gem 'byebug'
 gem 'faker'
-gem 'cucumber-rails', require: false
+#gem 'cucumber-rails', require: false
 
 group :production do
   gem 'pg'
