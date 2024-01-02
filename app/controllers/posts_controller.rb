@@ -63,7 +63,7 @@ class PostsController < ApplicationController
     @root_topics = Topic.where(parent_id: nil).order(id: :asc)
     @posts = Post.where(user_id: current_user.id)
             .where.not(id: Post.joins(:topics).where(topics: { id: params[:topic_id] }))
-            .order(created_at: :desc)
+            .order(reposted_at: :desc)
   end
 
   def submit_repost
@@ -76,7 +76,7 @@ class PostsController < ApplicationController
       topic = Topic.find(params[:topic_id])
       original_post.topics << topic
       original_post.update(moderation_status: "pending")
-      original_post.touch(:updated_at)
+      original_post.update(reposted_at: Time.now)
       increment_user_community_entry(params[:topic_id], 1)
       flash[:notice] = "Repost successful!"
     end
