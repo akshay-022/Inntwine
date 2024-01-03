@@ -90,7 +90,7 @@
 
       <br>
       <% if post.user_id == current_user.id || current_user.admin %>
-        <%= link_to "Edit", edit_post_path(id: post.id), class: "text-blue-500 hover:underline", data: { turbo_action: "replace" } %>
+        <%= link_to "Edit", edit_post_path(id: post.id), class: "text-blue-500 hover:underline", data: { turbo: false} %>
       <% end %>
 
     </div>
