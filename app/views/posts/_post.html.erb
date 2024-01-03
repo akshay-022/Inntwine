@@ -33,7 +33,7 @@
       <% if post.q1.present? %>
         <br>
         <div class="question">
-          <strong>Q1: <%= post.q1 %></strong>
+          <strong>Poll 1: <%= post.q1 %></strong>
           <% existing_vote = Vote.find_by(user: current_user, post: post, question_id: 1) %>
           <ul class="options-list" data-question-id="<%= post.id %>" data-option-type="q1">
             <% post.q1_args.split(',').each_with_index do |option, index| %>
@@ -54,7 +54,7 @@
       <% if post.q2.present? %>
         <br>
         <div class="question">
-          <strong>Q2: <%= post.q2 %> </strong>
+          <strong>Poll 2: <%= post.q2 %> </strong>
           <% existing_vote = Vote.find_by(user: current_user, post: post, question_id: 2) %>
           <ul class="options-list" data-question-id="<%= post.id %>" data-option-type="q2">
             <% post.q2_args.split(',').each_with_index do |option, index| %>
