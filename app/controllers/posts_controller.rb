@@ -39,6 +39,7 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
+      @post.update(moderation_status: "pending")
       redirect_to root_path, notice: 'Post was successfully updated.'
     else
       render :edit
