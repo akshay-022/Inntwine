@@ -2,6 +2,7 @@ class ProfilesController < ApplicationController
   def show
     @profile = User.find(params[:id])
     session[:return_to] = request.referer
+    @existing_conversation = Conversation.between(current_user.id, @profile.id).first
   end
   def search
     query = params[:query]

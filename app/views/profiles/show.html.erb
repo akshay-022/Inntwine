@@ -20,7 +20,7 @@
         <% else %>
           <%= button_to "Send Connection Request", send_connection_path(followed_id: @profile.id), method: :post, class: "inline-flex justify-center items-center px-5 py-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 focus:ring-opacity-50" %>
         <% end %>
-          <%= button_to "Talk to me!", conversations_path(sender_id: current_user.id, recipient_id: @profile.id), method: :post, class: "inline-flex justify-center items-center px-5 py-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 focus:ring-opacity-50" %>
+        <%= button_to "Talk to me!", conversations_path(sender_id: current_user.id, recipient_id: @profile.id), method: :post, class: "inline-flex justify-center items-center px-5 py-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 focus:ring-opacity-50" %>
       <% end %>
       <% if current_user == @profile %>
         <%= link_to "Edit profile",  edit_user_registration_path, class: "inline-flex justify-center items-center px-5 py-2 rounded-full border ring-4 focus:ring-sky-50 ring-transparent hover:ring-sky-50 hover:border-gray-300" if current_user %>
