@@ -40,6 +40,10 @@ class MessagesController < ApplicationController
             # If the current user is the recipient, mark sender_unread as true
             @conversation.update(sender_unread: true)
           end
+          if !@conversation.started
+            # If it was empty, set :started to true
+            @conversation.update(started: true)
+          end
           redirect_to conversation_messages_path(@conversation)
         end
       end

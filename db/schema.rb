@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_02_120644) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_04_052137) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -96,6 +96,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_120644) do
     t.datetime "updated_at", null: false
     t.boolean "sender_unread"
     t.boolean "recipient_unread"
+    t.boolean "started", default: false
   end
 
   create_table "datathings", force: :cascade do |t|
