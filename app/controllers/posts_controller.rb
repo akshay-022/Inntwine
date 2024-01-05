@@ -94,7 +94,7 @@ class PostsController < ApplicationController
       increment_user_community_entry(params[:topic_id], 1)
       flash[:notice] = "Repost successful!"
     end
-    redirect_to communities_path(topic_id: params[:topic_id]), turbolinks: false
+    redirect_to communities_path(topic_id: params[:topic_id]), turbo: false
   end
 
   def update_options
