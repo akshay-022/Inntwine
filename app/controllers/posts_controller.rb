@@ -55,6 +55,9 @@ class PostsController < ApplicationController
 
   def destroy
     @post = current_user.posts.find(params[:id])
+    @post.topics.each do |topic|
+      increment_user_community_entry(topic.id, -1)
+    end
     @post.destroy
   end
 
@@ -140,7 +143,7 @@ class PostsController < ApplicationController
 
       if status == "no"
         @post.topics.each do |topic|
-          increment_user_community_score(topic.id, -1) # Decrement score
+          increment_user_community_entry(topic.id, -1) # Decrement score
         end
       end
 
