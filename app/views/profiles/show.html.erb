@@ -41,6 +41,11 @@
   </div>
 
   <div class="mt-4">
+    <h2 class="text-xl font-semibold">LinkedIn:</h2>
+    <p><%= @profile.linkedin %></p>
+  </div>
+
+  <div class="mt-4">
     <h2 class="text-xl font-semibold">Organizations:</h2>
     <% @profile.user_organizations.each do |user_organization| %>
       <p><%= user_organization.organization.organization_name %></p>

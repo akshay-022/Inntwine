@@ -42,6 +42,11 @@
     </div>
 
     <div class="mb-6">
+      <%= f.label :linkedin, class: label_class %>
+      <%= f.text_field :linkedin, placeholder: "Link to LinkedIn", class: input_class %>
+    </div>
+
+    <div class="mb-6">
       <%= f.label :current_password, class: label_class %>
       <%= f.password_field :current_password, autocomplete: "current-password", class: input_class %>
       <p class="pt-2 text-sm italic text-grey-dark">(we need your current password to confirm your changes)</p>
