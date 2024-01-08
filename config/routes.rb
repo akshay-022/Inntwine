@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
     member do
       post 'update_options'
+      get 'see_votes'
       post :repost
     end
   end

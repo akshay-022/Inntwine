@@ -112,11 +112,17 @@ class PostsController < ApplicationController
     if option_type == 'q1'
       current_percentages = update_percentages(@post.q1_percentages, option_id)
       # Create a new vote record for the user, post, question_id, and option_id
-      @vote = Vote.create(user: current_user, post: @post, question_id: 1, option_id: option_id)
+      existing_vote = Vote.find_by(user: current_user, post: @post, question_id: 1)
+      if existing_vote.nil?
+        @vote = Vote.create(user: current_user, post: @post, question_id: 1, option_id: option_id)
+      end
       @post.q1_percentages = current_percentages.join(",")
     elsif option_type == 'q2'
       current_percentages = update_percentages(@post.q2_percentages, option_id)
-      @vote = Vote.create(user: current_user, post: @post, question_id: 2, option_id: option_id)
+      existing_vote = Vote.find_by(user: current_user, post: @post, question_id: 2)
+      if existing_vote.nil?
+        @vote = Vote.create(user: current_user, post: @post, question_id: 2, option_id: option_id)
+      end
       @post.q2_percentages = current_percentages.join(",")
     end
     if @post.save
@@ -126,6 +132,13 @@ class PostsController < ApplicationController
     else
       render json: { success: false, errors: @post.errors.full_messages }
     end
+  end
+
+  def see_votes
+    @post = Post.find(params[:id])
+    question_id = params[:question_id].to_i
+    @votes = Vote.where(post: @post, question_id: question_id)
+    set_referring_url
   end
 
   def initialize_percentages(post)

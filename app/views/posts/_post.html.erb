@@ -34,6 +34,7 @@
         <br>
         <div class="question">
           <strong>Poll 1: <%= post.q1 %></strong>
+          <%= link_to 'View', see_votes_post_path(post, question_id: 1), class: "view-votes-link", remote: true, data: { question_id: 1, turbo: false  } %>
           <% existing_vote = Vote.find_by(user: current_user, post: post, question_id: 1) %>
           <ul class="options-list" data-question-id="<%= post.id %>" data-option-type="q1">
             <% post.q1_args.split(',').each_with_index do |option, index| %>
@@ -55,6 +56,7 @@
         <br>
         <div class="question">
           <strong>Poll 2: <%= post.q2 %> </strong>
+          <%= link_to 'View', see_votes_post_path(post, question_id: 2), class: "view-votes-link", remote: true, data: { question_id: 2, turbo: false  } %>
           <% existing_vote = Vote.find_by(user: current_user, post: post, question_id: 2) %>
           <ul class="options-list" data-question-id="<%= post.id %>" data-option-type="q2">
             <% post.q2_args.split(',').each_with_index do |option, index| %>
