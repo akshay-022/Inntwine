@@ -4,17 +4,27 @@
 
     <div class="mb-6">
       <%= f.label :name, class: label_class %>
-      <%= f.text_field :name, class: input_class %>
+      <%= f.text_field :name, class: input_class, value: @name %>
     </div>
 
     <div class="mb-6">
       <%= f.label :username, class: label_class %>
-      <%= f.text_field :username, class: input_class %>
+      <%= f.text_field :username, class: input_class, value: @username %>
+    </div>
+
+    <div class="mb-6">
+      <%= f.label :position, "Degree", class: label_class %>
+      <%= f.text_field :position, placeholder: "Degree/Position", class: input_class, value: @position %>
+    </div>
+
+    <div class="mb-6">
+      <%= f.label :linkedin, class: label_class %>
+      <%= f.text_field :linkedin, placeholder: "Link to LinkedIn", class: input_class, value: @linkedin %>
     </div>
 
     <div class="mb-6">
       <%= f.label :email, "Columbia Email-ID", class: label_class %>
-      <%= f.email_field :email, autocomplete: "email", class: input_class %>
+      <%= f.email_field :email, autocomplete: "email", class: input_class, value: @email %>
     </div>
 
     <div class="mb-6">

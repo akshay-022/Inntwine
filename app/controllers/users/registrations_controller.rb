@@ -6,7 +6,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #protected
 
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:organization_id])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:organization_id, :position, :linkedin])
   end
 
   def configure_account_update_params
@@ -18,10 +18,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #POST /resource
   def create
     build_resource(sign_up_params)
+
+    @position = params[:user][:position] # Store the position value in an instance variable
+    @linkedin = params[:user][:linkedin] # Store the linkedIn value in an instance variable
+    @name = params[:user][:name]
+    @username = params[:user][:username]
+    @email = params[:user][:email]
+
     unless resource.email.ends_with?('columbia.edu')
       # Set an error message and halt the registration process
       flash[:notice] = "Please use Columbia E-mail to sign up!"
       redirect_to new_registration_path(resource_name) and return
+    end
+    # Check if linkedIn is a valid LinkedIn URL
+    unless valid_linkedin_url?(resource.linkedin)
+      flash[:alert] = "Please enter a valid LinkedIn URL."
+      redirect_to new_registration_path(resource_name) and return
+      return
     end
     resource.save
     yield resource if block_given?
@@ -49,10 +62,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def valid_linkedin_url?(url)
+    # Define a regular expression pattern for a LinkedIn profile URL
+    linkedin_pattern = %r{\Ahttps:\/\/www\.linkedin\.com\/in\/[a-zA-Z0-9-]+\/\z}
+    # Use the pattern to check if the URL matches
+    !!(url =~ linkedin_pattern)
+  end
+
 
   private
 
   def account_update_params
+    params.require(:user).permit(:name, :email, :password, :username, :current_password, :password_confirmation, :position, :bio, :linkedin)
+  end
+
+  def sign_up_params
     params.require(:user).permit(:name, :email, :password, :username, :current_password, :password_confirmation, :position, :bio, :linkedin)
   end
 
