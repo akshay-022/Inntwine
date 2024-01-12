@@ -5,7 +5,8 @@ class FeedController < ApplicationController
         @root_topics = Topic.where(parent_id: nil).order(id: :asc)
         @post = Post.new
         #top_post = Post.find_by(id: 11)
-        user_communities_ids = current_user.user_communities.pluck(:topic_id, :organization_id)
+        user_communities_partof = current_user.user_communities.where(part_of: true)
+        user_communities_ids = user_communities_partof.pluck(:topic_id, :organization_id)
         matching_topic_org_pairs = []
         specific_topic_org_pairs = []
         # Iterate over each community id pair (topic_id, organization_id)
