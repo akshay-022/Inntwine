@@ -42,7 +42,7 @@
 
   <div class="mt-4">
     <h2 class="text-xl font-semibold">LinkedIn:</h2>
-    <p><%= @profile.linkedin %></p>
+    <p><%= link_to @profile.linkedin, @profile.linkedin, target: "_blank", rel: "noopener noreferrer" %></p>
   </div>
 
   <div class="mt-4">
