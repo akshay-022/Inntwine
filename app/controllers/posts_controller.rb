@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorize_user, only: [:see_votes]
 
   def index
     @post = Post.new
@@ -182,13 +183,21 @@ class PostsController < ApplicationController
     return percentages
   end
 
-    def post_params
-      if params[:topic_id].blank?
-        params.require(:post).permit(:body, :post_id, :q1, :q2, :q1_args, :q2_args, :image_link, :video_link, :form_link, :datathing, :is_private, post_category: []).merge(organization_id: session[:organization_id])
-      else
-        params.require(:post).permit(:body, :post_id, :q1, :q2, :q1_args, :q2_args, :image_link, :video_link, :datathing, :form_link, :is_private, post_category: []).merge(organization_id: session[:organization_id])
-      end
+  def post_params
+    if params[:topic_id].blank?
+      params.require(:post).permit(:body, :post_id, :q1, :q2, :q1_args, :q2_args, :image_link, :video_link, :form_link, :datathing, :is_private, post_category: []).merge(organization_id: session[:organization_id])
+    else
+      params.require(:post).permit(:body, :post_id, :q1, :q2, :q1_args, :q2_args, :image_link, :video_link, :datathing, :form_link, :is_private, post_category: []).merge(organization_id: session[:organization_id])
     end
+  end
+
+  def authorize_user
+    @post = Post.find(params[:id])
+    unless @post.user == current_user
+      flash[:alert] = "You are not authorized to view this page."
+      redirect_to root_path
+    end
+  end
 
   def increment_user_community_entry(topic_idx, k)
     topic = Topic.find(topic_idx)
