@@ -211,17 +211,17 @@ class PostsController < ApplicationController
       if user_community
         if k>0
           user_community.increment!(:score, 1)
+          user_community.update(part_of: true)
         else
           user_community.decrement!(:score, 1)
         end
-        
       else
         if k>0
           UserCommunity.create(
             user_id: current_user.id,
             organization_id: session[:organization_id],
             topic_id: topic_id,
-            part_of: (topic_id != 0),
+            part_of: true,
             score: 1
           )
         else
