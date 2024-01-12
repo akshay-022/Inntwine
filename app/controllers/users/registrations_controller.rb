@@ -19,11 +19,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
 
-    @position = params[:user][:position] # Store the position value in an instance variable
-    @linkedin = params[:user][:linkedin] # Store the linkedIn value in an instance variable
-    @name = params[:user][:name]
-    @username = params[:user][:username]
-    @email = params[:user][:email]
+    session[:position] = params[:user][:position] # Store the position value in an instance variable
+    session[:linkedin] = params[:user][:linkedin] # Store the linkedIn value in an instance variable
+    session[:name] = params[:user][:name]
+    session[:username] = params[:user][:username]
+    session[:email] = params[:user][:email]
 
     unless resource.email.ends_with?('columbia.edu')
       # Set an error message and halt the registration process
@@ -64,7 +64,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def valid_linkedin_url?(url)
     # Define a regular expression pattern for a LinkedIn profile URL
-    linkedin_pattern = %r{\Ahttps:\/\/www\.linkedin\.com\/in\/[a-zA-Z0-9-]+\/\z}
+    linkedin_pattern = %r{\A.*www\.linkedin\.com\/in\/[a-zA-Z0-9-]+.*\z}
     # Use the pattern to check if the URL matches
     !!(url =~ linkedin_pattern)
   end
