@@ -37,7 +37,7 @@
   <!-- Display user's bio -->
   <div class="mt-4">
     <h2 class="text-xl font-semibold">Bio:</h2>
-    <p><%= @profile.bio %></p>
+    <p><%= simple_format(@profile.bio) %></p>
   </div>
 
   <div class="mt-4">
