@@ -55,7 +55,9 @@
   <div class="mt-4">
     <h2 class="text-xl font-semibold">Joined Communities:</h2>
     <% @profile.user_communities.each do |user_community| %>
-      <p><%= "#{user_community.organization.organization_name} -> #{user_community.topic.topic_name}" %></p>
+      <% if user_community.part_of %>
+        <p><%= "#{user_community.organization.organization_name} -> #{user_community.topic.topic_name}" %></p>
+      <% end %>
     <% end %>
   </div>
 
