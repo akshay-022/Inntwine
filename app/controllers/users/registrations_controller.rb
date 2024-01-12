@@ -47,6 +47,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         organization = Organization.find_by(organization_email: "columbia.edu")
         if organization
           UserOrganization.create(user: resource, organization_id: organization.id)
+          UserCommunity.create(user: resource, organization_id: organization.id, topic_id: 0, part_of: true)
           puts("New user_organization added")
         end
         respond_with resource, location: after_sign_up_path_for(resource)
